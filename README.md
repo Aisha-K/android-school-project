@@ -8,7 +8,7 @@
 * Yusra Adinoyi - yadin030@uottawa.ca
 
 
-
+Link for the google docs we're using for this project:
 https://docs.google.com/document/d/167-yMh_lQvFa1uKdVnUQaSR8UupHiAvvJFWx1b4kIDo/edit?usp=sharing
 =======
 Deadlines for the deliverables

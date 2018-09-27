@@ -6,3 +6,7 @@
 * Ange Michaella Niyonkuru - aniyo066@uottawa.ca
 * Shiza Siddiqui - ssidd021@uottawa.ca
 * Yusra Adinoyi - yadin030@uottawa.ca
+
+
+docs link
+https://docs.google.com/document/d/167-yMh_lQvFa1uKdVnUQaSR8UupHiAvvJFWx1b4kIDo/edit?usp=sharing

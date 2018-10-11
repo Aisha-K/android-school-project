@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/logo"
+            android:layout_width="match_parent"
+            android:layout_height="205dp"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/credentials"
+            android:layout_width="match_parent"
+            android:layout_height="102dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/txt_un"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Please enter your name "
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/txt_pw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="center_vertical"
+                android:hint="Please enter password"
+                android:inputType="textPersonName" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/signin"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_sign_in"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:text="Sign in " />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttons"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_ho"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Home Owner" />
+
+            <Button
+                android:id="@+id/btn_sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Service Provider" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

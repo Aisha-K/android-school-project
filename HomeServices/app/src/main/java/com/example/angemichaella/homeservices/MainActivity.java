@@ -37,8 +37,10 @@ public class MainActivity extends AppCompatActivity {
         String username = un.getText().toString();
         String password = pw.getText().toString();
 
-        if(isValid(username, password)){
+        if(credsMatch(username, password)){
             signIn(username);
+        }else{
+            displayWrongCredentialsError();
         }
     }
 
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    int choice;
+    int choice; //issa whole mess down there
     private int newAccPopUp(){
         String[] userTypes;
         int adminShift;
@@ -122,5 +124,20 @@ public class MainActivity extends AppCompatActivity {
 
         return returnInt;
     }
+
+
+    public boolean adminExists(){}
+
+    public void signIn(String username){}
+
+    public void displayWrongCredentialsError(){}
+
+    public void displayAlreadyUserError(){}
+
+    public boolean credsMatch(String username, String password){}
+
+    public boolean isUser(String username){}
+
+    public void createAccount(String username, String password, int type){}
 
 }

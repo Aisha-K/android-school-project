@@ -7,29 +7,15 @@
     tools:context=".Welcome">
 
     <LinearLayout
-        android:id="@+id/welcome"
         android:layout_width="match_parent"
-        android:layout_height="517dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/w_message"
-            android:layout_width="match_parent"
-            android:layout_height="203dp"
-            android:orientation="vertical">
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/user_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ListView
-                android:id="@+id/user_list_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/welcomeTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

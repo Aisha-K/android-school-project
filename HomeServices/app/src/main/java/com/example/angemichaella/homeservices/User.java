@@ -1,19 +1,16 @@
 package com.example.angemichaella.homeservices;
 
-public class User {
+public abstract class User {
 
-    public String userName;
+    public String username;
     public String password;
     public String userId;
+    private int type;
 
-    User(){
+    User(String userName, String password, String userId) {
+        this.username = userName;
+        this.password = password;
+        this.userId = userId;
     }
-
-    User(String userName, String password, String userID){
-        this.userName=userName;
-        this.password=password;
-        this.userID=userID;
-    }
-
 
 }

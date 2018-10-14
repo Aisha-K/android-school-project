@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Home Services</string>
+    <string name="promptUn">username</string>
+    <string name="promptPw">password</string>
+    <string name="promptCreateAcc">New to Home Services?</string>
+    <string name="signInBtnDisplay">Sign In</string>
+    <string name="newAccBtnDisplay">Create Account</string>
+    <string name="logoDesc">logo image</string>
 </resources>

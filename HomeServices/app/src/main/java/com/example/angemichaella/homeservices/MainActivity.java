@@ -3,14 +3,20 @@ package com.example.angemichaella.homeservices;
 import android.app.AlertDialog;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.view.View;
+import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
     DatabaseReference databaseUsers;    //reference to the database
@@ -25,10 +31,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //initializing variables
+        //initializing database
         databaseUsers= FirebaseDatabase.getInstance().getReference("users");
-        //editTextName = (EditText) findViewById(R.id.txt_un);
-        //editTextPassword = (EditText) findViewById(R.id.txt_pw);
     }
 
     public void onClickSignIn(View view) {
@@ -37,11 +41,7 @@ public class MainActivity extends AppCompatActivity {
         String username = un.getText().toString();
         String password = pw.getText().toString();
 
-        if(credsMatch(username, password)){
-            signIn(username);
-        }else{
-            displayWrongCredentialsError();
-        }
+        trySignIn(username,password);
     }
 
     public void onClickNewAcc(View view){
@@ -51,15 +51,8 @@ public class MainActivity extends AppCompatActivity {
         String password = pw.getText().toString();
         int accType;
 
-        if(isUser(username)){
-            displayAlreadyUserError();
-        }else{
-            accType = newAccPopUp();
-            if(accType!= -1){
-                createAccount(username, password, accType);
-                signIn(username);
-            }
-        }
+        tryCreateAccount(username, password);
+
     }
 
     int choice; //issa whole mess down there
@@ -126,18 +119,114 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public boolean adminExists(){}
+    public boolean adminExists(){
+        boolean exists=false;
+        //
+        //ADD CODE
+        //
+        return exists;
+    }
 
-    public void signIn(String username){}
+    public void signIn(String username){
+        //New intent to go to Welcome activity
+        Intent intent = (new Intent(MainActivity.this, Welcome.class));
+        startActivity(intent);
+        //passes info to next intent which can be fetched using String data = getIntent().getExtras().getString("keyName");
+        //intent.putExtra( "0", username);
+    }
 
-    public void displayWrongCredentialsError(){}
+    //public void displayWrongCredentialsError(){}
 
-    public void displayAlreadyUserError(){}
+    //public void displayAlreadyUserError(){}
 
-    public boolean credsMatch(String username, String password){}
+    //checks whether user entered the correct password, if yes, calls sign in
+    //if not valid credentials, displays toast
+    public User trySignIn(final String username, final String password){
+        final MainActivity context=this;
+        final User user[]={null};   //single User object stored in array to allow inner class method to access it
 
-    public boolean isUser(String username){}
+        //query gets the node where the user with parameter username exists in database
+        DatabaseReference rootRef=FirebaseDatabase.getInstance().getReference();
+        Query query = rootRef.child("users").orderByChild("username").equalTo(username);
+        //addlistenner allows us to retrieve the data using datasnapshot
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
 
-    public void createAccount(String username, String password, int type){}
+                    for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
+                        //retrieving the user with parameter username
+                        User retrievedUser= childSnapshot.getValue(User.class);
+
+                        //checking if the password matches given password
+                        if(retrievedUser.password.equals(password)){
+                            signIn(username);
+                        }
+                        else{
+                            Toast.makeText( context ,"Username/password not valid", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
+                else{
+                    Toast.makeText( context ,"Username/password not valid", Toast.LENGTH_LONG).show();
+                    }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+        return user[0];
+    }
+
+
+    public boolean tryCreateAccount(final String username, final String password){
+        final MainActivity context=this;
+
+        //query gets the node where the user with parameter username exists in database
+        DatabaseReference rootRef=FirebaseDatabase.getInstance().getReference();
+        Query query = rootRef.child("users").orderByChild("username").equalTo(username);
+        //addlistenner allows us to retrieve the data using datasnapshot
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    //username exists
+                    Toast.makeText( context , "Username Exists", Toast.LENGTH_LONG).show();
+                }
+                else{ //username does not exist, create account
+                    int accType;
+                    accType = newAccPopUp();
+
+                    if(accType!= -1){
+                        createAccount(username, password, accType);
+                        //signIn(username);
+                        //Toast.makeText( context , "Account Created", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+        return true;
+    }
+
+
+    public void createAccount(String username, String password, int type){
+        //getting a unique id and we will use it as the Primary Key for our Product
+        String id = databaseUsers.push().getKey();
+
+        //creating a Product Object
+        //User newUser;
+
+        //Saving the User
+        //databaseUsers.child(id).setValue(newUser);
+    }
 
 }

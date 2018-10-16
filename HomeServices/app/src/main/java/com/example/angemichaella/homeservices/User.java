@@ -1,5 +1,7 @@
 package com.example.angemichaella.homeservices;
 
+//IF REMOVING/MODIFYING ATTRIBUTES CHECK IF FIREBASE STILL WORKS
+//firebase relies on some methods/ syntax to store/retrieve objects properly
 public class User {
 
     public String username;

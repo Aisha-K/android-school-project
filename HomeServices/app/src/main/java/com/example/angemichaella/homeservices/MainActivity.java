@@ -56,23 +56,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     int choice; //issa whole mess down there
-    private int newAccPopUp(){
+    //returns the type of account to create
+    private void newAccPopUp(){
         String[] userTypes;
-        int adminShift;
-
 
         if(adminExists()){
             userTypes = new String[2];
             userTypes[0] = "Home Owner";
             userTypes[1] = "Service Provider";
-            adminShift = 1;
         }else{
             userTypes = new String[3];
             userTypes[0] = "Admin";
             userTypes[1] = "Home Owner";
             userTypes[2] = "Service Provider";
-            adminShift = 0;
-
         }
 
 
@@ -83,13 +79,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 choice = which;
+                if(adminExists()){
+                    choice++;
+                }
             }
         });
 
 
         builder.setPositiveButton("Create", new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog, int id){
-                System.out.println("the choice was "+ choice);
+
+                createAccount(choice);
                 dialog.dismiss();//user clicked create
             }
         });
@@ -104,18 +104,8 @@ public class MainActivity extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
-
-        if(choice!=-1){
-            choice += adminShift;
-        }
-
-        int returnInt = choice;
-
-        System.out.println("choice was "+ returnInt +".");
-        choice = - 1;
-
-
-        return returnInt;
+        Toast.makeText( this , "User created acc type " + choice, Toast.LENGTH_LONG).show();
+        choice = -1;
     }
 
 
@@ -134,10 +124,6 @@ public class MainActivity extends AppCompatActivity {
         //passes info to next intent which can be fetched using String data = getIntent().getExtras().getString("keyName");
         //intent.putExtra( "0", username);
     }
-
-    //public void displayWrongCredentialsError(){}
-
-    //public void displayAlreadyUserError(){}
 
     //checks whether user entered the correct password, if yes, calls sign in
     //if not valid credentials, displays toast
@@ -168,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 else{
-                    Toast.makeText( context ,"Username/password not valid", Toast.LENGTH_LONG).show();
+                    Toast.makeText( context ,"User does not exist", Toast.LENGTH_LONG).show();
                     }
             }
 
@@ -194,17 +180,10 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     //username exists
-                    Toast.makeText( context , "Username Exists", Toast.LENGTH_LONG).show();
+                    Toast.makeText( context , "User Already Exists", Toast.LENGTH_LONG).show();
                 }
                 else{ //username does not exist, create account
-                    int accType;
-                    accType = newAccPopUp();
-
-                    if(accType!= -1){
-                        createAccount(username, password, accType);
-                        //signIn(username);
-                        //Toast.makeText( context , "Account Created", Toast.LENGTH_LONG).show();
-                    }
+                    newAccPopUp();
                 }
 
             }
@@ -220,6 +199,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void createAccount(String username, String password, int type){
         //getting a unique id and we will use it as the Primary Key for our Product
+
+
         String id = databaseUsers.push().getKey();
 
         //creating a Product Object
@@ -227,6 +208,19 @@ public class MainActivity extends AppCompatActivity {
 
         //Saving the User
         //databaseUsers.child(id).setValue(newUser);
+    }
+
+
+    //THIS SHIT IS FOR THE STUPID ASS POPUP
+    private void createAccount(int type){
+        EditText un = (EditText)findViewById(R.id.usernameET);
+        EditText pw = (EditText)findViewById(R.id.passwordET);
+        String username = un.getText().toString();
+        String password = pw.getText().toString();
+        createAccount(username, password, type);
+        signIn(username);
+
+
     }
 
 }

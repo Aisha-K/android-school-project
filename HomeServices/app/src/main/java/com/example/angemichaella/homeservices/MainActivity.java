@@ -26,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
     Button buttonCreateHomeOwner;
     Button buttonCreateServiceProvider;*/
 
+    public static final int ADMIN = 0;
+    public static final int HOMEOWNER = 1;
+    public static final int SERVICEPROVIDER = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,9 +121,20 @@ public class MainActivity extends AppCompatActivity {
         return exists;
     }
 
-    public void signIn(String username){
+    public void signIn(User user){
         //New intent to go to Welcome activity
-        Intent intent = (new Intent(MainActivity.this, Welcome.class));
+
+
+        Intent intent;
+        if(user.type.equals("Admin")) {
+            intent = (new Intent(MainActivity.this, WelcomeAdmin.class));
+        }else if (user.type.equals("Home Owner")){
+            intent = (new Intent(MainActivity.this, WelcomeHomeOwner.class));
+        }
+        else {
+            intent = (new Intent(MainActivity.this, WelcomeServiceProvider.class));
+        }
+
         startActivity(intent);
         //passes info to next intent which can be fetched using String data = getIntent().getExtras().getString("keyName");
         //intent.putExtra( "0", username);
@@ -127,9 +142,8 @@ public class MainActivity extends AppCompatActivity {
 
     //checks whether user entered the correct password, if yes, calls sign in
     //if not valid credentials, displays toast
-    public User trySignIn(final String username, final String password){
+    public void trySignIn(final String username, final String password){
         final MainActivity context=this;
-        final User user[]={null};   //single User object stored in array to allow inner class method to access it
 
         //query gets the node where the user with parameter username exists in database
         DatabaseReference rootRef=FirebaseDatabase.getInstance().getReference();
@@ -146,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
 
                         //checking if the password matches given password
                         if(retrievedUser.password.equals(password)){
-                            signIn(username);
+                            signIn(retrievedUser);
                         }
                         else{
                             Toast.makeText( context ,"Username/password not valid", Toast.LENGTH_LONG).show();
@@ -163,8 +177,6 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
-
-        return user[0];
     }
 
 
@@ -197,11 +209,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void createAccount(String username, String password, int type){
+    public User createAccount(String username, String password, int type){
         //getting a unique id and we will use it as the Primary Key for our Product
+        // return the new user
 
 
+
+        User newUser;
+        if(type == HOMEOWNER){
+            newUser = new HomeOwner();
+
+        }else if (type == SERVICEPROVIDER){
+            newUser = new ServiceProvider();
+        } else {
+            newUser = new Admin();
+        }
         String id = databaseUsers.push().getKey();
+        return new User(username, password, id, String.valueOf(type));
 
         //creating a Product Object
         //User newUser;
@@ -217,8 +241,8 @@ public class MainActivity extends AppCompatActivity {
         EditText pw = (EditText)findViewById(R.id.passwordET);
         String username = un.getText().toString();
         String password = pw.getText().toString();
-        createAccount(username, password, type);
-        signIn(username);
+
+        signIn(createAccount(username, password, type));
 
 
     }

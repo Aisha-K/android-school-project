@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         }else{
             userTypes = new String[3];
             userTypes[0] = "Admin";
+			userTypes[0] = "Admin";
             userTypes[1] = "Home Owner";
             userTypes[2] = "Service Provider";
         }

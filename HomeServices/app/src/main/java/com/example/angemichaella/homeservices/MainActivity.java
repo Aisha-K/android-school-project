@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     public static final int HOMEOWNER = 1;
     public static final int SERVICEPROVIDER = 2;
 
+    private boolean adminExists;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         //initializing database
         databaseUsers= FirebaseDatabase.getInstance().getReference("users");
+        adminExists = false; // NEEDS TO BE FIXED
     }
 
     public void onClickSignIn(View view) {
@@ -53,18 +56,16 @@ public class MainActivity extends AppCompatActivity {
         EditText pw = (EditText)findViewById(R.id.passwordET);
         String username = un.getText().toString();
         String password = pw.getText().toString();
-        int accType;
 
         tryCreateAccount(username, password);
 
     }
 
     int choice; //issa whole mess down there
-    //returns the type of account to create
     private void newAccPopUp(){
         String[] userTypes;
 
-        if(adminExists()){
+        if(adminExists){
             userTypes = new String[2];
             userTypes[0] = "Home Owner";
             userTypes[1] = "Service Provider";
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 choice = which;
-                if(adminExists()){
+                if(adminExists){
                     choice++;
                 }
             }
@@ -95,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
                 createAccount(choice);
                 dialog.dismiss();//user clicked create
+
             }
         });
 
@@ -108,24 +110,26 @@ public class MainActivity extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
-        Toast.makeText( this , "User created acc type " + choice, Toast.LENGTH_LONG).show();
-        choice = -1;
+
     }
 
 
-    public boolean adminExists(){
-        boolean exists=false;
-        //
-        //ADD CODE
-        //
-        return exists;
-    }
 
     public void signIn(User user){
         //New intent to go to Welcome activity
 
+        /*
+        needs to
+        pass info to next intent which can be fetched using
+        String data = getIntent().getExtras().getString("keyName");
+        intent.putExtra( "0", username);
+        */
 
         Intent intent;
+
+        intent = (new Intent(MainActivity.this, Welcome.class));
+
+        /* commented out bc these activitys dont exist yet
         if(user.type.equals("Admin")) {
             intent = (new Intent(MainActivity.this, WelcomeAdmin.class));
         }else if (user.type.equals("Home Owner")){
@@ -133,11 +137,10 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             intent = (new Intent(MainActivity.this, WelcomeServiceProvider.class));
-        }
+        }*/
 
         startActivity(intent);
-        //passes info to next intent which can be fetched using String data = getIntent().getExtras().getString("keyName");
-        //intent.putExtra( "0", username);
+
     }
 
     //checks whether user entered the correct password, if yes, calls sign in
@@ -208,24 +211,22 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-
     public User createAccount(String username, String password, int type){
         //getting a unique id and we will use it as the Primary Key for our Product
         // return the new user
 
 
-
-        User newUser;
+        String id = databaseUsers.push().getKey();
+        User newUser = null;
         if(type == HOMEOWNER){
-            newUser = new HomeOwner();
+            newUser = new HomeOwner(username, password, id);
 
         }else if (type == SERVICEPROVIDER){
-            newUser = new ServiceProvider();
-        } else {
-            newUser = new Admin();
+            newUser = new ServiceProvider(username, password, id);
+        } else if(type == ADMIN){
+            newUser = new Admin(username, password, id);
         }
-        String id = databaseUsers.push().getKey();
-        return new User(username, password, id, String.valueOf(type));
+        return newUser;
 
         //creating a Product Object
         //User newUser;
@@ -234,17 +235,15 @@ public class MainActivity extends AppCompatActivity {
         //databaseUsers.child(id).setValue(newUser);
     }
 
-
-    //THIS SHIT IS FOR THE STUPID ASS POPUP
     private void createAccount(int type){
         EditText un = (EditText)findViewById(R.id.usernameET);
         EditText pw = (EditText)findViewById(R.id.passwordET);
         String username = un.getText().toString();
         String password = pw.getText().toString();
+        Toast.makeText( this ,"creating acc of type " + type, Toast.LENGTH_LONG).show();
+
 
         signIn(createAccount(username, password, type));
-
-
     }
 
 }

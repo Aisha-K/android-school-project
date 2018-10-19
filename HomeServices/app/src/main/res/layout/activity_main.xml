@@ -20,12 +20,16 @@
             android:gravity="center"
             android:orientation="vertical">
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
             <ImageView
                 android:id="@+id/logoPic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/logoDesc"
-                tools:srcCompat="@tools:sample/avatars[0]" />
+                android:src="@drawable/handymanny" />
         </LinearLayout>
 
         <LinearLayout
@@ -79,6 +83,10 @@
                 android:layout_height="wrap_content"
                 android:onClick="onClickSignIn"
                 android:text="@string/signInBtnDisplay" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
 
             <TextView
                 android:id="@+id/textView3"

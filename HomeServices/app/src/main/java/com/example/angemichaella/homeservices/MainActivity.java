@@ -34,13 +34,42 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         //initializing database
-        databaseUsers= FirebaseDatabase.getInstance().getReference("users");
-        adminExists = false; // NEEDS TO BE FIXED
+        databaseUsers = FirebaseDatabase.getInstance().getReference("users");
+
+        DatabaseReference rootRef=FirebaseDatabase.getInstance().getReference();
+
+        //query gets the node where the user with parameter type = "Admin" exists in database
+        Query query = rootRef.child("users").orderByChild("type").equalTo("Admin");
+        //addlistenner allows us to retrieve the data using datasnapshot
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+
+                    for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
+                        //retrieving the user with parameter type
+                        User retrievedUser= childSnapshot.getValue(User.class);
+
+                        //checking if the password matches given password
+                        if(retrievedUser.type.equals("Admin"))
+                            adminExists = true;
+                        System.out.println("there is admin");
+                        }
+                    }
+                }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
     }
+
 
     public void onClickSignIn(View view) {
         EditText un = (EditText)findViewById(R.id.usernameET);
@@ -227,13 +256,12 @@ public class MainActivity extends AppCompatActivity {
         } else if(type == ADMIN){
             newUser = new Admin(username, password, id);
         }
+        //Saving the User
+
+        databaseUsers.child(id).setValue(newUser);
         return newUser;
 
-        //creating a Product Object
-        //User newUser;
 
-        //Saving the User
-        //databaseUsers.child(id).setValue(newUser);
     }
 
     private void createAccount(int type){

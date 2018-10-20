@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,6 +33,13 @@ public class WelcomeAdmin extends AppCompatActivity {
         users_list = (ListView) findViewById(R.id.users_list);
 
         users = new ArrayList<>(0);
+
+        String username= getIntent().getStringExtra("USER_NAME");
+
+
+        TextView textViewWelcomeAdmin = (TextView) findViewById(R.id.textViewWelcomeAdmin);
+        textViewWelcomeAdmin.setText("Welcome, " + username);
+
     }
 
     @Override

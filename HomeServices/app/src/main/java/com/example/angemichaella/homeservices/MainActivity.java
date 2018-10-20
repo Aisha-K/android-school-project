@@ -144,34 +144,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    // PLEASE DO NOT TOUCH THE CODE BELOW!!!!
+
+
 
     public void signIn(User user){
-        //New intent to go to Welcome activity
 
-        /*
-        needs to
-        pass info to next intent which can be fetched using
-        String data = getIntent().getExtras().getString("keyName");
-        intent.putExtra( "0", username);
-        */
 
-        Intent intent;
+        Intent intent = null;
 
-        intent = (new Intent(MainActivity.this, Welcome.class));
-
-        /* commented out bc these activitys dont exist yet
         if(user.type.equals("Admin")) {
+
             intent = (new Intent(MainActivity.this, WelcomeAdmin.class));
-        }else if (user.type.equals("Home Owner")){
+
+        }
+
+        else if (user.type.equals("Home Owner")){
             intent = (new Intent(MainActivity.this, WelcomeHomeOwner.class));
         }
         else {
             intent = (new Intent(MainActivity.this, WelcomeServiceProvider.class));
-        }*/
+        }
 
+        intent.putExtra( "USER_NAME", user.getUsername());
         startActivity(intent);
 
     }
+
+
+
 
     //checks whether user entered the correct password, if yes, calls sign in
     //if not valid credentials, displays toast

@@ -6,18 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".WelcomeAdmin">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="383dp"
-        android:layout_height="50dp"
-        android:text="Welcome, @string/admin_name" />
-
     <LinearLayout
         android:id="@+id/users_list_section"
         android:layout_width="match_parent"
-        android:layout_height="451dp"
+        android:layout_height="512dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteY="60dp">
+        tools:layout_editor_absoluteY="0dp">
+
+        <TextView
+            android:id="@+id/textViewWelcomeAdmin"
+            android:layout_width="383dp"
+            android:layout_height="50dp"
+            android:text="Welcome, @string/admin_name" />
 
         <TextView
             android:id="@+id/users_list_label"

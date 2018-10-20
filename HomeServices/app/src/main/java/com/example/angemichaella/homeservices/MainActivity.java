@@ -227,13 +227,12 @@ public class MainActivity extends AppCompatActivity {
         } else if(type == ADMIN){
             newUser = new Admin(username, password, id);
         }
+        //Saving the User
+
+        databaseUsers.child(id).setValue(newUser);
         return newUser;
 
-        //creating a Product Object
-        //User newUser;
 
-        //Saving the User
-        //databaseUsers.child(id).setValue(newUser);
     }
 
     private void createAccount(int type){

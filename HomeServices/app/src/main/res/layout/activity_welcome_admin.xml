@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WelcomeAdmin">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="383dp"
+        android:layout_height="50dp"
+        android:text="Welcome, @string/admin_name" />
+
+    <LinearLayout
+        android:id="@+id/users_list_section"
+        android:layout_width="match_parent"
+        android:layout_height="451dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="60dp">
+
+        <TextView
+            android:id="@+id/users_list_label"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Here's the list of our users!" />
+
+        <ListView
+            android:id="@+id/users_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

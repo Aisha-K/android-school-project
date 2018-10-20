@@ -6,4 +6,5 @@
     <string name="signInBtnDisplay">Sign In</string>
     <string name="newAccBtnDisplay">Create Account</string>
     <string name="logoDesc">logo image</string>
+    <string name="admin_name">\"name\"</string>
 </resources>

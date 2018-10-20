@@ -16,7 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Welcome"></activity>
+        <activity android:name=".Welcome" />
+        <activity android:name=".WelcomeHomeOwner" />
+        <activity android:name=".WelcomeAdmin" />
+        <activity android:name=".WelcomeServiceProvider" />
+        <activity android:name=".User_list_layout" />
+        <activity android:name=".UserList"></activity>
     </application>
 
 </manifest>

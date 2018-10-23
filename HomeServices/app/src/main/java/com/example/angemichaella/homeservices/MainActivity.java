@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     public static final int ADMIN = 0;
     public static final int HOMEOWNER = 1;
     public static final int SERVICEPROVIDER = 2;
-
     private boolean adminExists;
 
     @Override
@@ -41,25 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         //initializing database
         databaseUsers = FirebaseDatabase.getInstance().getReference("users");
-        adminExists = false;
-        DatabaseReference rootRef=FirebaseDatabase.getInstance().getReference();
-
-        //query gets the node where the user with parameter type = "Admin" exists in database
-        Query query = rootRef.child("users").orderByChild("type").equalTo("Admin");
-        //addlistenner allows us to retrieve the data using datasnapshot
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    adminExists = true;
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
-
+        updateAdmin();
 
         //edittexts
         editTextName = (EditText)findViewById(R.id.usernameET);
@@ -77,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickNewAcc(View view){
+        updateAdmin(); //in case admin got deleted
         String username = editTextName.getText().toString();
         String password = editTextPassword.getText().toString();
 
@@ -106,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
     int choice; //issa whole mess down there
     private void newAccPopUp(){
         String[] userTypes;
-
         if(adminExists){
             userTypes = new String[2];
             userTypes[0] = "Home Owner";
@@ -286,6 +267,31 @@ public class MainActivity extends AppCompatActivity {
 
 
         signIn(createAccount(username, password, type));
+        updateAdmin();
     }
+
+    private void updateAdmin(){
+        DatabaseReference rootRef=FirebaseDatabase.getInstance().getReference();
+        boolean exist;
+        //query gets the node where the user with parameter type = "Admin" exists in database
+        Query query = rootRef.child("users").orderByChild("type").equalTo("Admin");
+        //addlistenner allows us to retrieve the data using datasnapshot
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    adminExists = true;
+                }else{
+                    adminExists = false;
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+    }
+
 
 }

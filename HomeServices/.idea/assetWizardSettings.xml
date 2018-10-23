@@ -23,7 +23,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="scalingPercent" value="77" />
+                                                <entry key="scalingPercent" value="83" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -36,7 +36,7 @@
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="fffafa" />
-                                      <entry key="foregroundImage" value="$USER_HOME$/Downloads/repair.png" />
+                                      <entry key="foregroundImage" value="$USER_HOME$/Downloads/tools.png" />
                                       <entry key="foregroundLayerName" value="repair_launcher_foreground" />
                                       <entry key="outputName" value="repair" />
                                     </map>

@@ -21,10 +21,10 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
     DatabaseReference databaseUsers;    //reference to the database
 
-    /*EditText editTextName;
+    EditText editTextName;
     EditText editTextPassword;
     Button buttonCreateHomeOwner;
-    Button buttonCreateServiceProvider;*/
+    Button buttonCreateServiceProvider;
 
     public static final int ADMIN = 0;
     public static final int HOMEOWNER = 1;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         //initializing database
         databaseUsers = FirebaseDatabase.getInstance().getReference("users");
-
+        adminExists = false;
         DatabaseReference rootRef=FirebaseDatabase.getInstance().getReference();
 
         //query gets the node where the user with parameter type = "Admin" exists in database
@@ -51,44 +51,57 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-
-                    for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
-                        //retrieving the user with parameter type
-                        User retrievedUser= childSnapshot.getValue(User.class);
-
-                        //checking if the password matches given password
-                        if(retrievedUser.type.equals("Admin"))
-                            adminExists = true;
-                        System.out.println("there is admin");
-                        }
-                    }
+                    adminExists = true;
                 }
+            }
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+
+
+        //edittexts
+        editTextName = (EditText)findViewById(R.id.usernameET);
+        editTextPassword = (EditText)findViewById(R.id.passwordET);
+
     }
 
 
     public void onClickSignIn(View view) {
-        EditText un = (EditText)findViewById(R.id.usernameET);
-        EditText pw = (EditText)findViewById(R.id.passwordET);
-        String username = un.getText().toString();
-        String password = pw.getText().toString();
+        String username = editTextName.getText().toString();
+        String password = editTextPassword.getText().toString();
 
+        username = cleanUp(username);
         trySignIn(username,password);
     }
 
     public void onClickNewAcc(View view){
-        EditText un = (EditText)findViewById(R.id.usernameET);
-        EditText pw = (EditText)findViewById(R.id.passwordET);
-        String username = un.getText().toString();
-        String password = pw.getText().toString();
+        String username = editTextName.getText().toString();
+        String password = editTextPassword.getText().toString();
 
-        tryCreateAccount(username, password);
+        if(username.charAt(0) == ' '){
+            Toast.makeText( this ,"Username cannot start with a space", Toast.LENGTH_LONG).show();
+        }else if(cleanUp(username).length() < 3){
+            Toast.makeText( this ,"Username must be at least 3 characters", Toast.LENGTH_LONG).show();
+        }else if(password.length() < 3){
+            Toast.makeText( this ,"Password must be at least 3 characters", Toast.LENGTH_LONG).show();
+        }else{
+            username = cleanUp(username);
+            tryCreateAccount(username, password);
+        }
 
     }
+
+    //gets rid of spaces at the end of string
+    private String cleanUp(String str){
+        if(str.charAt(str.length()-1) == ' '){
+            return cleanUp(str.substring(0, str.length()-1));
+        }else{
+            return str;
+        }
+    }
+
 
     int choice; //issa whole mess down there
     private void newAccPopUp(){
@@ -101,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
         }else{
             userTypes = new String[3];
             userTypes[0] = "Admin";
-			userTypes[0] = "Admin";
             userTypes[1] = "Home Owner";
             userTypes[2] = "Service Provider";
         }

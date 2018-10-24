@@ -36,7 +36,6 @@ public class WelcomeAdmin extends AppCompatActivity {
 
         String username= getIntent().getStringExtra("USER_NAME");
 
-
         TextView textViewWelcomeAdmin = (TextView) findViewById(R.id.textViewWelcomeAdmin);
         textViewWelcomeAdmin.setText("Welcome, " + username);
 
@@ -51,8 +50,10 @@ public class WelcomeAdmin extends AppCompatActivity {
                 users.clear();
 
                 for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-                    User product = postSnapshot.getValue(User.class);
-                    users.add(product);
+                    User user = postSnapshot.getValue(User.class);
+                    if(!user.getType().equals("Admin")) {
+                        users.add(user);
+                    }
                 }
                 UserList userAdapter = new UserList(WelcomeAdmin.this, users);
                 users_list.setAdapter(userAdapter);

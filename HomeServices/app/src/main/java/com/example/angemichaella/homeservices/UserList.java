@@ -32,12 +32,16 @@ public class UserList extends ArrayAdapter<User>{
         LayoutInflater inflater = context.getLayoutInflater();
         View listViewItem = inflater.inflate(R.layout.activity_user_list_layout, null, true);
 
-        TextView textViewUsername = (TextView) listViewItem.findViewById(R.id.textViewUsername);
-        TextView textViewUsertype = (TextView) listViewItem.findViewById(R.id.textViewUsertype);
-
         User user = users.get(position);
-        textViewUsername.setText(user.getUsername());
-        textViewUsertype.setText(user.getType());
+
+        if (user.getType() != "Admin") {
+            TextView textViewUsername = (TextView) listViewItem.findViewById(R.id.textViewUsername);
+            TextView textViewUsertype = (TextView) listViewItem.findViewById(R.id.textViewUsertype);
+
+
+            textViewUsername.setText(user.getUsername());
+            textViewUsertype.setText(user.getType());
+        }
         return listViewItem;
     }
 }

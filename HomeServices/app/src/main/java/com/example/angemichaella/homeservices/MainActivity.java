@@ -153,16 +153,16 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = null;
 
-        if(user.type.equals("Admin")) {
+        if(user.type.trim().equals("Admin")) {
 
             intent = (new Intent(MainActivity.this, WelcomeAdmin.class));
 
         }
 
-        else if (user.type.equals("Home Owner")){
+        else if (user.type.trim().equals("HomeOwner")){
             intent = (new Intent(MainActivity.this, WelcomeHomeOwner.class));
         }
-        else {
+        else if (user.type.trim().equals("ServiceProvider")){
             intent = (new Intent(MainActivity.this, WelcomeServiceProvider.class));
         }
 

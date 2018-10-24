@@ -16,6 +16,7 @@
             android:id="@+id/textViewUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10px"
             android:text="TextView"
             android:textSize="24sp" />
 
@@ -23,7 +24,9 @@
             android:id="@+id/textViewUsertype"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20px"
             android:text="TextView"
+            android:textColor="@color/colorPrimary"
             android:textSize="18sp" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

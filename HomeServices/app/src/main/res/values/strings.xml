@@ -7,4 +7,7 @@
     <string name="newAccBtnDisplay">Create Account</string>
     <string name="logoDesc">logo image</string>
     <string name="admin_name">\"name\"</string>
+    <string name="home_owner_admin" />
+    <string name="home_owner_name" />
+    <string name="service_provider_name" />
 </resources>

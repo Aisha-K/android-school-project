@@ -18,3 +18,5 @@ Deadlines for the deliverables
 - December 6th: Home owner functionality (5%)
 - last week of classes: Demo (2%)
 
+
+app icons credits to Freepik: https://www.freepik.com/

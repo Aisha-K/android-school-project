@@ -7,45 +7,55 @@
     tools:context=".WelcomeAdmin">
 
     <LinearLayout
-        android:id="@+id/users_list_section"
         android:layout_width="match_parent"
-        android:layout_height="512dp"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteY="0dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textViewWelcomeAdmin"
-            android:layout_width="383dp"
-            android:layout_height="45dp"
-            android:layout_marginLeft="10px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:shadowColor="@color/colorPrimary"
             android:text="Welcome, @string/admin_name"
             android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="24sp"
-            app:fontFamily="sans-serif" />
+            app:fontFamily="sans-serif"
+            tools:layout_editor_absoluteX="5dp" />
 
         <TextView
             android:id="@+id/userDetailsTV3"
             android:layout_width="match_parent"
-            android:layout_height="37dp"
-            android:layout_marginLeft="10px"
+            android:layout_height="wrap_content"
             android:text="signed in as an admin."
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="5dp" />
 
-        <TextView
-            android:id="@+id/users_list_label"
+        <Space
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginLeft="10px"
-            android:gravity="bottom"
-            android:text="Here's the list of our users!"
-            android:textSize="18sp" />
+            android:layout_height="20dp" />
 
-        <ListView
-            android:id="@+id/users_list"
+        <LinearLayout
+            android:id="@+id/users_list_section"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteY="0dp">
+
+            <TextView
+                android:id="@+id/users_list_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10px"
+                android:gravity="bottom"
+                android:text="Here's the list of our users!"
+                android:textSize="18sp" />
+
+            <ListView
+                android:id="@+id/users_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

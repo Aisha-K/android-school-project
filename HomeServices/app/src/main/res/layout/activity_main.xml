@@ -29,7 +29,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/logoDesc"
-                android:src="@drawable/handymanny" />
+                android:src="@drawable/handymanny"
+                app:srcCompat="@drawable/paint" />
         </LinearLayout>
 
         <LinearLayout

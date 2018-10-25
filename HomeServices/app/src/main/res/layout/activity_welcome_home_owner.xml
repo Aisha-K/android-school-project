@@ -13,8 +13,8 @@
 
         <TextView
             android:id="@+id/textViewWelcomeHomeOwner"
-            android:layout_width="383dp"
-            android:layout_height="45dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10px"
             android:text="Welcome, @string/home_owner_name"
             android:textColor="@color/common_google_signin_btn_text_dark_focused"
@@ -23,7 +23,7 @@
         <TextView
             android:id="@+id/userDetailsTV2"
             android:layout_width="match_parent"
-            android:layout_height="37dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10px"
             android:text="signed in as a home owner"
             android:textColor="@color/colorPrimaryDark"

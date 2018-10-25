@@ -14,7 +14,7 @@
         <TextView
             android:id="@+id/textViewWelcomeServiceProvider"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10px"
             android:text="Welcome, @string/service_provider_name"
             android:textColor="@color/common_google_signin_btn_text_dark_focused"
@@ -23,7 +23,7 @@
         <TextView
             android:id="@+id/userDetailsTV"
             android:layout_width="match_parent"
-            android:layout_height="37dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10px"
             android:text="signed in as a service provider."
             android:textColor="@color/colorPrimaryDark"

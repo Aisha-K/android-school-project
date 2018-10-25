@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
     EditText editTextName;
     EditText editTextPassword;
-    Button buttonCreateHomeOwner;
-    Button buttonCreateServiceProvider;
+    /*Button buttonCreateHomeOwner;
+    Button buttonCreateServiceProvider;*/
 
     public static final int ADMIN = 0;
     public static final int HOMEOWNER = 1;
@@ -40,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
 
         //initializing database
         databaseUsers = FirebaseDatabase.getInstance().getReference("users");
-        updateAdmin();
+        updateAdmin(); //updating admin status
 
-        //edittexts
+        //sets editTexts
         editTextName = (EditText)findViewById(R.id.usernameET);
         editTextPassword = (EditText)findViewById(R.id.passwordET);
 
@@ -263,19 +263,18 @@ public class MainActivity extends AppCompatActivity {
         EditText pw = (EditText)findViewById(R.id.passwordET);
         String username = un.getText().toString();
         String password = pw.getText().toString();
-        Toast.makeText( this ,"creating acc of type " + type, Toast.LENGTH_LONG).show();
-
 
         signIn(createAccount(username, password, type));
-        updateAdmin();
+        updateAdmin();//in case someone just made an admin account
+        choice = -1; //resetting
     }
+
 
     private void updateAdmin(){
         DatabaseReference rootRef=FirebaseDatabase.getInstance().getReference();
-        boolean exist;
         //query gets the node where the user with parameter type = "Admin" exists in database
         Query query = rootRef.child("users").orderByChild("type").equalTo("Admin");
-        //addlistenner allows us to retrieve the data using datasnapshot
+        //addlistener allows us to retrieve the data using datasnapshot
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

@@ -1,5 +1,6 @@
 # android-school-project
 ## This is the repository for our android project: One-Demand Home Repair Services App
+link to repository: https://github.com/angemichaella/android-school-project
 
 **Our team is made of 4 people:**
 * Aisha Khalid - akhal096@uottawa.ca

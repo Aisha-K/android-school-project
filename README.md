@@ -20,4 +20,5 @@ Deadlines for the deliverables
 - last week of classes: Demo (2%)
 
 database: https://console.firebase.google.com/u/0/project/homeservicesapp-seg2105/database/homeservicesapp-seg2105/data
+
 app icons credits to Freepik: https://www.freepik.com/

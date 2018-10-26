@@ -54,11 +54,7 @@ public class MainActivity extends AppCompatActivity {
         String password = editTextPassword.getText().toString();
 
         username = cleanUp(username);
-        if (isAlpha(username)) {
-            trySignIn(username,password);
-        } else {
-            Toast.makeText(this, "Username should contains letters or dashes only", Toast.LENGTH_LONG).show();
-        }
+        trySignIn(username,password);
     }
 
     public void onClickNewAcc(View view){

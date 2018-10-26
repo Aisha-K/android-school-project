@@ -54,7 +54,11 @@ public class MainActivity extends AppCompatActivity {
         String password = editTextPassword.getText().toString();
 
         username = cleanUp(username);
-        trySignIn(username,password);
+        if (isAlpha(username)) {
+            trySignIn(username,password);
+        } else {
+            Toast.makeText(this, "Username should contains letters or dashes only", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void onClickNewAcc(View view){
@@ -66,8 +70,10 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText( this ,"Username cannot start with a space", Toast.LENGTH_LONG).show();
         }else if(cleanUp(username).length() < 3){
             Toast.makeText( this ,"Username must be at least 3 characters", Toast.LENGTH_LONG).show();
-        }else if(password.length() < 3){
-            Toast.makeText( this ,"Password must be at least 3 characters", Toast.LENGTH_LONG).show();
+        }else if(password.length() < 3) {
+            Toast.makeText(this, "Password must be at least 3 characters", Toast.LENGTH_LONG).show();
+        } else if (!isAlpha(username)) {
+            Toast.makeText(this , "Username should contains letters or dashes only", Toast.LENGTH_LONG).show();
         }else{
             username = cleanUp(username);
             tryCreateAccount(username, password);
@@ -267,6 +273,7 @@ public class MainActivity extends AppCompatActivity {
         signIn(createAccount(username, password, type));
         updateAdmin();//in case someone just made an admin account
         choice = -1; //resetting
+
     }
 
 
@@ -293,4 +300,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    // this method get the username as a string and returns true if the the string contains letter only
+    // returns false otherwise
+    private boolean isAlpha(String username){
+        char[] letters = username.toCharArray();
+
+        for (char letter : letters){
+            if(!(Character.isLetter(letter)|| String.valueOf(letter).equals("-"))){
+                return false;
+            }
+        }
+        return true;
+    }
 }

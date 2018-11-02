@@ -50,13 +50,14 @@ public class ServiceTab extends Fragment {
         services.add(s1);
         services.add(s2);
         services.add(s3);
+    //end of example case
 
         ServiceAdapter adtr = new ServiceAdapter(getActivity(), services);
         ListView serviceListView = (ListView)view.findViewById(R.id.serviceListView);
         serviceListView.setAdapter(adtr);
 
 
-        //listener example
+        //example of when a service is clicked
         serviceListView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener(){
                     @Override

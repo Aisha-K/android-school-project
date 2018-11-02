@@ -38,6 +38,11 @@ public class ServiceAdapter extends ArrayAdapter<Service> {
 
         double rate = currentService.rate();
         rate = rate*100;
+
+        double fract = rate - (int)rate;
+        if(fract >=0.5){
+            rate+= 1-fract;
+        }
         int roundedRate = (int)rate;
         rate = roundedRate/100.00;
         String r = "$"+rate+"/hr";

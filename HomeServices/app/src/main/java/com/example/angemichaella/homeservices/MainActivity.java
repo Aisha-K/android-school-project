@@ -50,29 +50,40 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void onClickSignIn(View view) {
-        String username = editTextName.getText().toString();
-        String password = editTextPassword.getText().toString();
 
-        username = cleanUp(username);
-        trySignIn(username,password);
+        try{
+            String username = editTextName.getText().toString();
+            String password = editTextPassword.getText().toString();
+            username = cleanUp(username);
+            trySignIn(username,password);
+            username = cleanUp(username);
+            trySignIn(username,password);
+        }catch(Exception e){
+
+        }
+
     }
 
     public void onClickNewAcc(View view){
         updateAdmin(); //in case admin got deleted
-        String username = editTextName.getText().toString();
-        String password = editTextPassword.getText().toString();
+        try{
+            String username = editTextName.getText().toString();
+            String password = editTextPassword.getText().toString();
 
-        if(username.charAt(0) == ' '){
-            Toast.makeText( this ,"Username cannot start with a space", Toast.LENGTH_LONG).show();
-        }else if(cleanUp(username).length() < 3){
-            Toast.makeText( this ,"Username must be at least 3 characters", Toast.LENGTH_LONG).show();
-        }else if(password.length() < 3) {
-            Toast.makeText(this, "Password must be at least 3 characters", Toast.LENGTH_LONG).show();
-        } else if (!isAlpha(username)) {
-            Toast.makeText(this , "Username should contains letters or dashes only", Toast.LENGTH_LONG).show();
-        }else{
-            username = cleanUp(username);
-            tryCreateAccount(username, password);
+            if(username.charAt(0) == ' '){
+                Toast.makeText( this ,"Username cannot start with a space", Toast.LENGTH_LONG).show();
+            }else if(cleanUp(username).length() < 3){
+                Toast.makeText( this ,"Username must be at least 3 characters", Toast.LENGTH_LONG).show();
+            }else if(password.length() < 3) {
+                Toast.makeText(this, "Password must be at least 3 characters", Toast.LENGTH_LONG).show();
+            } else if (!isAlpha(username)) {
+                Toast.makeText(this , "Username should contains letters or dashes only", Toast.LENGTH_LONG).show();
+            }else{
+                username = cleanUp(username);
+                tryCreateAccount(username, password);
+            }
+        }catch(Exception e){
+            //idk what to say
         }
 
     }

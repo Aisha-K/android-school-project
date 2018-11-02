@@ -35,12 +35,10 @@ public class Service {
 
     public String name(){
         return serviceName;
-
     }
 
     public String type(){
         return type;
-
     }
 
 

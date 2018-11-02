@@ -149,11 +149,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = null;
 
         if(user.type.trim().equals("Admin")) {
-
-            intent = (new Intent(MainActivity.this, WelcomeAdmin.class));
-
+            intent = (new Intent(MainActivity.this, Welcome3Admin.class));
         }
-
         else if (user.type.trim().equals("HomeOwner")){
             intent = (new Intent(MainActivity.this, WelcomeHomeOwner.class));
         }

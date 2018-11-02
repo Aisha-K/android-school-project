@@ -5,10 +5,12 @@ public class Service {
     public String type;
     public double rate;
     public String serviceId;   //database key
+    public String iconName;
 
 
     //default constructor
     public Service(){
+        iconName = "default_icon";
     }
 
     Service(String serviceName, boolean isOutdoor, double rate, String serviceId ){
@@ -23,7 +25,24 @@ public class Service {
         else {
             type = "indoor";
         }
+        iconName = "default_icon";
     }
+
+    //getters
+    public double rate(){
+        return rate;
+    }
+
+    public String name(){
+        return serviceName;
+
+    }
+
+    public String type(){
+        return type;
+
+    }
+
 
 
 }

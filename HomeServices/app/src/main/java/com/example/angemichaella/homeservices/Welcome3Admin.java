@@ -37,6 +37,8 @@ public class Welcome3Admin extends AppCompatActivity {
     DatabaseReference databaseUsers;
     DatabaseReference databaseServices;
 
+    String username;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,14 @@ public class Welcome3Admin extends AppCompatActivity {
         services = new ArrayList<>();
         users = new ArrayList<>();
 
+
+
+
+        username = getIntent().getStringExtra("USER_NAME");
+
+
+
+
         //tab layout stuff
         viewPgr = (ViewPager) findViewById(R.id.container);
         setupViewPager(viewPgr);
@@ -61,7 +71,7 @@ public class Welcome3Admin extends AppCompatActivity {
     private void setupViewPager(ViewPager vp){
         tabPageAdptr = new ViewPagerAdapter(getSupportFragmentManager());
 
-        tabPageAdptr.addFragment(new UserTab(), "users");
+        tabPageAdptr.addFragment(UserTab.newInstance(username), "users");
         tabPageAdptr.addFragment(new ServiceTab(), "services");
         vp.setAdapter(tabPageAdptr);
     }

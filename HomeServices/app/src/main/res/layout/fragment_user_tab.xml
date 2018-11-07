@@ -15,10 +15,11 @@
 
         <TextView
             android:id="@+id/textViewWelcomeAdmin"
-            android:layout_width="match_parent"
+            android:layout_width="356dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:shadowColor="@color/colorPrimary"
-            android:text="Welcome, @string/admin_name"
+            android:text="Hey, @string/admin_name"
             android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="24sp"
             app:fontFamily="sans-serif"
@@ -26,8 +27,9 @@
 
         <TextView
             android:id="@+id/userDetailsTV3"
-            android:layout_width="match_parent"
+            android:layout_width="346dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:text="signed in as an admin."
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
@@ -46,17 +48,19 @@
 
             <TextView
                 android:id="@+id/users_list_label"
-                android:layout_width="match_parent"
+                android:layout_width="291dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="10px"
-                android:gravity="bottom"
+                android:gravity="center_horizontal"
                 android:text="Here's the list of our users!"
                 android:textSize="18sp" />
 
             <ListView
                 android:id="@+id/users_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_width="292dp"
+                android:layout_height="347dp"
+                android:layout_gravity="center_horizontal" />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

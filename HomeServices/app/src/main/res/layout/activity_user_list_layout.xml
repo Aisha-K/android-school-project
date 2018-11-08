@@ -9,24 +9,27 @@
     <LinearLayout
         android:id="@+id/user_list_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="52dp"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <TextView
             android:id="@+id/textViewUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10px"
             android:text="TextView"
-            android:textSize="24sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewUsertype"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20px"
             android:text="TextView"
-            android:textColor="@color/colorPrimary"
-            android:textSize="18sp" />
+            android:textColor="@color/repair_background"
+            android:textSize="14sp"
+            android:typeface="normal" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

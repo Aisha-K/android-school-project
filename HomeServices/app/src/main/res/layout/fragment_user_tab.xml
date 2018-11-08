@@ -17,11 +17,13 @@
             android:id="@+id/textViewWelcomeAdmin"
             android:layout_width="356dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="20dp"
+            android:paddingTop="20dp"
             android:shadowColor="@color/colorPrimary"
             android:text="Hey, @string/admin_name"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textColor="@color/repair_background"
             android:textSize="24sp"
+            android:textStyle="bold"
             app:fontFamily="sans-serif"
             tools:layout_editor_absoluteX="5dp" />
 
@@ -29,8 +31,8 @@
             android:id="@+id/userDetailsTV3"
             android:layout_width="346dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="signed in as an admin."
+            android:layout_marginLeft="20dp"
+            android:text="Here's the list of our users so far"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
             tools:layout_editor_absoluteX="5dp" />
@@ -42,24 +44,14 @@
         <LinearLayout
             android:id="@+id/users_list_section"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="445dp"
             android:orientation="vertical"
             tools:layout_editor_absoluteY="0dp">
-
-            <TextView
-                android:id="@+id/users_list_label"
-                android:layout_width="291dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="10px"
-                android:gravity="center_horizontal"
-                android:text="Here's the list of our users!"
-                android:textSize="18sp" />
 
             <ListView
                 android:id="@+id/users_list"
                 android:layout_width="292dp"
-                android:layout_height="347dp"
+                android:layout_height="412dp"
                 android:layout_gravity="center_horizontal" />
         </LinearLayout>
     </LinearLayout>

@@ -40,7 +40,14 @@ public class UserList extends ArrayAdapter<User>{
 
 
             textViewUsername.setText(user.getUsername());
-            textViewUsertype.setText(user.getType());
+
+            if (user.getType().equals("HomeOwner")){
+                textViewUsertype.setText("Home Owner");
+            }
+            else if (user.getType().equals("ServiceProvider")) {
+                textViewUsertype.setText("Service Provider");
+            }
+
         }
         return listViewItem;
     }

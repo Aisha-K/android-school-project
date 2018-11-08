@@ -65,7 +65,7 @@ public class UserTab extends Fragment {
         username = getArguments().getString("username");
 
         TextView textViewWelcomeAdmin = (TextView)view.findViewById(R.id.textViewWelcomeAdmin);
-        textViewWelcomeAdmin.setText("Welcome, " + username);
+        textViewWelcomeAdmin.setText("Hey, " + username + "!");
 
         users_list = (ListView) view.findViewById(R.id.users_list);
 

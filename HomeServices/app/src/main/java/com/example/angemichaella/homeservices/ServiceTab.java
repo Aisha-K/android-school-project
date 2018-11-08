@@ -16,6 +16,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -44,12 +45,14 @@ public class ServiceTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_service_tab, container, false);
+        //initialize attributes
         addServiceBtn = (Button)view.findViewById(R.id.addServiceBtn);
         services = new ArrayList<Service>();
         databaseServices = FirebaseDatabase.getInstance().getReference("Services");
         serviceListView = (ListView)view.findViewById(R.id.serviceListView);
 
 
+        //updates list of services when data changed
         databaseServices.addValueEventListener(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot){
@@ -74,7 +77,7 @@ public class ServiceTab extends Fragment {
         addServiceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                newService();
+                newServicePopUp();
             }
         });
 
@@ -87,6 +90,8 @@ public class ServiceTab extends Fragment {
                         String srvName = String.valueOf(((Service)parent.getItemAtPosition(pos)).name());
                         String srvId= String.valueOf(((Service)parent.getItemAtPosition(pos)).serviceId);
                         Toast.makeText(getActivity(), srvName, Toast.LENGTH_LONG).show();
+
+                        // showEditOrDeletePopUp(PARAMEMETERS); //NEED TO IMPLEMENT
                     }
                 }
         );
@@ -94,35 +99,69 @@ public class ServiceTab extends Fragment {
         return view;
     }
 
-//    @Override
-//    public void onStart(){
-//        super.onStart();
-//
-//    }
-
-    //adds a service to the database if name not already taken
-    private void newService(){
-
-        //test case
-        Service s3= new Service("Plumbing", false, 30.0, "d4");
-        databaseServices.child(s3.serviceId).setValue(s3);
-    }
 
     //shows pop up which allows user to either edit or delete the service that was clicked on
     //this method calls the deleteService() if delete button clicked
     // or  editService() if update button clicked with appropriate text entered
-    private void showEditOrDeletePopUp( String serviceName, String serviceId){
+    private void showEditOrDeletePopUp( String serviceName, String serviceId, boolean isOutdoor){
+
+    }
+
+
+
+    private void newServicePopUp(){
+        //test case
+//        Service s3= new Service("Plumbing", false, 30.0, "d4");
+//        databaseServices.child(s3.serviceId).setValue(s3);
+        newService("Exterminator", false, 40.0 );
+    }
+
+
+    //adds a service to the database if service name not already taken
+    private void newService(final String serviceName, final boolean isOutdoor, final double rate){
+
+        //finding if service already exists by finding if it
+        Query query = databaseServices.orderByChild("serviceName").equalTo(serviceName);
+        //addlistenner allows us to retrieve the data using datasnapshot
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    //username exists
+                    Toast.makeText( getActivity() , "Service Already Exists", Toast.LENGTH_LONG).show();
+                }
+                else{ //service does not exist, create service
+                    String id = databaseServices.push().getKey();
+                    Service newService= new Service(serviceName, isOutdoor, rate , id);
+                    databaseServices.child(id).setValue(newService);
+                    Toast.makeText( getActivity() , "Service Created", Toast.LENGTH_LONG).show();
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
 
     }
 
     //deletes a service from the database
     private void deleteService( String ServiceId){
+        DatabaseReference dR= databaseServices.child(ServiceId);
+        dR.removeValue();
 
+        Toast.makeText(getActivity(), "Service Deleted", Toast.LENGTH_LONG).show();
     }
 
     //updates a service in the database with new info
-    private void editService(String ServiceId, String newName, double newPrice){
+    private void editService( String newName,boolean isOutdoor, double newPrice, String ServiceId){
+        DatabaseReference dR= databaseServices.child(ServiceId);
+        Service service= new Service( newName, isOutdoor,newPrice, ServiceId);
+        dR.setValue(service);
 
+        Toast.makeText(getActivity(), "Service Updated", Toast.LENGTH_LONG).show();
     }
 
 

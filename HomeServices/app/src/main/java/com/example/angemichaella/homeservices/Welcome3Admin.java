@@ -83,7 +83,9 @@ public class Welcome3Admin extends AppCompatActivity implements EditServiceDialo
         if(id.equals("creatingNewUser")){
             serviceTab.newService(newName, newRate, isOutdoor);
         }
-        serviceTab.editService( id, newName, newRate, isOutdoor);
+        else {
+            serviceTab.editService(id, newName, newRate, isOutdoor);
+        }
     }
 
 

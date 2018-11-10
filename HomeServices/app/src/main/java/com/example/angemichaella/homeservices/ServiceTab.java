@@ -141,14 +141,6 @@ public class ServiceTab extends Fragment{
     }
 
 
-    //shows pop up which allows user to either edit or delete the service that was clicked on
-    //this method calls the deleteService() if delete button clicked
-    // or  editService() if update button clicked with appropriate text entered
-    private void showEditOrDeletePopUp( String serviceName, String serviceId, boolean isOutdoor){
-
-    }
-
-
 
     private void newServicePopUp(){
 
@@ -168,6 +160,7 @@ public class ServiceTab extends Fragment{
 
     //adds a service to the database if service name not already taken
     protected void newService(final String serviceName, final double rate, final boolean isOutdoor){
+
 
         //finding if service already exists by finding if it
         Query query = databaseServices.orderByChild("serviceName").equalTo(serviceName);

@@ -11,11 +11,11 @@ public class HomeServiceTest {
         assertEquals("Check the name of the service", "Furniture Assemble",aService.name());
     }
 
-//    @Test
-//    public void checkServiceType(){
-//        Service aService = new Service("Furniture Assemble", false, 120, "id1234");
-//        assertEquals("Check the type of the service", false, aService.type());
-//    }
+    @Test
+    public void checkServiceType(){
+        Service aService = new Service("Furniture Assemble", false, 120, "id1234");
+        assertEquals("Check the type of the service", "indoor", aService.type());
+    }
 
     @Test
     public void checkServiceRate(){

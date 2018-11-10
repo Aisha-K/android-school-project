@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/Desktop/android-school-project/HomeServices
+    working_directory: ~/android-school-project/HomeServices
     docker:
       - image: circleci/android:api-28-alpha
     environment:
@@ -11,7 +11,7 @@ jobs:
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
-         name: Chmod permissions
+         name: Chmod permissions  
          command: sudo chmod +x ./gradlew
       - run:
           name: Download Dependencies

@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Home Services</string>
+    <string name="promptUn">username</string>
+    <string name="promptPw">password</string>
+    <string name="promptCreateAcc">New to Home Services?</string>
+    <string name="signInBtnDisplay">Sign In</string>
+    <string name="newAccBtnDisplay">Create Account</string>
+    <string name="logoDesc">logo image</string>
+    <string name="admin_name">\"name\"</string>
+    <string name="home_owner_admin" />
+    <string name="home_owner_name" />
+    <string name="service_provider_name" />
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_welcome2_admin">Welcome2Admin</string>
+    <string name="title_activity_welcome3_admin">Welcome3Admin</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+</resources>

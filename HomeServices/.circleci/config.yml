@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/Desktop/android-school-project
+    working_directory: ~/android-school-project
     docker:
       - image: circleci/android:api-28-alpha
     environment:

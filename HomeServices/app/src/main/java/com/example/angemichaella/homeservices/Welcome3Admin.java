@@ -26,7 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Welcome3Admin extends AppCompatActivity {
+public class Welcome3Admin extends AppCompatActivity implements EditServiceDialog.EditServiceDialogListener {
 
     private ViewPagerAdapter tabPageAdptr;
     private ViewPager viewPgr;
@@ -36,6 +36,8 @@ public class Welcome3Admin extends AppCompatActivity {
 
     DatabaseReference databaseUsers;
     DatabaseReference databaseServices;
+
+    ServiceTab serviceTab;
 
     String username;
 
@@ -72,8 +74,18 @@ public class Welcome3Admin extends AppCompatActivity {
         tabPageAdptr = new ViewPagerAdapter(getSupportFragmentManager());
 
         tabPageAdptr.addFragment(UserTab.newInstance(username), "users");
-        tabPageAdptr.addFragment(new ServiceTab(), "services");
+        serviceTab = new ServiceTab();
+        tabPageAdptr.addFragment(serviceTab, "services");
         vp.setAdapter(tabPageAdptr);
     }
+
+    public void receiveServiceUpdate(String id, String newName, double newRate, boolean isOutdoor){
+        if(id.equals("creatingNewUser")){
+            serviceTab.newService(newName, newRate, isOutdoor);
+        }
+        serviceTab.editService( id, newName, newRate, isOutdoor);
+    }
+
+
 
 }

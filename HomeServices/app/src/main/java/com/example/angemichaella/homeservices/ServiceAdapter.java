@@ -37,14 +37,7 @@ public class ServiceAdapter extends ArrayAdapter<Service> {
 
 
         double rate = currentService.rate();
-        rate = rate*100;
 
-        double fract = rate - (int)rate;
-        if(fract >=0.5){
-            rate+= 1-fract;
-        }
-        int roundedRate = (int)rate;
-        rate = roundedRate/100.00;
         String r = "$"+rate+"/hr";
 
         serviceRate.setText(r);
@@ -52,8 +45,10 @@ public class ServiceAdapter extends ArrayAdapter<Service> {
         type.setText(currentService.type());
 
 
+
+
         Resources res = getContext().getResources();
-        int resID = res.getIdentifier(currentService.iconName, "drawable", getContext().getPackageName());
+        int resID = res.getIdentifier(currentService.type, "drawable", getContext().getPackageName());
         itemPic.setImageResource(resID);
 
         return myRowView;

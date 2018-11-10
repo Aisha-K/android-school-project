@@ -1,6 +1,8 @@
 package com.example.angemichaella.homeservices;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,27 +26,26 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ServiceTab.OnFragmentInteractionListener} interface
- * to handle interaction events.
- *  factory method to
- * create an instance of this fragment.
- */
-public class ServiceTab extends Fragment {
+
+public class ServiceTab extends Fragment{
 
     private Button addServiceBtn;
-    private ArrayList<Service> services;
+    protected ArrayList<Service> services;
     DatabaseReference databaseServices;
     ListView serviceListView;
+
+
     //View view;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_service_tab, container, false);
+
+
         //initialize attributes
         addServiceBtn = (Button)view.findViewById(R.id.addServiceBtn);
         services = new ArrayList<Service>();
@@ -87,14 +88,54 @@ public class ServiceTab extends Fragment {
                 new AdapterView.OnItemClickListener(){
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int pos, long id){
-                        String srvName = String.valueOf(((Service)parent.getItemAtPosition(pos)).name());
-                        String srvId= String.valueOf(((Service)parent.getItemAtPosition(pos)).serviceId);
-                        Toast.makeText(getActivity(), srvName, Toast.LENGTH_LONG).show();
+                        Service clickedSrv = (Service) parent.getItemAtPosition(pos);
 
-                        // showEditOrDeletePopUp(PARAMEMETERS); //NEED TO IMPLEMENT
+                        Bundle args = new Bundle();
+                        args.putString("dialog_title", "Edit Service");
+                        args.putString("srv_name", clickedSrv.name());
+                        args.putString("srv_rate", Double.toString(clickedSrv.rate()));
+                        args.putString("srv_id", clickedSrv.id());
+                        args.putString("srv_type", clickedSrv.type());
+
+                        EditServiceDialog d = new EditServiceDialog();
+                        d.setArguments(args);
+                        d.show(getActivity().getSupportFragmentManager(), "edit service dialog");
                     }
                 }
         );
+
+        serviceListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            public boolean onItemLongClick(AdapterView<?> arg0, View v, int index, long arg3) {
+
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Delete Service");
+                final Service clickedServ = (Service)serviceListView.getItemAtPosition(index);
+                builder.setMessage("Are you sure you want to delete the " + '"'+ clickedServ.name()+ '"' +" service?");
+
+
+                builder.setPositiveButton("DELETE", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id){
+
+                        deleteService(clickedServ.id());
+                        dialog.dismiss();//user clicked create
+
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id){
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+                return true;
+            }
+        });
 
         return view;
     }
@@ -110,15 +151,23 @@ public class ServiceTab extends Fragment {
 
 
     private void newServicePopUp(){
-        //test case
-//        Service s3= new Service("Plumbing", false, 30.0, "d4");
-//        databaseServices.child(s3.serviceId).setValue(s3);
-        newService("Exterminator", false, 40.0 );
+
+        Bundle args = new Bundle();
+        args.putString("dialog_title", "Add Service");
+        args.putString("srv_name", "Enter Service Name");
+        args.putString("srv_rate", "Enter Service Rate");
+        args.putString("srv_id", "creatingNewUser");
+        args.putString("srv_type", "indoor");
+
+        EditServiceDialog d = new EditServiceDialog();
+        d.setArguments(args);
+        d.show(getActivity().getSupportFragmentManager(), "new service dialog");
+
     }
 
 
     //adds a service to the database if service name not already taken
-    private void newService(final String serviceName, final boolean isOutdoor, final double rate){
+    protected void newService(final String serviceName, final double rate, final boolean isOutdoor){
 
         //finding if service already exists by finding if it
         Query query = databaseServices.orderByChild("serviceName").equalTo(serviceName);
@@ -148,7 +197,7 @@ public class ServiceTab extends Fragment {
     }
 
     //deletes a service from the database
-    private void deleteService( String ServiceId){
+    private void deleteService(String ServiceId){
         DatabaseReference dR= databaseServices.child(ServiceId);
         dR.removeValue();
 
@@ -156,27 +205,12 @@ public class ServiceTab extends Fragment {
     }
 
     //updates a service in the database with new info
-    private void editService( String newName,boolean isOutdoor, double newPrice, String ServiceId){
-        DatabaseReference dR= databaseServices.child(ServiceId);
+    protected void editService( String ServiceId, String newName, double newPrice, boolean isOutdoor){
+        DatabaseReference dR = databaseServices.child(ServiceId);
         Service service= new Service( newName, isOutdoor,newPrice, ServiceId);
         dR.setValue(service);
 
         Toast.makeText(getActivity(), "Service Updated", Toast.LENGTH_LONG).show();
     }
 
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 }

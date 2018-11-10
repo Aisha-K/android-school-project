@@ -8,18 +8,30 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class EditServiceDialog extends AppCompatDialogFragment {
     EditText serviceName;
     EditText serviceRate;
-    boolean isOutdoor;
+    TextView dialogTitle;
+    Button okbtn;
+    Button cancelbtn;
+
+    RadioGroup servType;
+
+
     private EditServiceDialogListener listener;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle mArgs = getArguments();
+
+        final String title = mArgs.getString("dialog_title");
         String name = mArgs.getString("srv_name");
         String rate = mArgs.getString("srv_rate");
         final String id = mArgs.getString("srv_id");
@@ -31,59 +43,67 @@ public class EditServiceDialog extends AppCompatDialogFragment {
         View v = inf.inflate(R.layout.dialog_editservice, null);
 
         b.setView(v);
-        b.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
 
-            }
-        });
-
-
+        //initializing the initial view of the dialog
+        dialogTitle = (TextView) v.findViewById(R.id.dialogTitleTV);
         serviceName = (EditText) v.findViewById(R.id.serviceNameET);
         serviceRate = (EditText) v.findViewById(R.id.serviceRateET);
+        okbtn = (Button) v.findViewById(R.id.btnOk);
+        cancelbtn = (Button) v.findViewById(R.id.btnCancel);
+
+        dialogTitle.setText(title);
         serviceName.setText(name);
         serviceRate.setText(rate);
+        servType = (RadioGroup) v.findViewById(R.id.radioTypeGroup);
 
-        String svN = serviceName.toString();
-        Double svR = Double.parseDouble(serviceRate.toString());
+        if(type.equals("indoor")){
+            servType.check(R.id.btnIndoorService);
+        }else{
+            servType.check(R.id.btnOutdoorService);
+        }
 
-        //Determine if service is indoor or outdoor
-        final RadioButton outdoor = (RadioButton) v.findViewById(R.id.btnOutdoorService);
 
-        View.OnClickListener outdoor_listener = new View.OnClickListener()
-        {
-            public void onClick(View v) {
-                isOutdoor = true;
-            }
-        };
 
-        outdoor.setOnClickListener(outdoor_listener);
 
-        final RadioButton indoor = (RadioButton) v.findViewById(R.id.btnIndoorService);
-
-        View.OnClickListener indoor_listener = new View.OnClickListener()
-        {
-            public void onClick(View v) {
-                isOutdoor = false;
-            }
-        };
-
-        b.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        final AlertDialog test = b.create();
+        okbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (false) { //insert validation of fields here
-                } else {
-                    String srvName = serviceName.getText().toString();
-                    double rate = Double.parseDouble(serviceRate.getText().toString());
-                    listener.applyTexts(id, srvName, rate);
+            public void onClick(View v) {
+                try{//validating null fields
+                    if (false) { //insert validation of fields here
+                    } else {
 
+                        boolean isOutdoor;
+
+                        if (servType.getCheckedRadioButtonId() == R.id.btnIndoorService){
+                            isOutdoor = false;
+                        }else{
+                            isOutdoor = true;
+                        }
+
+                        String srvName = serviceName.getText().toString();
+                        double rate = Double.parseDouble(serviceRate.getText().toString());
+
+                        listener.receiveServiceUpdate(id, srvName, rate, isOutdoor);
+                        test.dismiss();
+
+
+                    }
+                }catch(Exception e){
+                    Toast.makeText(getActivity() ,"Please enter valid name and rate", Toast.LENGTH_LONG).show();
                 }
+
             }
         });
 
-        indoor.setOnClickListener(indoor_listener);
+        cancelbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                test.dismiss();
+            }
+        });
 
-        return b.create();
+        return test;
     }
 
     @Override
@@ -100,6 +120,6 @@ public class EditServiceDialog extends AppCompatDialogFragment {
     }
 
     public interface EditServiceDialogListener {
-        void applyTexts(String id, String serviceName, double serviceRate);
+        void receiveServiceUpdate(String id, String serviceName, double serviceRate, boolean isOutdoor);
     }
 }

@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="20dp"
         android:paddingLeft="20dp"
@@ -15,11 +15,11 @@
         android:paddingRight="20dp">
 
         <TextView
-            android:id="@+id/editServiceTV"
+            android:id="@+id/dialogTitleTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Edit Service "
+            android:text="Edit Service"
             android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="18sp" />
 
@@ -28,29 +28,59 @@
             android:layout_height="wrap_content"
             android:padding="20dp" />
 
-        <EditText
-            android:id="@+id/serviceNameET"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textAutoCorrect|textPersonName"
-            android:padding="10dp"
-            android:text="Enter Service Name "
-            android:textColor="@color/common_google_signin_btn_text_light_focused" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/serviceNameET"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textAutoCorrect|textPersonName"
+                android:padding="10dp"
+                android:text="Enter Service Name "
+                android:textColor="@color/common_google_signin_btn_text_light_focused" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="$/hr"
+                android:visibility="invisible" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/serviceRateET"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:padding="10dp"
+                android:text="Enter Service Rate"
+                android:textColor="@color/common_google_signin_btn_text_light_default" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="$/hr" />
+        </LinearLayout>
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-        <EditText
-            android:id="@+id/serviceRateET"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:padding="10dp"
-            android:text="Enter Service Rate"
-            android:textColor="@color/common_google_signin_btn_text_light_default" />
 
         <Space
             android:layout_width="match_parent"
@@ -65,37 +95,56 @@
             android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="18sp" />
 
-        <RadioButton
-            android:id="@+id/btnIndoorService"
+        <RadioGroup
+            android:id="@+id/radioTypeGroup"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="Indoor Service"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
-            tools:id="btnIndoorService" />
+            android:layout_height="match_parent">
 
-        <RadioButton
-            android:id="@+id/btnOutdoorService"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="Outdoor Service" />
+            <RadioButton
+                android:id="@+id/btnIndoorService"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Indoor Service"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                tools:id="btnIndoorService" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <RadioButton
+                android:id="@+id/btnOutdoorService"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Outdoor Service" />
+        </RadioGroup>
 
-        <Button
-            android:id="@+id/btnOK"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="OK" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btrnCancel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="CANCEL" />
+            <Space
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7" />
+
+            <Button
+                android:id="@+id/btnCancel"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cancel"
+                android:textColor="@color/colorAccent" />
+
+            <Button
+                android:id="@+id/btnOk"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="OK"
+                android:textColor="@color/colorAccent" />
+        </LinearLayout>
 
     </LinearLayout>
 

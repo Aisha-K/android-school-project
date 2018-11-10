@@ -15,17 +15,31 @@ public class Service {
 
     Service(String serviceName, boolean isOutdoor, double rate, String serviceId ){
         this.serviceName=serviceName;
-        this.type=type;
         this.rate=rate;
         this.serviceId=serviceId;
 
+        roundRate();
+
         if(isOutdoor){
             type="outdoor";
+            iconName = "outdoor_icon";
         }
         else {
             type = "indoor";
+            iconName = "indoor_icon";
         }
-        iconName = "default_icon";
+
+    }
+
+    private void roundRate(){
+        rate = rate*100;
+
+        double fract = rate - (int)rate;
+        if(fract >=0.5){
+            rate+= 1-fract;
+        }
+        int roundedRate = (int)rate;
+        rate = roundedRate/100.00;
     }
 
     //getters
@@ -40,6 +54,18 @@ public class Service {
     public String type(){
         return type;
     }
+
+    public String id(){
+        return serviceId;
+    }
+
+    //setters
+    public void setName(String name){serviceName = name;}
+
+    public void setRate(Double newRate){rate = newRate;}
+
+    public void setType(String type){this.type = type;}
+
 
 
 

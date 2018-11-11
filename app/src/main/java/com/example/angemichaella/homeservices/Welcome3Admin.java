@@ -79,12 +79,12 @@ public class Welcome3Admin extends AppCompatActivity implements EditServiceDialo
         vp.setAdapter(tabPageAdptr);
     }
 
-    public void receiveServiceUpdate(String id, String newName, double newRate, boolean isOutdoor){
+    public void receiveServiceUpdate(String id, String oldname, String newName, double newRate, boolean isOutdoor){
         if(id.equals("creatingNewUser")){
             serviceTab.newService(newName, newRate, isOutdoor);
         }
         else {
-            serviceTab.editService(id, newName, newRate, isOutdoor);
+            serviceTab.editService(id, oldname, newName, newRate, isOutdoor);
         }
     }
 

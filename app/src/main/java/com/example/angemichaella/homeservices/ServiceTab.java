@@ -54,7 +54,8 @@ public class ServiceTab extends Fragment{
 
 
         //updates list of services when data changed
-        databaseServices.addValueEventListener(new ValueEventListener(){
+        Query query = databaseServices.orderByChild("serviceName"); //orders list alphabetically based on the servie name
+        query.addValueEventListener(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot){
                 services.clear();
@@ -194,31 +195,40 @@ public class ServiceTab extends Fragment{
     }
 
     //updates a service in the database with new info
-    protected void editService( final String ServiceId, final String newName, final double newPrice, final boolean isOutdoor){
+    protected void editService( final String ServiceId, String oldname, final String newName, final double newPrice, final boolean isOutdoor){
+        //if the name was not changed, we do not need to search wether the new name is already in use
+        if(oldname.equals(newName)){
+            DatabaseReference dR = databaseServices.child(ServiceId);
+            dR.removeValue();
+            Service service = new Service(newName, isOutdoor, newPrice, ServiceId);
+            dR.setValue(service);
+        }
+        else {
+            //finding if service name already exists
+            Query query = databaseServices.orderByChild("serviceName").equalTo(newName);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        //username exists
+                        Toast.makeText(getActivity(), "Service already exists, try again with a new name", Toast.LENGTH_LONG).show();
+                    } else { //service does not exist, create service
+                        DatabaseReference dR = databaseServices.child(ServiceId);
+                        dR.removeValue();
+                        Service service = new Service(newName, isOutdoor, newPrice, ServiceId);
+                        dR.setValue(service);
 
-        //finding if service already exists by finding if it
-        Query query = databaseServices.orderByChild("serviceName").equalTo(newName);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    //username exists
-                    Toast.makeText( getActivity() , "Service already exists, try again with a new name", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "Service Updated", Toast.LENGTH_LONG).show();
+                    }
                 }
-                else{ //service does not exist, create service
-                    DatabaseReference dR = databaseServices.child(ServiceId);
-                    dR.removeValue();
-                    Service service= new Service( newName, isOutdoor,newPrice, ServiceId);
-                    dR.setValue(service);
 
-                    Toast.makeText( getActivity() , "Service Updated", Toast.LENGTH_LONG).show();
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    System.out.println("The read failed: " + databaseError.getCode());
                 }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
+            });
+
+        }
 
     }
 

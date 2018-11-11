@@ -32,7 +32,7 @@ public class EditServiceDialog extends AppCompatDialogFragment {
         Bundle mArgs = getArguments();
 
         final String title = mArgs.getString("dialog_title");
-        String name = mArgs.getString("srv_name");
+        final String name = mArgs.getString("srv_name");
         String rate = mArgs.getString("srv_rate");
         final String id = mArgs.getString("srv_id");
         String type = mArgs.getString("srv_type");
@@ -84,7 +84,8 @@ public class EditServiceDialog extends AppCompatDialogFragment {
                         String srvName = serviceName.getText().toString();
                         double rate = Double.parseDouble(serviceRate.getText().toString());
 
-                        listener.receiveServiceUpdate(id, srvName, rate, isOutdoor);
+                        //sends new name/rate/isOutdoor value to method in Welcome3Admin
+                        listener.receiveServiceUpdate(id, name, srvName, rate, isOutdoor);
                         test.dismiss();
 
 
@@ -120,6 +121,6 @@ public class EditServiceDialog extends AppCompatDialogFragment {
     }
 
     public interface EditServiceDialogListener {
-        void receiveServiceUpdate(String id, String serviceName, double serviceRate, boolean isOutdoor);
+        void receiveServiceUpdate(String id, String oldname, String serviceName, double serviceRate, boolean isOutdoor);
     }
 }

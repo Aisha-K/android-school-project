@@ -4,7 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class WelcomeServiceProvider extends AppCompatActivity {
+import android.view.View;
+import android.widget.Toast;
+
+public class WelcomeServiceProvider extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,4 +20,6 @@ public class WelcomeServiceProvider extends AppCompatActivity {
         TextView textViewWelcomeServiceProvider = (TextView) findViewById(R.id.textViewWelcomeServiceProvider);
         textViewWelcomeServiceProvider.setText("Welcome, " + username);
     }
+
+
 }

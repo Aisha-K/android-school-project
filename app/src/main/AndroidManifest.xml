@@ -20,6 +20,7 @@
         <activity android:name=".WelcomeHomeOwner" />
         <activity android:name=".WelcomeAdmin" />
         <activity android:name=".WelcomeServiceProvider" />
+        <activity android:name=".AvailabilityServiceProvider" />
         <activity android:name=".User_list_layout" />
         <activity android:name=".UserList" />
         <activity

@@ -165,8 +165,8 @@ public class MainActivity extends AppCompatActivity {
         else if (user.type.trim().equals("HomeOwner")){
             intent = (new Intent(MainActivity.this, WelcomeHomeOwner.class));
         }
-        else if (user.type.trim().equals("ServiceProvider")){
-            intent = (new Intent(MainActivity.this, WelcomeServiceProvider.class));
+        else if (user.type.trim().equals("ServiceProvider")){//GOES STRAIGHT TO THE AVAILABILITY SCREEN JUST FOR TESTING
+            intent = (new Intent(MainActivity.this, AvailabilityServiceProvider.class));//WelcomeServiceProvider.class));
         }
 
         intent.putExtra( "USER_NAME", user.getUsername());

@@ -12,11 +12,11 @@ public class Time {
 
     public Time(int hr, int min, int tense){
         hour = hr;
-        minute = min;
-        hour += 12*tense;
-        if(hour == 24){
+        minute = min;  
+        if(hour == 12){
             hour = 0;
         }
+        hour += 12*tense;
         time = 60*hour + minute;
 
     }

@@ -8,13 +8,23 @@ package com.example.angemichaella.homeservices;
     import android.view.LayoutInflater;
     import android.view.View;
     import android.widget.Button;
+    import android.widget.CheckBox;
     import android.widget.NumberPicker;
     import android.widget.TextView;
     import android.widget.Toast;
 
+    import java.util.ArrayList;
+    import java.util.List;
+
 public class AddAvailabilityDialog extends AppCompatDialogFragment {
 
-        Button sat;
+        CheckBox sun;
+        CheckBox mon;
+        CheckBox tues;
+        CheckBox wed;
+        CheckBox thur;
+        CheckBox fri;
+        CheckBox sat;
 
         NumberPicker hourPicker;
         NumberPicker minPicker;
@@ -53,7 +63,14 @@ public class AddAvailabilityDialog extends AppCompatDialogFragment {
 
 
             //initializing the initial view of the dialog
-            sat = (Button) v.findViewById(R.id.sat);
+            sun = (CheckBox) v.findViewById(R.id.sun);
+            mon =  (CheckBox) v.findViewById(R.id.mon);
+            tues =  (CheckBox) v.findViewById(R.id.tue);
+            wed =  (CheckBox) v.findViewById(R.id.wed);
+            thur =  (CheckBox) v.findViewById(R.id.thur);
+            fri =  (CheckBox) v.findViewById(R.id.fri);
+            sat =  (CheckBox) v.findViewById(R.id.sat);
+
 
             hourPicker = (NumberPicker) v.findViewById(R.id.hourPicker);
             minPicker = (NumberPicker) v.findViewById(R.id.minutePicker);
@@ -135,8 +152,44 @@ public class AddAvailabilityDialog extends AppCompatDialogFragment {
                     if(from.time()>to.time()){
                         errorMsg.setVisibility(View.VISIBLE);
                     }else{
-                        listener.receiveAvailability(from, to);
-                        test.dismiss();
+                        int n = 0; //number of days chosen, used to make sure smth was selected
+                        ArrayList<Day> days = new ArrayList<>();
+                        if(sun.isChecked()){
+                            days.add(Day.SUNDAY);
+                            n++;
+                        }
+                        if(mon.isChecked()){
+                            days.add(Day.MONDAY);
+                            n++;
+                        }
+                        if(tues.isChecked()){
+                            days.add(Day.TUESDAY);
+                            n++;
+                        }
+                        if(wed.isChecked()){
+                            days.add(Day.WEDNESDAY);
+                            n++;
+                        }
+                        if(thur.isChecked()){
+                            days.add(Day.THURSDAY);
+                            n++;
+                        }
+                        if(fri.isChecked()){
+                            days.add(Day.FRIDAY);
+                            n++;
+                        }
+                        if(sat.isChecked()){
+                            days.add(Day.SATURDAY);
+                            n++;
+                        }
+
+                        if(n == 0){
+                            errorMsg.setVisibility(View.VISIBLE); //not the right eror message but just for now
+                        }else{
+                            listener.receiveAvailability(days, from, to);
+                            test.dismiss();
+                        }
+
                     }
 
 
@@ -167,6 +220,6 @@ public class AddAvailabilityDialog extends AppCompatDialogFragment {
         }
 
         public interface AddAvailabilityListener {
-            void receiveAvailability(Time from, Time to);
+            void receiveAvailability(List<Day> days, Time from, Time to);
         }
     }

@@ -12,5 +12,11 @@ public class Availability {
         to = t;
     }
 
+    public String toString(){
+        String result = day + " from " +from+" to "+to;
+        return result;
+    }
+
+
 
 }

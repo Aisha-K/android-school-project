@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.EditText;
 import android.view.View;
 import android.widget.Toast;
@@ -166,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
             intent = (new Intent(MainActivity.this, WelcomeHomeOwner.class));
         }
         else if (user.type.trim().equals("ServiceProvider")){//GOES STRAIGHT TO THE AVAILABILITY SCREEN JUST FOR TESTING
-            intent = (new Intent(MainActivity.this, AvailabilityServiceProvider.class));//WelcomeServiceProvider.class));
+            intent = (new Intent(MainActivity.this, AvailabilityPage.class));//WelcomeServiceProvider.class));
         }
 
         intent.putExtra( "USER_NAME", user.getUsername());

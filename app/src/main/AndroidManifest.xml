@@ -26,6 +26,9 @@
         <activity
             android:name=".Welcome3Admin"
             android:label="@string/title_activity_welcome3_admin"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ServiceProviderNav"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

@@ -9,8 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-public class ServiceProviderNav extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ServiceProviderNav extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AddAvailabilityDialog.AddAvailabilityListener{
     private DrawerLayout drawer;
 
     @Override
@@ -54,7 +58,7 @@ public class ServiceProviderNav extends AppCompatActivity implements NavigationV
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-        //opens appropriate fragment base don which item clicked
+        //opens appropriate fragment based on which item clicked
         switch(menuItem.getItemId()){
             case R.id.nav_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, //puts fragment infragment container
@@ -73,4 +77,29 @@ public class ServiceProviderNav extends AppCompatActivity implements NavigationV
         drawer.closeDrawer(GravityCompat.START);
         return true;    //true = item selected
     }
+
+    @Override
+    /**
+     * heres where you can do what needs to be done by the availabilities that have been added
+     */
+    public void receiveAvailability(List<Day> days, Time from, Time to){
+
+        ArrayList<Availability> avls = new ArrayList<>(); // holds the availabilities chosen from the dialog in a list
+
+        String avlsString = "Adding Availabilities:";//for testing toast can be removed
+        for(int i = 0; i< days.size(); i++){
+            avls.add(new Availability(days.get(i), from, to)); //adding each availability
+
+            avlsString += "\n" + avls.get(i); //just for testing toast can be removed
+        }
+
+        /*
+
+        MAKE NECESSARY UPDATES TO THE SERVICE PROVIDERS INFO HERE
+
+        */
+
+        Toast.makeText( this ,avlsString, Toast.LENGTH_LONG).show(); //can be removed, just for display for now
+    }
+
 }

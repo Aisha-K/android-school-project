@@ -28,7 +28,6 @@ import java.util.ArrayList;
 
 public class AddServiceDialog extends AppCompatDialogFragment {
 
-    private Button addServiceBtn;
     protected ArrayList<Service> services;
     DatabaseReference databaseServices;
     ListView myServiceListView;
@@ -128,12 +127,14 @@ public class AddServiceDialog extends AppCompatDialogFragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Context context)
+    {
         super.onAttach(context);
 
         try {
-            listener = (AddServiceDialogListener) context;
-        } catch (ClassCastException e) {
+            listener = (AddServiceDialog.AddServiceDialogListener) context;
+        } catch (ClassCastException e)
+        {
             throw new ClassCastException(context.toString() + "must implement ESD Listener");
         }
     }

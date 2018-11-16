@@ -4,25 +4,23 @@ package com.example.angemichaella.homeservices;
 //firebase relies on some methods/ syntax to store/retrieve objects properly
 public class User {
 
-    public String username;
-    public String password;
-    public String userId;
-    public String type;
+    private String username;
+    private String password;
+    private String userId;
+    private String type;
+    private int phoneNumber;
+    private String email;
+
 
     //default constructor
     public User(){
     }
 
-    public User(String userName, String password, String userId) {
+    public User(String userName, String password, String email, String userId, String type) {
         this.username = userName;
         this.password = password;
         this.userId = userId;
-    }
-
-    public User(String userName, String password, String userId, String type) {
-        this.username = userName;
-        this.password = password;
-        this.userId = userId;
+        this.email = email;
         this.type=type;
     }
 
@@ -58,4 +56,6 @@ public class User {
     public String getType() {
         return type;
     }
+
+    public void setPhoneNumber(int number){phoneNumber = number;}
 }

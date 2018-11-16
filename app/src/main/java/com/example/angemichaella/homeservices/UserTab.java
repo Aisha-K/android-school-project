@@ -1,16 +1,10 @@
 package com.example.angemichaella.homeservices;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -88,8 +82,10 @@ public class UserTab extends Fragment {
                         users.add(user);
                     }
                 }
-                UserList userAdapter = new UserList(getActivity(), users);
-                users_list.setAdapter(userAdapter);
+                if(getActivity()!= null) {
+                    UserList userAdapter = new UserList(getActivity(), users);
+                    users_list.setAdapter(userAdapter);
+                }
             }
             public void onCancelled(DatabaseError databaseError){
 

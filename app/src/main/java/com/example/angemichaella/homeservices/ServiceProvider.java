@@ -1,5 +1,7 @@
 package com.example.angemichaella.homeservices;
 
+import java.util.ArrayList;
+
 public class ServiceProvider extends User {
 
     private String address = "";
@@ -7,6 +9,7 @@ public class ServiceProvider extends User {
     private String companyName = "";
     private String description = "";
     private boolean isLicensed = false;
+    private ArrayList<Availability> availabilities;
 
     //default constructor
     public ServiceProvider(){
@@ -14,13 +17,8 @@ public class ServiceProvider extends User {
     }
 
     // to be completed in future project deliverable
-    public ServiceProvider(String userName, String password, String userId){
-        super(userName, password, userId);
-        type="ServiceProvider";
-    }
-
-    public ServiceProvider(String userName, String password, String userId, String type){
-        super(userName, password, userId, type);
+    public ServiceProvider(String userName, String password, String email, String userId){
+        super(userName, password, email, userId, "ServiceProvider");
     }
 
     // getters methods

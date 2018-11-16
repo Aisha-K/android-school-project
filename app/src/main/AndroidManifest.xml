@@ -25,10 +25,13 @@
         <activity
             android:name=".Welcome3Admin"
             android:label="@string/title_activity_welcome3_admin"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".ServiceProviderNav"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTask"/>
+        <activity android:name=".CreateAccountPage"></activity>
     </application>
 
 </manifest>

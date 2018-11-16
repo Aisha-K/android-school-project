@@ -1,13 +1,10 @@
 package com.example.angemichaella.homeservices;
 
-import android.app.AlertDialog;
-
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.EditText;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -67,20 +64,8 @@ public class MainActivity extends AppCompatActivity {
         updateAdmin(); //in case admin got deleted
         try{
             String username = editTextName.getText().toString();
-            String password = editTextPassword.getText().toString();
+            tryCreateAccount(username);
 
-            if(username.charAt(0) == ' '){
-                Toast.makeText( this ,"Username cannot start with a space", Toast.LENGTH_LONG).show();
-            }else if(cleanUp(username).length() < 3){
-                Toast.makeText( this ,"Username must be at least 3 characters", Toast.LENGTH_LONG).show();
-            }else if(password.length() < 3) {
-                Toast.makeText(this, "Password must be at least 3 characters", Toast.LENGTH_LONG).show();
-            } else if (!isAlpha(username)) {
-                Toast.makeText(this , "Username should contains letters or dashes only", Toast.LENGTH_LONG).show();
-            }else{
-                username = cleanUp(username);
-                tryCreateAccount(username, password);
-            }
         }catch(Exception e){
             //idk what to say
         }
@@ -96,59 +81,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    int choice; //issa whole mess down there
-    private void newAccPopUp(){
-        String[] userTypes;
-        if(adminExists){
-            userTypes = new String[2];
-            userTypes[0] = "Home Owner";
-            userTypes[1] = "Service Provider";
-        }else{
-            userTypes = new String[3];
-            userTypes[0] = "Admin";
-            userTypes[1] = "Home Owner";
-            userTypes[2] = "Service Provider";
-        }
-
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("New Account Type: ");
-
-        builder.setSingleChoiceItems(userTypes, -1,  new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                choice = which;
-                if(adminExists){
-                    choice++;
-                }
-            }
-        });
-
-
-        builder.setPositiveButton("Create", new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int id){
-
-                createAccount(choice);
-                dialog.dismiss();//user clicked create
-
-            }
-        });
-
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int id){
-                choice = -1;
-                dialog.dismiss();
-                //user clicked cancel
-            }
-        });
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
-
-    }
-
-
     // PLEASE DO NOT TOUCH THE CODE BELOW!!!!
 
 
@@ -158,13 +90,13 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = null;
 
-        if(user.type.trim().equals("Admin")) {
+        if(user.getType().trim().equals("Admin")) {
             intent = (new Intent(MainActivity.this, Welcome3Admin.class));
         }
-        else if (user.type.trim().equals("HomeOwner")){
+        else if (user.getType().trim().equals("HomeOwner")){
             intent = (new Intent(MainActivity.this, WelcomeHomeOwner.class));
         }
-        else if (user.type.trim().equals("ServiceProvider")){//GOES STRAIGHT TO THE AVAILABILITY SCREEN JUST FOR TESTING
+        else if (user.getType().trim().equals("ServiceProvider")){//GOES STRAIGHT TO THE AVAILABILITY SCREEN JUST FOR TESTING
             intent = (new Intent(MainActivity.this, ServiceProviderNav.class));//WelcomeServiceProvider.class));
         }
 
@@ -196,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                         User retrievedUser= childSnapshot.getValue(User.class);
 
                         //checking if the password matches given password
-                        if(retrievedUser.password.equals(password)){
+                        if(retrievedUser.getPassword().equals(password)){
                             signIn(retrievedUser);
                         }
                         else{
@@ -206,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else{
                     Toast.makeText( context ,"User does not exist", Toast.LENGTH_LONG).show();
-                    }
+                }
             }
 
             @Override
@@ -217,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public boolean tryCreateAccount(final String username, final String password){
+    public void tryCreateAccount(final String username){//}, final String password){
         final MainActivity context=this;
 
         //query gets the node where the user with parameter username exists in database
@@ -232,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText( context , "User Already Exists", Toast.LENGTH_LONG).show();
                 }
                 else{ //username does not exist, create account
-                    newAccPopUp();
+                    goToCreateAccountPage(username);
                 }
 
             }
@@ -242,43 +174,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        return true;
     }
 
-    public User createAccount(String username, String password, int type){
-        //getting a unique id and we will use it as the Primary Key for our Product
-        // return the new user
-
-
-        String id = databaseUsers.push().getKey();
-        User newUser = null;
-        if(type == HOMEOWNER){
-            newUser = new HomeOwner(username, password, id);
-
-        }else if (type == SERVICEPROVIDER){
-            newUser = new ServiceProvider(username, password, id);
-        } else if(type == ADMIN){
-            newUser = new Admin(username, password, id);
-        }
-        //Saving the User
-
-        databaseUsers.child(id).setValue(newUser);
-        return newUser;
-
-
-    }
-
-    private void createAccount(int type){
-        EditText un = (EditText)findViewById(R.id.usernameET);
-        EditText pw = (EditText)findViewById(R.id.passwordET);
-        String username = un.getText().toString();
-        String password = pw.getText().toString();
-
-        signIn(createAccount(username, password, type));
-        updateAdmin();//in case someone just made an admin account
-        choice = -1; //resetting
-
-    }
 
 
     private void updateAdmin(){
@@ -315,5 +212,17 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return true;
+    }
+
+    private void goToCreateAccountPage(String un){
+        if(un == null || un.length() == 0){
+            un =" ";
+        }
+        Intent intent = new Intent(MainActivity.this, CreateAccountPage.class);
+        intent.putExtra( "USER_NAME", un);
+
+        updateAdmin();
+        intent.putExtra( "admin_exist", adminExists);
+        startActivity(intent);
     }
 }

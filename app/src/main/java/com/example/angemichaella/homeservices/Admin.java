@@ -8,12 +8,8 @@ public class Admin extends User {
         super();
     }
 
-    public Admin(String userName, String password, String userId){
-            super(userName, password, userId);
-            type= "Admin";
+    public Admin(String userName, String password, String email, String userId){
+        super(userName, password, email,userId, "Admin");
     }
 
-    public Admin(String userName, String password, String userId, String type){
-        super(userName, password, userId, type);
-    }
 }

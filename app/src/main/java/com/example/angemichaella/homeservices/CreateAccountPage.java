@@ -241,8 +241,8 @@ public class CreateAccountPage extends AppCompatActivity {
         else if (user.getType().trim().equals("ServiceProvider")){//goes to navigator
             intent = (new Intent(CreateAccountPage.this, ServiceProviderNav.class));//WelcomeServiceProvider.class));
         }
-
         intent.putExtra( "USER_NAME", user.getUsername());
+        intent.putExtra("USER_ID", user.getUserId());
         startActivity(intent);
 
     }

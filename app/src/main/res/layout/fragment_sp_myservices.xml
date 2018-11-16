@@ -62,7 +62,7 @@
         </ListView>
 
         <Button
-            android:id="@+id/addServiceBtn"
+            android:id="@+id/addMyServiceBtn"
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -56,7 +56,7 @@ public class SpMyServicesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sp_myservices, null);
 
         //initialize attributes
-        addMyServiceBtn = (Button)view.findViewById(R.id.addServiceBtn);
+        addMyServiceBtn = (Button)view.findViewById(R.id.addMyServiceBtn);
         myServices = new ArrayList<Service>();
 
         //Reference to Service Providers services?

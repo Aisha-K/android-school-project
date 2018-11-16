@@ -169,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         intent.putExtra( "USER_NAME", user.getUsername());
+        intent.putExtra("USER_ID", user.getUserId());
         startActivity(intent);
 
     }

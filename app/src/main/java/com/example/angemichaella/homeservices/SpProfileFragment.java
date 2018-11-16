@@ -12,23 +12,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class SpProfileFragment extends Fragment {
     String username;
     String id;
-    DatabaseReference spNode; //node in database where this service provider is stored
 
+    ServiceProvider sp;// actual object
+    DatabaseReference spNode; //node in database where this service provider is stored
+    DatabaseReference usersDb;
 
     private LinearLayout incompleteProfileLyt;
+    private LinearLayout completeProfileLyt;
 
 
     private Button completeProfileBtn;
@@ -41,11 +49,21 @@ public class SpProfileFragment extends Fragment {
     private TextView companyErrorTv;
     private TextView descErrorTv;
     private TextView phoneErrorTv;
+    private CheckBox licensedBtn;
+
+    private TextView cCompany;
+    private TextView cDesc;
+    private TextView cPhone;
+    private TextView cEmail;
+    private TextView cName;
+
+
 
 
     //constructor that allows passing arguments from main activity
     public static SpProfileFragment newInstance(String username, String id ) {
         SpProfileFragment myFrag = new SpProfileFragment();
+
 
         Bundle args = new Bundle();
         args.putString("username", username);
@@ -62,7 +80,33 @@ public class SpProfileFragment extends Fragment {
         if (getArguments() != null) {
             username = getArguments().getString("username");
             id = getArguments().getString("ID");
+            spNode = FirebaseDatabase.getInstance().getReference("users").child( id );
+
+            //BOOTLEG WORK BC IDK HOW TO DO IT ANY OTHER WAY
+            usersDb = FirebaseDatabase.getInstance().getReference("users");
+
+            Query query = usersDb.orderByChild("username").equalTo(username);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+
+                        for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
+                            //retrieving the user with parameter username
+                            setSP(childSnapshot.getValue(ServiceProvider.class));
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    System.out.println("The read failed: " + databaseError.getCode());
+                }
+            }); //setting the sp....
+
+
         }
+
 
     }
 
@@ -70,17 +114,69 @@ public class SpProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        spNode = FirebaseDatabase.getInstance().getReference("users").child( id );
-
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_sp_profile, container, false);
 
         // initializing layout components
+
         incompleteProfileLyt = (LinearLayout) v.findViewById(R.id.incompleteProfileLyt);
+        completeProfileLyt = (LinearLayout) v.findViewById(R.id.profileLyt);
+
+        if(sp.isProfileCompleted()){
+            setCompleteProfileView(v);
+        }else{
+            setUpIncompleteProfileView(v);
+        }
+
+        return v;
+    }
+
+    public boolean validatePhone(){
+
+        try {
+            String phoneNumber = phoneEt.getText().toString().trim();
+
+            if (!android.util.Patterns.PHONE.matcher(phoneNumber).matches()) {
+                return false;
+            }
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+
+    public boolean validateCompany(){
+
+        try {
+            String company = companyEt.getText().toString().trim();
+
+            if (company.length() <2){
+                return false;
+            }
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+
+    public void setSP(ServiceProvider sp){
+        this.sp = sp;
+    }
+
+
+    public void updateSp(){
+        spNode.removeValue();
+        spNode.setValue(sp);
+    }
+
+    public void setUpIncompleteProfileView(View v){
+        completeProfileLyt.setVisibility(View.GONE);
 
         companyEt = (EditText) v.findViewById(R.id.companyEt);
         descEt = (EditText) v.findViewById(R.id.descEt);
         phoneEt = (EditText) v.findViewById(R.id.phoneEt);
+        licensedBtn = (CheckBox) v.findViewById(R.id.licenseCheckbox);
+
 
 
         companyErrorTv = (TextView) v.findViewById(R.id.companyError);
@@ -91,8 +187,6 @@ public class SpProfileFragment extends Fragment {
         phoneErrorTv.setVisibility(View.VISIBLE);
         companyErrorTv.setText("Mandatory Field");
         companyErrorTv.setVisibility(View.VISIBLE);
-
-
 
 
         phoneEt.addTextChangedListener(new TextWatcher() {
@@ -127,7 +221,6 @@ public class SpProfileFragment extends Fragment {
                 //then
             }
         });
-
         companyEt.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -160,59 +253,62 @@ public class SpProfileFragment extends Fragment {
         });
 
         completeProfileBtn = (Button) v.findViewById(R.id.completeProfileBtn);
-
-        //closes the profile complete lyt
         completeProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*boolean validInfo = validateInputs();
-                if(validInfo){
-                    setProfile(phoneNum, companyName, address, description);
+
+                if(validatePhone() && validateCompany()){
+
+                    String phoneNum = phoneEt.getText().toString().trim();
+                    String companyName = companyEt.getText().toString().trim();
+                    String description = null;
+                    boolean isLicensed = licensedBtn.isChecked();
+                    try{
+                        description = descEt.getText().toString().trim();
+                    }catch(Exception e){
+                        //keep it null
+                    }
+                    sp.setProfileInfo(phoneNum, companyName, description, isLicensed);
+                    updateSp();
                     //get rid of this layout, visible the other one.
-                }*/
+                    incompleteProfileLyt.setVisibility(View.GONE);
+                    completeProfileLyt.setVisibility(View.VISIBLE);
+                }
             }
         });
 
 
-        return v;
     }
 
-    /*public boolean validatePhone(){
+    public void setCompleteProfileView(View v){
+        incompleteProfileLyt.setVisibility(View.GONE);
+        completeProfileLyt.setVisibility(View.VISIBLE);
 
-        try {
-            String phoneNumber = phoneLyt.getEditText().getText().toString().trim();
+        cCompany = ( TextView ) v.findViewById(R.id.cptCompanyTV);
+        cDesc = ( TextView ) v.findViewById(R.id.cptCompanyTV);
+        cPhone = ( TextView ) v.findViewById(R.id.cptCompanyTV);
+        cEmail = ( TextView ) v.findViewById(R.id.cptCompanyTV);
+        cName = ( TextView ) v.findViewById(R.id.cptCompanyTV);
 
-            if (!android.util.Patterns.PHONE.matcher(phoneNumber).matches()) {
-                phoneLyt.setError("Enter a valid phone number");
-                return false;
-            } else {
-                phoneLyt.setErrorEnabled(false);
-                return true;
-            }
-        }catch(Exception e){
-            phoneLyt.setError("Enter a valid phone number");
-            return false;
+        TextView licensed = (TextView) v.findViewById(R.id.isLicensedTV);
+
+
+        String phone = sp.getPhoneNumber();
+        if(sp.getPhoneNumber().length() == 10){
+            String adphn = "("+phone.substring(0,2)+")-"+phone.substring(3,5)+"-"+phone.substring(6,9);
+            cPhone.setText(adphn);
+        }else{
+            cPhone.setText(phone);
         }
-    }*/
 
-    /*public boolean validateAddress(){
-
-        try {
-            String address = addressLyt.getEditText().getText().toString().trim();
-
-            if (!android.util.Patterns.PHONE.matcher(phoneNumber).matches()) {
-                phoneLyt.setError("Enter a valid phone number");
-                return false;
-            } else {
-                phoneLyt.setErrorEnabled(false);
-                return true;
-            }
-        }catch(Exception e){
-            phoneLyt.setError("Enter a valid phone number");
-            return false;
+        cCompany.setText(sp.getCompanyName());
+        cDesc.setText(sp.getDescription());
+        cEmail.setText(sp.getEmail());
+        cName.setText(sp.getUsername());
+        if(sp.isLicensed()){
+            licensed.setVisibility(View.VISIBLE);
+        }else{
+            licensed.setVisibility(View.GONE);
         }
-    }*/
-
-    public void addAvl(){
     }
 }

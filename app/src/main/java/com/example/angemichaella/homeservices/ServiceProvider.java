@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 public class ServiceProvider extends User {
 
-    private String address = "";
-    private String phoneNumber = "";
-    private String companyName = "";
-    private String description = "";
-    private boolean isLicensed = false;
+    private String phoneNumber;
+    private String companyName;
+    private String description;
+    private boolean isLicensed;
+    private boolean profileCompleted;
+
     private ArrayList<Availability> availabilities;
 
     //default constructor
@@ -19,19 +20,32 @@ public class ServiceProvider extends User {
     // to be completed in future project deliverable
     public ServiceProvider(String userName, String password, String email, String userId){
         super(userName, password, email, userId, "ServiceProvider");
+        isLicensed = false;
+        profileCompleted = false;
+        description = "empty";
     }
 
-    // getters methods
-    public String getAddress(){
-        return address;
+    public void setProfileInfo(String phone, String company, String desc, boolean licensing){
+        phoneNumber = phone;
+        companyName = company;
+
+        if(desc != null){
+            description = desc;
+        }
+        description = desc;
+        isLicensed = licensing;
+        profileCompleted = true;
     }
-    public String getPhoneNumber(){
+
+    public String getPhoneNumber() {
         return phoneNumber;
     }
-    public String getCompanyName(){
+
+    public String getCompanyName() {
         return companyName;
     }
-    public String getDescription(){
+
+    public String getDescription() {
         return description;
     }
 
@@ -39,24 +53,11 @@ public class ServiceProvider extends User {
         return isLicensed;
     }
 
-    // setters methods
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public boolean isProfileCompleted() {
+        return profileCompleted;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setLicensed(boolean licensed) {
-        isLicensed = licensed;
+    public ArrayList<Availability> getAvailabilities() {
+        return availabilities;
     }
 }

@@ -8,7 +8,6 @@ public class User {
     private String password;
     private String userId;
     private String type;
-    private int phoneNumber;
     private String email;
 
 
@@ -24,38 +23,43 @@ public class User {
         this.type=type;
     }
 
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getUsername() {
         return username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
     public String getUserId() {
         return userId;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getType() {
         return type;
     }
 
-    public void setPhoneNumber(int number){phoneNumber = number;}
+    public String getEmail() {
+        return email;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

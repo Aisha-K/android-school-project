@@ -107,7 +107,7 @@ public class SpAvailabilitiesFragment extends Fragment{
             }
         }); //setting the sp....*/
 
-    
+
 
 
 

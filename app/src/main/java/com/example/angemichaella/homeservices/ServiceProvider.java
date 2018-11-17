@@ -9,6 +9,7 @@ public class ServiceProvider extends User {
     private String description;
     private boolean isLicensed;
     private boolean profileCompleted;
+    private boolean hasAvailabities;
 
     private ArrayList<Availability> availabilities;
 
@@ -22,6 +23,7 @@ public class ServiceProvider extends User {
         super(userName, password, email, userId, "ServiceProvider");
         isLicensed = false;
         profileCompleted = false;
+        hasAvailabities = false;
         description = "empty";
     }
 
@@ -59,5 +61,25 @@ public class ServiceProvider extends User {
 
     public ArrayList<Availability> getAvailabilities() {
         return availabilities;
+    }
+
+    public void addAvailability(Availability availability){
+        availabilities.add(availability);
+
+        if(!hasAvailabities){
+            hasAvailabities = true;
+        }
+    }
+
+    public void removeAvailabitiy(Availability availability){
+        availabilities.remove(availability);
+
+        if(availabilities.isEmpty()){
+            hasAvailabities = false;
+        }
+    }
+
+    public boolean hasAvailabilities(){
+        return hasAvailabities;
     }
 }

@@ -4,13 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Availabilities Fragment"
-        android:textSize="30sp"
-        android:layout_centerInParent="true"/>
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingAddButton"
         android:layout_width="57dp"
@@ -24,6 +17,51 @@
         android:clickable="true"
         android:focusable="true"
         app:srcCompat="@android:drawable/ic_menu_add" />
+
+    <LinearLayout
+        android:id="@+id/availabilities_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="false"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:id="@+id/non_empty_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:text="My Availabilities" />
+
+            <ListView
+                android:id="@+id/av_list"
+                android:layout_width="match_parent"
+                android:layout_height="376dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/empty_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/no_availabilities"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Seems like you haven't entered your availabilities yet! Tap the button below to add some!" />
+        </LinearLayout>
+    </LinearLayout>
 
 
 </RelativeLayout>

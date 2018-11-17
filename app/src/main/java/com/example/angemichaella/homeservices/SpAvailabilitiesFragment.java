@@ -9,19 +9,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SpAvailabilitiesFragment extends Fragment{
+
     FloatingActionButton addAvailabilityBtn;
+
     String id;
     String username;
+
     DatabaseReference spNode; //node in database where this service provider is stored
+    ServiceProvider sp;// actual object
+
+    private LinearLayout availabilities_list;
+    private LinearLayout non_empty_list;
+    private LinearLayout empty_list;
+
+    // list of availabilities
+    ArrayList<Availability> avList = new ArrayList<Availability>();
+
+
 
     //constructor that allows passing arguments from main activity
     public static SpAvailabilitiesFragment newInstance(String username, String id ) {
@@ -34,6 +51,65 @@ public class SpAvailabilitiesFragment extends Fragment{
 
         return myFrag;
     }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+            username = getArguments().getString("username");
+            id = getArguments().getString("ID");
+            spNode = FirebaseDatabase.getInstance().getReference("users").child( id );
+        }
+    }
+
+    private void setAvList(){
+       spNode.addValueEventListener(new ValueEventListener(){
+           @Override
+           public void onDataChange(DataSnapshot dataSnapshot){
+
+               sp = dataSnapshot.getValue(ServiceProvider.class);
+
+               // check if list of availabilities is empty or no and display appropriate layour
+           }
+
+           @Override
+           public void onCancelled(DatabaseError databaseError){
+               System.out.println("The read failed: " + databaseError.getCode());
+           }
+
+       });
+    }
+
+    /*
+    private void setServiceProvider(){
+
+        spNode.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                sp = dataSnapshot.getValue(ServiceProvider.class);
+                // initializing layout components
+                loadingLyt.setVisibility(View.GONE);
+                Toast.makeText(getActivity(), sp.getEmail(), Toast.LENGTH_LONG).show();
+
+                if(sp.isProfileCompleted()){
+                    setCompleteProfileView();
+                }else{
+                    setUpIncompleteProfileView();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        }); //setting the sp....*/
+
+    
+
+
 
     @Nullable
     @Override

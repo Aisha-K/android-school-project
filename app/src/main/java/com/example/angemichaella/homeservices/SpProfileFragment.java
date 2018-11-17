@@ -122,7 +122,7 @@ public class SpProfileFragment extends Fragment {
         incompleteProfileLyt = (LinearLayout) v.findViewById(R.id.incompleteProfileLyt);
         completeProfileLyt = (LinearLayout) v.findViewById(R.id.profileLyt);
 
-        if(sp.isProfileCompleted()){
+        if(true){//sp.isProfileCompleted()){
             setCompleteProfileView(v);
         }else{
             setUpIncompleteProfileView(v);
@@ -217,8 +217,7 @@ public class SpProfileFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                //set colour topink :)
-                //then
+
             }
         });
         companyEt.addTextChangedListener(new TextWatcher() {
@@ -281,7 +280,7 @@ public class SpProfileFragment extends Fragment {
     }
 
     public void setCompleteProfileView(View v){
-        incompleteProfileLyt.setVisibility(View.GONE);
+        /*incompleteProfileLyt.setVisibility(View.GONE);
         completeProfileLyt.setVisibility(View.VISIBLE);
 
         cCompany = ( TextView ) v.findViewById(R.id.cptCompanyTV);
@@ -309,6 +308,11 @@ public class SpProfileFragment extends Fragment {
             licensed.setVisibility(View.VISIBLE);
         }else{
             licensed.setVisibility(View.GONE);
-        }
+        }*/
     }
+
+    private interface DatabaseCallBack{
+
+    }
+
 }

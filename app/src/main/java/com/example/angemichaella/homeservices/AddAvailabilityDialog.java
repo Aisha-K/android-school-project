@@ -36,7 +36,7 @@ public class AddAvailabilityDialog extends AppCompatDialogFragment {
 
         TextView errorMsg;
 
-        Button okbtn;
+        Button addbtn;
         Button cancelbtn;
 
         private AddAvailabilityListener listener;
@@ -45,20 +45,13 @@ public class AddAvailabilityDialog extends AppCompatDialogFragment {
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            /*Bundle mArgs = getArguments();
-
-            final String title = mArgs.getString("dialog_title");
-            final String name = mArgs.getString("srv_name");
-            String rate = mArgs.getString("srv_rate");
-            final String id = mArgs.getString("srv_id");
-            String type = mArgs.getString("srv_type");*/
 
             AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
             LayoutInflater inf = getActivity().getLayoutInflater();
             View v = inf.inflate(R.layout.availability_dialog, null);
 
             b.setView(v);
-            okbtn = (Button) v.findViewById(R.id.btnOk);
+            addbtn = (Button) v.findViewById(R.id.btnAdd);
             cancelbtn = (Button) v.findViewById(R.id.btnCancel);
 
 
@@ -134,7 +127,7 @@ public class AddAvailabilityDialog extends AppCompatDialogFragment {
 
 
             final AlertDialog test = b.create();
-            okbtn.setOnClickListener(new View.OnClickListener() {
+            addbtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -149,7 +142,8 @@ public class AddAvailabilityDialog extends AppCompatDialogFragment {
                     Time from = new Time(fromH, fromM, fromT);
                     Time to = new Time(toH, toM, toT);
 
-                    if(from.time()>to.time()){
+                    if(from.time()>=to.time()){
+                        errorMsg.setText("TO time should be greater than FROM time");
                         errorMsg.setVisibility(View.VISIBLE);
                     }else{
                         int n = 0; //number of days chosen, used to make sure smth was selected
@@ -184,6 +178,7 @@ public class AddAvailabilityDialog extends AppCompatDialogFragment {
                         }
 
                         if(n == 0){
+                            errorMsg.setText("Choose a day, please.");
                             errorMsg.setVisibility(View.VISIBLE); //not the right eror message but just for now
                         }else{
                             listener.receiveAvailability(days, from, to);

@@ -257,7 +257,6 @@
         android:id="@+id/errormsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TO time cannot be earlier than FROM."
         android:textColor="@android:color/holo_red_dark"
         android:visibility="invisible" />
 
@@ -281,12 +280,12 @@
             android:textColor="@color/colorAccent" />
 
         <Button
-            android:id="@+id/btnOk"
+            android:id="@+id/btnAdd"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="OK"
+            android:text="ADD"
             android:textColor="@color/colorAccent" />
     </LinearLayout>
 

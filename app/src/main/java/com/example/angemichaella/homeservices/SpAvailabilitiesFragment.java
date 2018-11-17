@@ -16,6 +16,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -60,72 +61,23 @@ public class SpAvailabilitiesFragment extends Fragment{
             username = getArguments().getString("username");
             id = getArguments().getString("ID");
             spNode = FirebaseDatabase.getInstance().getReference("users").child( id );
+            setAvList();
         }
     }
-
-    private void setAvList(){
-       spNode.addValueEventListener(new ValueEventListener(){
-           @Override
-           public void onDataChange(DataSnapshot dataSnapshot){
-
-               sp = dataSnapshot.getValue(ServiceProvider.class);
-
-               // check if list of availabilities is empty or no and display appropriate layour
-           }
-
-           @Override
-           public void onCancelled(DatabaseError databaseError){
-               System.out.println("The read failed: " + databaseError.getCode());
-           }
-
-       });
-    }
-
-    /*
-    private void setServiceProvider(){
-
-        spNode.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                sp = dataSnapshot.getValue(ServiceProvider.class);
-                // initializing layout components
-                loadingLyt.setVisibility(View.GONE);
-                Toast.makeText(getActivity(), sp.getEmail(), Toast.LENGTH_LONG).show();
-
-                if(sp.isProfileCompleted()){
-                    setCompleteProfileView();
-                }else{
-                    setUpIncompleteProfileView();
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        }); //setting the sp....*/
-
-
-
-
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        if(getArguments()!=null) {
-            username = getArguments().getString("username");
-            id = getArguments().getString("ID");
-            spNode = FirebaseDatabase.getInstance().getReference("Users").child(id);
-        }
 
-        Toast.makeText( getActivity() , id, Toast.LENGTH_LONG).show();        //inflates fragment layout
+        View v = inflater.inflate(R.layout.fragment_sp_availabilities, container, false);
+        non_empty_list = (LinearLayout) v.findViewById(R.id.non_empty_list);
+        empty_list = (LinearLayout) v.findViewById(R.id.empty_list);
 
-        View view= inflater.inflate(R.layout.fragment_sp_availabilities, container, false);
+        non_empty_list.setVisibility(View.GONE);
+        empty_list.setVisibility(View.VISIBLE);
 
-        addAvailabilityBtn= view.findViewById(R.id.floatingAddButton);
+        addAvailabilityBtn= v.findViewById(R.id.floatingAddButton);
 
         //availability button on click listener
         addAvailabilityBtn.setOnClickListener(new View.OnClickListener() {
@@ -136,16 +88,109 @@ public class SpAvailabilitiesFragment extends Fragment{
         });
 
 
-        return view;
+        return v;
     }
+
+
+    private void setAvList(){
+       spNode.addValueEventListener(new ValueEventListener(){
+           @Override
+           public void onDataChange(DataSnapshot dataSnapshot){
+
+               sp = dataSnapshot.getValue(ServiceProvider.class);
+
+               // check if list of availabilities is empty or no and display appropriate layout
+
+               if(sp.hasAvailabilities()){
+                   setNonEmptyList();
+               }
+               else {
+                   setEmptyList();
+               }
+
+           }
+
+           @Override
+           public void onCancelled(DatabaseError databaseError){
+               System.out.println("The read failed: " + databaseError.getCode());
+           }
+       });
+    }
+
+    private void setNonEmptyList(){
+
+        View v = getView();
+
+        avList = sp.getAvailabilities();
+
+    }
+
+    private void setEmptyList(){
+        View v = getView();
+
+    }
+
 
     private void newAvailabilityPopUp(){
         AddAvailabilityDialog d = new AddAvailabilityDialog();
         d.show(getActivity().getSupportFragmentManager(), "hi");
     }
 
+    // add availability to the database if availability doesn't already exists
+    protected void newAvailability(final Day d, final Time f, final Time t){
+
+        // temp availability instance to be probably added to the database
+        Availability temp = new Availability(d,f,t);
 
 
+        if(!avList.contains(temp)){ // if the availability doesn't already exist in the database
 
+            Toast.makeText( getActivity() , "Availability added", Toast.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(getActivity(), "Availability already exists",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /*
+    //updates a service in the database with new info
+    protected void editService( final String ServiceId, String oldname, final String newName, final double newPrice, final boolean isOutdoor){
+        //if the name was not changed, we do not need to search wether the new name is already in use
+        if(oldname.equals(newName)){
+            DatabaseReference dR = databaseServices.child(ServiceId);
+            dR.removeValue();
+            Service service = new Service(newName, isOutdoor, newPrice, ServiceId);
+            dR.setValue(service);
+        }
+        else {
+            //finding if service name already exists
+            Query query = databaseServices.orderByChild("serviceName").equalTo(newName);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        //username exists
+                        Toast.makeText(getActivity(), "Service already exists, try again with a new name", Toast.LENGTH_LONG).show();
+                    } else { //service does not exist, create service
+                        DatabaseReference dR = databaseServices.child(ServiceId);
+                        dR.removeValue();
+                        Service service = new Service(newName, isOutdoor, newPrice, ServiceId);
+                        dR.setValue(service);
+
+                        Toast.makeText(getActivity(), "Service Updated", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    System.out.println("The read failed: " + databaseError.getCode());
+                }
+            });
+
+        }
+
+    }
+
+    */
 
 }

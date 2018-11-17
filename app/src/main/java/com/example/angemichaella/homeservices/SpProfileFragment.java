@@ -33,10 +33,10 @@ public class SpProfileFragment extends Fragment {
 
     ServiceProvider sp;// actual object
     DatabaseReference spNode; //node in database where this service provider is stored
-    DatabaseReference usersDb;
 
     private LinearLayout incompleteProfileLyt;
     private LinearLayout completeProfileLyt;
+    private LinearLayout loadingLyt;
 
 
     private Button completeProfileBtn;
@@ -44,6 +44,7 @@ public class SpProfileFragment extends Fragment {
     private EditText companyEt;
     private EditText descEt;
     private EditText phoneEt;
+
 
 
     private TextView companyErrorTv;
@@ -82,29 +83,9 @@ public class SpProfileFragment extends Fragment {
             id = getArguments().getString("ID");
             spNode = FirebaseDatabase.getInstance().getReference("users").child( id );
 
-            //BOOTLEG WORK BC IDK HOW TO DO IT ANY OTHER WAY
-            usersDb = FirebaseDatabase.getInstance().getReference("users");
+            //BOOTLEG WORK BC IDK HOW TO DO IT ANY OTHER WA
 
-            Query query = usersDb.orderByChild("username").equalTo(username);
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.exists()){
-
-                        for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
-                            //retrieving the user with parameter username
-                            setSP(childSnapshot.getValue(ServiceProvider.class));
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    System.out.println("The read failed: " + databaseError.getCode());
-                }
-            }); //setting the sp....
-
-
+            setServiceProvider();
         }
 
 
@@ -114,19 +95,16 @@ public class SpProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_sp_profile, container, false);
-
-        // initializing layout components
-
         incompleteProfileLyt = (LinearLayout) v.findViewById(R.id.incompleteProfileLyt);
         completeProfileLyt = (LinearLayout) v.findViewById(R.id.profileLyt);
+        loadingLyt = (LinearLayout) v.findViewById(R.id.loadingScreen);
 
-        if(true){//sp.isProfileCompleted()){
-            setCompleteProfileView(v);
-        }else{
-            setUpIncompleteProfileView(v);
-        }
+        incompleteProfileLyt.setVisibility(View.GONE);
+        completeProfileLyt.setVisibility(View.GONE);
+        loadingLyt.setVisibility(View.VISIBLE);
 
         return v;
     }
@@ -159,9 +137,6 @@ public class SpProfileFragment extends Fragment {
         }
     }
 
-    public void setSP(ServiceProvider sp){
-        this.sp = sp;
-    }
 
 
     public void updateSp(){
@@ -169,8 +144,11 @@ public class SpProfileFragment extends Fragment {
         spNode.setValue(sp);
     }
 
-    public void setUpIncompleteProfileView(View v){
+    public void setUpIncompleteProfileView(){
         completeProfileLyt.setVisibility(View.GONE);
+        incompleteProfileLyt.setVisibility(View.VISIBLE);
+
+        View v = getView();
 
         companyEt = (EditText) v.findViewById(R.id.companyEt);
         descEt = (EditText) v.findViewById(R.id.descEt);
@@ -194,8 +172,6 @@ public class SpProfileFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                //set colour topink :)
-                //then
                 String phone =phoneEt.getText().toString().trim();
                 if(phone.equals("")){
                     phoneErrorTv.setText("Mandatory Field");
@@ -279,15 +255,16 @@ public class SpProfileFragment extends Fragment {
 
     }
 
-    public void setCompleteProfileView(View v){
-        /*incompleteProfileLyt.setVisibility(View.GONE);
-        completeProfileLyt.setVisibility(View.VISIBLE);
+    public void setCompleteProfileView(){
+
+
+        View v = getView();
 
         cCompany = ( TextView ) v.findViewById(R.id.cptCompanyTV);
-        cDesc = ( TextView ) v.findViewById(R.id.cptCompanyTV);
-        cPhone = ( TextView ) v.findViewById(R.id.cptCompanyTV);
-        cEmail = ( TextView ) v.findViewById(R.id.cptCompanyTV);
-        cName = ( TextView ) v.findViewById(R.id.cptCompanyTV);
+        cDesc = ( TextView ) v.findViewById(R.id.cptDescTV);
+        cPhone = ( TextView ) v.findViewById(R.id.cptPhoneTV);
+        cEmail = ( TextView ) v.findViewById(R.id.cptEmailTV);
+        cName = ( TextView ) v.findViewById(R.id.spNameTV);
 
         TextView licensed = (TextView) v.findViewById(R.id.isLicensedTV);
 
@@ -308,10 +285,42 @@ public class SpProfileFragment extends Fragment {
             licensed.setVisibility(View.VISIBLE);
         }else{
             licensed.setVisibility(View.GONE);
-        }*/
+        }
+
+        incompleteProfileLyt.setVisibility(View.GONE);
+        completeProfileLyt.setVisibility(View.VISIBLE);
     }
 
+    private void setServiceProvider(){
+
+        spNode.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    sp = dataSnapshot.getValue(ServiceProvider.class);
+                    // initializing layout components
+                    loadingLyt.setVisibility(View.GONE);
+                    Toast.makeText(getActivity(), sp.getEmail(), Toast.LENGTH_LONG).show();
+
+                    if(sp.isProfileCompleted()){
+                        setCompleteProfileView();
+                    }else{
+                        setUpIncompleteProfileView();
+                    }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        }); //setting the sp....*/
+
+    }
+
+
     private interface DatabaseCallBack{
+        void getServiceProvider(ServiceProvider s);
 
     }
 

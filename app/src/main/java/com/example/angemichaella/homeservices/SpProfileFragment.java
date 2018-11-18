@@ -271,7 +271,7 @@ public class SpProfileFragment extends Fragment {
 
         String phone = sp.getPhoneNumber();
         if(sp.getPhoneNumber().length() == 10){
-            String adphn = "("+phone.substring(0,2)+")-"+phone.substring(3,5)+"-"+phone.substring(6,9);
+            String adphn = "("+phone.substring(0,3)+")-"+phone.substring(3,6)+"-"+phone.substring(6,10);
             cPhone.setText(adphn);
         }else{
             cPhone.setText(phone);
@@ -300,7 +300,6 @@ public class SpProfileFragment extends Fragment {
                     sp = dataSnapshot.getValue(ServiceProvider.class);
                     // initializing layout components
                     loadingLyt.setVisibility(View.GONE);
-                    Toast.makeText(getActivity(), sp.getEmail(), Toast.LENGTH_LONG).show();
 
                     if(sp.isProfileCompleted()){
                         setCompleteProfileView();
@@ -315,12 +314,6 @@ public class SpProfileFragment extends Fragment {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         }); //setting the sp....*/
-
-    }
-
-
-    private interface DatabaseCallBack{
-        void getServiceProvider(ServiceProvider s);
 
     }
 

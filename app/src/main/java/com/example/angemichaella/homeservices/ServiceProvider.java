@@ -7,7 +7,7 @@ public class ServiceProvider extends User {
     private String phoneNumber;
     private String companyName;
     private String description;
-    private boolean isLicensed;
+    private boolean licensed;
     private boolean profileCompleted;
     private boolean hasAvailabities;
 
@@ -21,7 +21,7 @@ public class ServiceProvider extends User {
     // to be completed in future project deliverable
     public ServiceProvider(String userName, String password, String email, String userId){
         super(userName, password, email, userId, "ServiceProvider");
-        isLicensed = false;
+        licensed = false;
         profileCompleted = false;
         hasAvailabities = false;
         description = "empty";
@@ -35,7 +35,7 @@ public class ServiceProvider extends User {
             description = desc;
         }
         description = desc;
-        isLicensed = licensing;
+        licensed = licensing;
         profileCompleted = true;
     }
 
@@ -52,7 +52,7 @@ public class ServiceProvider extends User {
     }
 
     public boolean isLicensed() {
-        return isLicensed;
+        return licensed;
     }
 
     public boolean isProfileCompleted() {

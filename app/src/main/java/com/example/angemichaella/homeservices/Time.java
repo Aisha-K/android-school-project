@@ -10,21 +10,21 @@ public class Time implements Serializable {
 
     private int hour;
     private int minute;
-    private int time; //in minutes after midnight
+    private int tense; //in minutes after midnight
 
-    public Time(int hr, int min, int tense){
+    public Time(int hr, int min, int tns){
         hour = hr;
         minute = min;  
         if(hour == 12){
             hour = 0;
         }
+        tense = tns;
         hour += 12*tense;
-        time = 60*hour + minute;
 
     }
 
     public int time(){
-        return time;
+        return 60*(hour+12*tense) + minute;
     }
 
     public String toString(){//RETURNS TIME IN 24 HR FORMAT
@@ -61,6 +61,15 @@ public class Time implements Serializable {
 
     }
 
+    public int getHour() {
+        return hour;
+    }
 
+    public int getMinute() {
+        return minute;
+    }
 
+    public int getTense() {
+        return tense;
+    }
 }

@@ -44,8 +44,13 @@ public class SpProfileFragment extends Fragment {
     private EditText companyEt;
     private EditText descEt;
     private EditText phoneEt;
+    private EditText addressNumEt;
+    private EditText addressEt;
 
 
+
+    private TextView addressErrorTv;
+    private TextView addressNumErrorTv;
 
     private TextView companyErrorTv;
     private TextView descErrorTv;
@@ -57,6 +62,8 @@ public class SpProfileFragment extends Fragment {
     private TextView cPhone;
     private TextView cEmail;
     private TextView cName;
+
+    private TextView cAddress;
 
 
 
@@ -137,6 +144,29 @@ public class SpProfileFragment extends Fragment {
         }
     }
 
+    public boolean validateAddress(){
+        try {
+            String addressNumber = addressNumEt.getText().toString().trim();
+            String addressName = addressEt.getText().toString().trim();
+
+            if (addressName.equals("")){
+                return false;
+            }
+
+            if(addressNumber.equals("")){
+                return false;
+            }
+
+            if (addressName.indexOf(' ') < 0) {
+                return false;
+            }
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+
+
 
 
     public void updateSp(){
@@ -154,9 +184,11 @@ public class SpProfileFragment extends Fragment {
         descEt = (EditText) v.findViewById(R.id.descEt);
         phoneEt = (EditText) v.findViewById(R.id.phoneEt);
         licensedBtn = (CheckBox) v.findViewById(R.id.licenseCheckbox);
+        addressNumEt = (EditText) v.findViewById(R.id.addressNumberEt);
+        addressEt = (EditText) v.findViewById(R.id.addressEt);
 
-
-
+        addressNumErrorTv = (TextView) v.findViewById(R.id.addressNumberError);
+        addressErrorTv = (TextView) v.findViewById(R.id.addressError);
         companyErrorTv = (TextView) v.findViewById(R.id.companyError);
         descErrorTv = (TextView) v.findViewById(R.id.descError);
         phoneErrorTv = (TextView) v.findViewById(R.id.phoneError);
@@ -226,28 +258,87 @@ public class SpProfileFragment extends Fragment {
 
             }
         });
+        addressEt.addTextChangedListener(new TextWatcher() {
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(addressEt.getText().toString().trim().equals("")){
+                    addressErrorTv.setText("Mandatory Field");
+                    addressNumErrorTv.setVisibility(View.VISIBLE);
+                } else if(addressEt.getText().toString().trim().indexOf(' ') < 0){
+                    addressErrorTv.setText("Enter Valid Address");
+                    addressErrorTv.setVisibility(View.VISIBLE);
+                } else{
+                    addressErrorTv.setVisibility(View.INVISIBLE);
+                }
+
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        addressNumEt.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(addressNumEt.getText().toString().trim().equals("")){
+                    addressNumErrorTv.setText("Enter valid Street Number");
+                    addressNumErrorTv.setVisibility(View.VISIBLE);
+                } else{
+                    addressNumErrorTv.setVisibility(View.INVISIBLE);
+                }
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         completeProfileBtn = (Button) v.findViewById(R.id.completeProfileBtn);
+
+
         completeProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if(validatePhone() && validateCompany()){
+                if(validatePhone() && validateCompany() && validateAddress()){
 
                     String phoneNum = phoneEt.getText().toString().trim();
                     String companyName = companyEt.getText().toString().trim();
+                    String addressNumber = addressNumEt.getText().toString().trim();
+                    String addressName = addressEt.getText().toString().trim();
+
                     String description = null;
+
                     boolean isLicensed = licensedBtn.isChecked();
                     try{
                         description = descEt.getText().toString().trim();
                     }catch(Exception e){
                         //keep it null
                     }
-                    sp.setProfileInfo(phoneNum, companyName, description, isLicensed);
+
+                    String address = addressNumber + " " + addressName;
+
+                    sp.setProfileInfo(phoneNum, companyName, address, description, isLicensed);
                     updateSp();
-                    //get rid of this layout, visible the other one.
-                    incompleteProfileLyt.setVisibility(View.GONE);
-                    completeProfileLyt.setVisibility(View.VISIBLE);
+                    setCompleteProfileView();
                 }
             }
         });
@@ -265,6 +356,7 @@ public class SpProfileFragment extends Fragment {
         cPhone = ( TextView ) v.findViewById(R.id.cptPhoneTV);
         cEmail = ( TextView ) v.findViewById(R.id.cptEmailTV);
         cName = ( TextView ) v.findViewById(R.id.spNameTV);
+        cAddress = ( TextView ) v.findViewById(R.id.cptAddressTV);
 
         TextView licensed = (TextView) v.findViewById(R.id.isLicensedTV);
 
@@ -281,6 +373,7 @@ public class SpProfileFragment extends Fragment {
         cDesc.setText(sp.getDescription());
         cEmail.setText(sp.getEmail());
         cName.setText(sp.getUsername());
+        cAddress.setText(sp.getAddress());
         if(sp.isLicensed()){
             licensed.setVisibility(View.VISIBLE);
         }else{

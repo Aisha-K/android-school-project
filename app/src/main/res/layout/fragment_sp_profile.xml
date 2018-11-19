@@ -142,6 +142,14 @@ android:visibility="visible">
                     android:text="email@email.com"
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/cptAddressTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="111 Address Name"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
             </LinearLayout>
 
         </LinearLayout>
@@ -161,7 +169,7 @@ android:visibility="visible">
             android:layout_marginTop="20dp"
             android:text="Complete Your Profile"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textSize="30sp"
+            android:textSize="24sp"
             app:fontFamily="sans-serif" />
 
         <TextView
@@ -212,6 +220,80 @@ android:visibility="visible">
                     android:textColor="@android:color/holo_orange_dark"
                     android:textSize="10sp"
                     android:visibility="invisible" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/addressLyt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/addressTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="address"
+                    android:textAllCaps="true"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="6"
+                        android:orientation="vertical">
+
+                        <EditText
+                            android:id="@+id/addressNumberEt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:hint="Street Number"
+                            android:inputType="number" />
+
+                        <TextView
+                            android:id="@+id/addressNumberError"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TextView"
+                            android:textColor="@android:color/holo_orange_dark"
+                            android:textSize="10sp"
+                            android:visibility="invisible" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <EditText
+                            android:id="@+id/addressEt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:hint="Street Name"
+                            android:inputType="text" />
+
+                        <TextView
+                            android:id="@+id/addressError"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TextView"
+                            android:textColor="@android:color/holo_orange_dark"
+                            android:textSize="10sp"
+                            android:visibility="invisible" />
+                    </LinearLayout>
+                </LinearLayout>
 
                 <Space
                     android:layout_width="match_parent"

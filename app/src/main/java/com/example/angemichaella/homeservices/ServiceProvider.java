@@ -9,7 +9,7 @@ public class ServiceProvider extends User {
     private String description;
     private boolean licensed;
     private boolean profileCompleted;
-    private boolean hasAvailabities;
+    private boolean hasAvailabities = false;
 
     private ArrayList<Availability> availabilities = new ArrayList<Availability>();
 
@@ -23,7 +23,6 @@ public class ServiceProvider extends User {
         super(userName, password, email, userId, "ServiceProvider");
         licensed = false;
         profileCompleted = false;
-        hasAvailabities = false;
         description = "empty";
 
     }
@@ -89,6 +88,6 @@ public class ServiceProvider extends User {
     }
 
     public boolean hasAvailabilities(){
-        return hasAvailabities;
+        return this.hasAvailabities;
     }
 }

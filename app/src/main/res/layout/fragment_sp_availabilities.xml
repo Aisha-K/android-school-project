@@ -2,66 +2,86 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:id="@+id/avRelLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingAddButton"
-        android:layout_width="57dp"
-        android:layout_height="59dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="32dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:srcCompat="@android:drawable/ic_menu_add" />
 
     <LinearLayout
-        android:id="@+id/availabilities_list"
+        android:id="@+id/avLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="false"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:visibility="visible">
+        android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/non_empty_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="visible">
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView19"
-                android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:text="My Availabilities" />
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TAP"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textStyle="bold" />
 
-            <ListView
-                android:id="@+id/av_list"
-                android:layout_width="match_parent"
-                android:layout_height="376dp" />
+            <TextView
+                android:id="@+id/serviceTabTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:text="an availabitiy to edit"
+                android:textAllCaps="false"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/empty_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/no_availabilities"
-                android:layout_width="match_parent"
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Seems like you haven't entered your availabilities yet! Tap the button below to add some!" />
+                android:text="HOLD"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="an availabitily to delete"
+                android:textAllCaps="false"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="14sp" />
         </LinearLayout>
+
+        <ListView
+            android:id="@+id/avListView"
+            android:layout_width="match_parent"
+            android:layout_height="330dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="50dp">
+
+        </ListView>
+
+        <Button
+            android:id="@+id/addAvBtn"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="75dp"
+            android:layout_marginRight="75dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="Add Availability"
+            android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
     </LinearLayout>
-
-
 </RelativeLayout>

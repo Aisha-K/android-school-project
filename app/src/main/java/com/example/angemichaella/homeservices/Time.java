@@ -12,6 +12,10 @@ public class Time implements Serializable {
     private int minute;
     private int tense; //in minutes after midnight
 
+    public Time(){
+
+    }
+
     public Time(int hr, int min, int tns){
         hour = hr;
         minute = min;  

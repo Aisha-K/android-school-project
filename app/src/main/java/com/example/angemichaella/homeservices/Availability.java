@@ -5,6 +5,9 @@ public class Availability {
     Time from;
     Time to;
 
+    public Availability(){
+
+    }
 
     public Availability(Day d, Time f, Time t){
         day = d;

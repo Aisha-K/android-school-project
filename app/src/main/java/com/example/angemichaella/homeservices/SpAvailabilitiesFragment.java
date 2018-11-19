@@ -94,10 +94,8 @@ public class SpAvailabilitiesFragment extends Fragment{
 
                 sp = dataSnapshot.getValue(ServiceProvider.class);
 
-
-
                 // get the new list of availabilities
-                if(sp.hasAvailabilities()){
+                if(sp.hasAvailabilities()==true){
                     availabilities = sp.getAvailabilities();
                 }
 

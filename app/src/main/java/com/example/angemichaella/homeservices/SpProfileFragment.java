@@ -197,7 +197,10 @@ public class SpProfileFragment extends Fragment {
         phoneErrorTv.setVisibility(View.VISIBLE);
         companyErrorTv.setText("Mandatory Field");
         companyErrorTv.setVisibility(View.VISIBLE);
-
+        addressErrorTv.setText("Mandatory Field");
+        addressErrorTv.setVisibility(View.VISIBLE);
+        addressNumErrorTv.setText("Enter Street Number");
+        addressNumErrorTv.setVisibility(View.VISIBLE);
 
         phoneEt.addTextChangedListener(new TextWatcher() {
 
@@ -265,7 +268,7 @@ public class SpProfileFragment extends Fragment {
 
                 if(addressEt.getText().toString().trim().equals("")){
                     addressErrorTv.setText("Mandatory Field");
-                    addressNumErrorTv.setVisibility(View.VISIBLE);
+                    addressErrorTv.setVisibility(View.VISIBLE);
                 } else if(addressEt.getText().toString().trim().indexOf(' ') < 0){
                     addressErrorTv.setText("Enter Valid Address");
                     addressErrorTv.setVisibility(View.VISIBLE);
@@ -293,7 +296,7 @@ public class SpProfileFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
                 if(addressNumEt.getText().toString().trim().equals("")){
-                    addressNumErrorTv.setText("Enter valid Street Number");
+                    addressNumErrorTv.setText("Enter Street Number");
                     addressNumErrorTv.setVisibility(View.VISIBLE);
                 } else{
                     addressNumErrorTv.setVisibility(View.INVISIBLE);
@@ -337,6 +340,9 @@ public class SpProfileFragment extends Fragment {
                     String address = addressNumber + " " + addressName;
 
                     sp.setProfileInfo(phoneNum, companyName, address, description, isLicensed);
+                    sp.addAvailability(new Availability(Day.MONDAY, new Time(2,5,1), new Time(3,6,1)));
+                    sp.addAvailability(new Availability(Day.MONDAY, new Time(3,5,1), new Time(4,5,1)));
+                    sp.addAvailability(new Availability(Day.MONDAY, new Time(3,6,0), new Time(3,8,0)));
                     updateSp();
                     setCompleteProfileView();
                 }
@@ -390,15 +396,15 @@ public class SpProfileFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    sp = dataSnapshot.getValue(ServiceProvider.class);
-                    // initializing layout components
-                    loadingLyt.setVisibility(View.GONE);
+                sp = dataSnapshot.getValue(ServiceProvider.class);
+                // initializing layout components
+                loadingLyt.setVisibility(View.GONE);
 
-                    if(sp.isProfileCompleted()){
-                        setCompleteProfileView();
-                    }else{
-                        setUpIncompleteProfileView();
-                    }
+                if(sp.isProfileCompleted()){
+                    setCompleteProfileView();
+                }else{
+                    setUpIncompleteProfileView();
+                }
 
             }
 

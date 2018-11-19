@@ -70,7 +70,7 @@ public class ServiceProvider extends User {
     }
 
     public void addAvailability(Availability availability){
-        this.availabilities.add(availability);
+        availabilities.add(availability);
 
         if(!hasAvailabities){
             hasAvailabities = true;

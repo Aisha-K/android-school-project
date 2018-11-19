@@ -68,10 +68,12 @@ public class SpAvailabilitiesFragment extends Fragment{
             id = getArguments().getString("ID");
             spNode = FirebaseDatabase.getInstance().getReference("users").child( id );
         }
+
+        setUpSPFromDatabase();
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sp_availabilities, container, false);
@@ -79,46 +81,7 @@ public class SpAvailabilitiesFragment extends Fragment{
 
         //initialize attributes
         addAvBtn = (Button)view.findViewById(R.id.addAvBtn);
-        spNode = FirebaseDatabase.getInstance().getReference("users").child(id);
-
-
         avListView = (ListView)view.findViewById(R.id.avListView);
-
-
-        //updates list of availabilities when data changed
-        Query query = spNode;
-        query.addValueEventListener(new ValueEventListener(){
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot){
-                availabilities.clear();
-
-                sp = dataSnapshot.getValue(ServiceProvider.class);
-
-                // get the new list of availabilities
-                if(sp.hasAvailabilities()==true){
-                    availabilities = sp.getAvailabilities();
-                }
-
-                sp.addAvailability(new Availability(Day.MONDAY, new Time(2,5,1), new Time(3,6,1)));
-                sp.addAvailability(new Availability(Day.MONDAY, new Time(3,5,1), new Time(4,5,1)));
-                sp.addAvailability(new Availability(Day.MONDAY, new Time(3,6,0), new Time(3,8,0)));
-
-                updateSp();
-
-                AvAdapter adtr = new AvAdapter(getActivity(), availabilities);
-                try{
-                    if(!availabilities.isEmpty()){
-                        avListView.setAdapter(adtr);
-                    }
-                } catch (Exception e){
-
-                }
-
-            }
-            public void onCancelled(DatabaseError databaseError){
-            }
-        });
-
 
         //when new availability button is clicked, will call function new Availability
         addAvBtn.setOnClickListener(new View.OnClickListener() {
@@ -195,45 +158,12 @@ public class SpAvailabilitiesFragment extends Fragment{
 
     }
 
-
-    //adds an availability to the database if availability doesn't already exist
-    protected void newAv(final Day day, final Time from, final Time to){
-
-        final Availability newAv = new Availability(day, from, to);
-
-        //finding if service already exists by finding if it
-        Query query = spNode;
-        //addlistenner allows us to retrieve the data using datasnapshot
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                sp = dataSnapshot.getValue(ServiceProvider.class);
-
-                availabilities = sp.getAvailabilities();
-
-                if (!availabilities.contains(newAv)) { // exact same availability doesn't already exist
-                    sp.addAvailability(newAv);
-                    updateSp();
-
-                    Toast.makeText( getActivity() , "Availability Added", Toast.LENGTH_LONG).show();
-                } else {
-                    //availability
-                    Toast.makeText( getActivity() , "Availability Already Exists", Toast.LENGTH_LONG).show();
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
-
-    }
-    
-    
-        
-    public void addAvailabilities(List<Availability> avls){
-        //do what needs to be done with these
+    public void addAvailabilities(ArrayList<Availability> avList){
+        for(int i = 0; i<avList.size();i++){
+            sp.addAvailability(avList.get(i));
+        }
+        Toast.makeText(getActivity(), "addAvailabilities has been executed", Toast.LENGTH_LONG).show();
+        updateSp();
     }
 
     /*
@@ -283,5 +213,41 @@ public class SpAvailabilitiesFragment extends Fragment{
 
     }
     */
+
+    public void setUpSPFromDatabase()
+    {
+        //updates list of availabilities when data changed
+
+        spNode.addValueEventListener(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot){
+
+                sp = dataSnapshot.getValue(ServiceProvider.class);
+
+
+                /*
+                sp.addAvailability(new Availability(Day.MONDAY, new Time(2,5,1), new Time(3,6,1)));
+                sp.addAvailability(new Availability(Day.MONDAY, new Time(3,5,1), new Time(4,5,1)));
+                sp.addAvailability(new Availability(Day.MONDAY, new Time(3,6,0), new Time(3,8,0)));
+                */
+
+
+                /* THIS SHOULD BE IN THE ADDAV METHOD
+                updateSp();
+
+                AvAdapter adtr = new AvAdapter(getActivity(), availabilities);
+                try{
+                    if(!availabilities.isEmpty()){
+                        avListView.setAdapter(adtr);
+                    }
+                } catch (Exception e){
+
+                }
+                */
+            }
+            public void onCancelled(DatabaseError databaseError){
+            }
+        });
+    }
 
 }

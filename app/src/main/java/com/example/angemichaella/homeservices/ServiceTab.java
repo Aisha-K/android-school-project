@@ -96,6 +96,7 @@ public class ServiceTab extends Fragment{
                         args.putString("srv_name", clickedSrv.name());
                         args.putString("srv_rate", Double.toString(clickedSrv.rate()));
                         args.putString("srv_id", clickedSrv.id());
+
                         args.putString("srv_type", clickedSrv.type());
 
                         EditServiceDialog d = new EditServiceDialog();

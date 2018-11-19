@@ -19,6 +19,10 @@ public class ServiceProviderNav extends AppCompatActivity implements NavigationV
     private DrawerLayout drawer;
     String username;
     String id;
+    
+    SpProfileFragment fragment1;
+    SpMyServicesFragment fragment2;
+    SpAvailabilitiesFragment frag3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,20 +78,21 @@ public class ServiceProviderNav extends AppCompatActivity implements NavigationV
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
+
         //opens appropriate fragment based on which item clicked
         switch(menuItem.getItemId()){
             case R.id.nav_profile:
-                SpProfileFragment fragment1=  SpProfileFragment.newInstance(username,id); //creating fragment instance while passing var
+                fragment1=  SpProfileFragment.newInstance(username,id); //creating fragment instance while passing var
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         fragment1).commit();
                 break;
             case R.id.nav_services:
-                SpMyServicesFragment fragment2= SpMyServicesFragment.newInstance(username, id);
+                fragment2= SpMyServicesFragment.newInstance(username, id);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         fragment2).commit();
                 break;
             case R.id.nav_availabilities:
-                SpAvailabilitiesFragment frag3= SpAvailabilitiesFragment.newInstance(username, id);
+                frag3= SpAvailabilitiesFragment.newInstance(username, id);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         frag3).commit();
                 break;
@@ -108,15 +113,10 @@ public class ServiceProviderNav extends AppCompatActivity implements NavigationV
         String avlsString = "Adding Availabilities:";//for testing toast can be removed
         for(int i = 0; i< days.size(); i++){
             avls.add(new Availability(days.get(i), from, to)); //adding each availability
-
             avlsString += "\n" + avls.get(i); //just for testing toast can be removed
         }
-
-        /*
-
-        MAKE NECESSARY UPDATES TO THE SERVICE PROVIDERS INFO HERE
-
-        */
+        
+        frag3.addAvailabilities(avls);//sends avls over to avl fragent
 
         Toast.makeText( this ,avlsString, Toast.LENGTH_LONG).show(); //can be removed, just for display for now
     }

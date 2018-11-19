@@ -229,6 +229,12 @@ public class SpAvailabilitiesFragment extends Fragment{
         });
 
     }
+    
+    
+        
+    public void addAvailabilities(List<Availability> avls){
+        //do what needs to be done with these
+    }
 
     /*
     //deletes an availability from the database

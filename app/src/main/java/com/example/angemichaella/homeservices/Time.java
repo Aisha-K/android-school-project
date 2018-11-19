@@ -1,6 +1,8 @@
 package com.example.angemichaella.homeservices;
 
-public class Time {
+import java.io.Serializable;
+
+public class Time implements Serializable {
 
     public static final int AM = 0;
     public static final int PM = 1;

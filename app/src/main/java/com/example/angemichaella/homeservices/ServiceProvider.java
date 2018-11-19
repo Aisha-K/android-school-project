@@ -11,7 +11,7 @@ public class ServiceProvider extends User {
     private boolean profileCompleted;
     private boolean hasAvailabities;
 
-    private ArrayList<Availability> availabilities;
+    private ArrayList<Availability> availabilities = new ArrayList<Availability>();
 
     //default constructor
     public ServiceProvider(){
@@ -25,6 +25,7 @@ public class ServiceProvider extends User {
         profileCompleted = false;
         hasAvailabities = false;
         description = "empty";
+
     }
 
     public void setProfileInfo(String phone, String company, String desc, boolean licensing){
@@ -63,8 +64,12 @@ public class ServiceProvider extends User {
         return availabilities;
     }
 
+    public void setAvailabilities(ArrayList<Availability> availabilities){
+        this.availabilities = availabilities;
+    }
+
     public void addAvailability(Availability availability){
-        availabilities.add(availability);
+        this.availabilities.add(availability);
 
         if(!hasAvailabities){
             hasAvailabities = true;
@@ -77,6 +82,10 @@ public class ServiceProvider extends User {
         if(availabilities.isEmpty()){
             hasAvailabities = false;
         }
+    }
+
+    public boolean avAlreadyExists(Availability av){
+        return availabilities.contains(av);
     }
 
     public boolean hasAvailabilities(){

@@ -17,6 +17,7 @@ public class AvAdapter extends ArrayAdapter<Availability> {
     List<Availability> availabilities;
     int size;
 
+
     public AvAdapter(Context context, List<Availability> availabilities){
         super(context, R.layout.av_row_layout, availabilities); //context, list item template layout, list of items 2be displayed
     }

@@ -7,6 +7,7 @@ public class ServiceProvider extends User {
     private String phoneNumber;
     private String companyName;
     private String description;
+    private String address;
     private boolean licensed;
     private boolean profileCompleted;
     private boolean hasAvailabities;
@@ -28,9 +29,10 @@ public class ServiceProvider extends User {
 
     }
 
-    public void setProfileInfo(String phone, String company, String desc, boolean licensing){
+    public void setProfileInfo(String phone, String company, String address, String desc, boolean licensing){
         phoneNumber = phone;
         companyName = company;
+        this.address = address;
 
         if(desc != null){
             description = desc;
@@ -89,6 +91,14 @@ public class ServiceProvider extends User {
     }
 
     public boolean hasAvailabilities(){
+        return hasAvailabities;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public boolean isHasAvailabities() {
         return hasAvailabities;
     }
 }

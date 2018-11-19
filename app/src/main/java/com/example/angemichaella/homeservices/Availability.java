@@ -27,4 +27,16 @@ public class Availability {
     public String time(){
         return "" + from + " : " + to;
     }
+
+    public Day getDay() {
+        return day;
+    }
+
+    public Time getFrom() {
+        return from;
+    }
+
+    public Time getTo() {
+        return to;
+    }
 }

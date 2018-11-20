@@ -1,5 +1,10 @@
 # android-school-project
 ## This is the repository for our android project: One-Demand Home Repair Services App
+
+SERVICE PROVIDER CREDENTIALS
+username: service
+password: provider
+
 link to repository: https://github.com/angemichaella/android-school-project
 
 **Our team is made of 4 people:**
@@ -20,6 +25,3 @@ Deadlines for the deliverables
 - last week of classes: Demo (2%)
 
 database: https://console.firebase.google.com/u/0/project/homeservicesapp-seg2105/database/homeservicesapp-seg2105/data
-
-app icons credits to Freepik: https://www.freepik.com/
-<div>Icons made by <a href="https://www.flaticon.com/authors/pongsakornred" title="pongsakornRed">pongsakornRed</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>

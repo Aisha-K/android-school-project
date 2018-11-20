@@ -20,6 +20,7 @@ public class Availability {
         return result;
     }
 
+
     public String day(){
         return "" + day;
     }

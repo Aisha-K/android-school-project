@@ -110,15 +110,13 @@ public class ServiceProviderNav extends AppCompatActivity implements NavigationV
 
         ArrayList<Availability> avls = new ArrayList<>(); // holds the availabilities chosen from the dialog in a list
 
-        String avlsString = "Adding Availabilities:";//for testing toast can be removed
+
         for(int i = 0; i< days.size(); i++){
             avls.add(new Availability(days.get(i), from, to)); //adding each availability
-            avlsString += "\n" + avls.get(i); //just for testing toast can be removed
         }
         
         frag3.addAvailabilities(avls);//sends avls over to avl fragent
 
-        Toast.makeText( this ,avlsString, Toast.LENGTH_LONG).show(); //can be removed, just for display for now
     }
 
 }

@@ -24,7 +24,7 @@
                 android:id="@+id/avIcon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                tools:srcCompat="@android:drawable/ic_lock_idle_alarm" />
+                android:src="@android:drawable/ic_lock_idle_alarm" />
         </LinearLayout>
 
         <LinearLayout

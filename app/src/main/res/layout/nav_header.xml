@@ -9,9 +9,9 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="40dp"
         android:src="@drawable/white_icon" />
 
     <TextView
@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
-        android:text="dummy text"
+        android:text="@username"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="16sp"

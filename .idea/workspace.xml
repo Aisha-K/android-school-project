@@ -20,11 +20,8 @@
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/AvAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/AvAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/Availability.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/Availability.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/ServiceProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/ServiceProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/ServiceProviderNav.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/ServiceProviderNav.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/SpAvailabilitiesFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/SpAvailabilitiesFragment.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -54,13 +51,17 @@
       <file leaf-file-name="SpAvailabilitiesFragment.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/SpAvailabilitiesFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="169" column="28" lean-forward="true" selection-start-line="169" selection-start-column="28" selection-end-line="169" selection-end-column="28" />
-              <folding>
-                <element signature="e#1084#1098#0" expanded="true" />
-                <element signature="e#3947#4096#0" expanded="true" />
-                <element signature="e#4095#4096#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="270">
+              <caret line="55" column="5" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AddAvailabilityDialog.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/AddAvailabilityDialog.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2895">
+              <caret line="217" column="37" selection-start-line="217" selection-start-column="37" selection-end-line="217" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -70,19 +71,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="195">
               <caret line="26" selection-start-line="26" selection-end-line="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ServiceProviderNav.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/ServiceProviderNav.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
-              <caret line="118" selection-start-line="118" selection-end-line="118" />
-              <folding>
-                <element signature="e#1563#1594#0" expanded="true" />
-                <element signature="e#1596#1628#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -99,49 +87,12 @@
       <file leaf-file-name="ServiceProvider.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/ServiceProvider.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
+            <state relative-caret-position="1425">
               <caret line="109" selection-start-line="109" selection-end-line="109" />
               <folding>
                 <element signature="e#1626#1627#0" expanded="true" />
                 <element signature="e#1663#1664#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="fragment_service_tab.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_service_tab.xml">
-          <provider selected="true" editor-type-id="android-designer2">
-            <state />
-          </provider>
-          <provider editor-type-id="text-editor">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ServiceTab.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/ServiceTab.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-293">
-              <caret line="168" column="21" selection-start-line="168" selection-start-column="21" selection-end-line="168" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserTab.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/UserTab.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="372">
-              <caret line="84" column="42" selection-start-line="84" selection-start-column="42" selection-end-line="84" selection-end-column="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SpProfileFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/SpProfileFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="403" column="25" selection-start-line="403" selection-start-column="25" selection-end-line="403" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -2841,8 +2792,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/AvAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/Availability.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/ServiceProvider.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/SpAvailabilitiesFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/ServiceProviderNav.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/SpAvailabilitiesFragment.java" />
       </list>
     </option>
   </component>
@@ -2858,6 +2809,7 @@
     <panes>
       <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -2876,16 +2828,10 @@
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="homeservices" type="cbb59c9e:AndroidPsiDirectoryNode" />
             </path>
-            <path>
-              <item name="android-school-project" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -3049,7 +2995,6 @@
     <layout>
       <window_info anchor="bottom" id="Android Profiler" order="7" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="8" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Build Variants" order="2" side_tool="true" />
@@ -3063,13 +3008,14 @@
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19456366" />
-      <window_info anchor="bottom" id="Build" order="7" weight="0.33006993" />
+      <window_info anchor="bottom" id="Build" order="7" visible="true" weight="0.33006993" />
       <window_info anchor="right" id="Gradle" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49785408" visible="true" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49785408" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="8" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Preview" order="3" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -3093,23 +3039,24 @@
       <window_info id="Capture Tool" order="7" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.32867134" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50214595" side_tool="true" weight="0.4" />
       <window_info anchor="right" id="Preview" order="4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="right" id="Device File Explorer" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Logcat" order="10" />
       <window_info anchor="bottom" id="Version Control" order="11" />
       <window_info anchor="bottom" id="Terminal" order="12" />
       <window_info anchor="right" id="Gradle" order="6" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15307583" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19456366" />
+      <window_info anchor="bottom" id="Messages" order="13" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49785408" weight="0.4" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -3121,16 +3068,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="added avAdapter" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_create_account_page.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="750">
-          <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/CreateAccountPage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -3201,13 +3138,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_create_account_page.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="735">
           <caret line="49" column="55" selection-start-line="49" selection-start-column="55" selection-end-line="49" selection-end-column="55" />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/WelcomeHomeOwner.java">
@@ -3232,13 +3169,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" column="16" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
         </state>
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/HomeOwner.java">
@@ -3247,13 +3184,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_create_account_page.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="256">
           <caret line="50" selection-start-line="50" selection-end-line="50" />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/CreateAccountPage.java">
@@ -3276,10 +3213,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_user_tab.xml">
-      <provider selected="true" editor-type-id="android-designer2">
+      <provider editor-type-id="text-editor">
         <state />
       </provider>
-      <provider editor-type-id="text-editor">
+      <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
     </entry>
@@ -3291,42 +3228,42 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/availability_dialog2.xml">
-      <provider selected="true" editor-type-id="android-designer2">
+      <provider editor-type-id="text-editor">
         <state />
       </provider>
-      <provider editor-type-id="text-editor">
+      <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/availability_screen.xml">
-      <provider selected="true" editor-type-id="android-designer2">
+      <provider editor-type-id="text-editor">
         <state />
       </provider>
-      <provider editor-type-id="text-editor">
+      <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_sp_myservices.xml">
-      <provider selected="true" editor-type-id="android-designer2">
+      <provider editor-type-id="text-editor">
         <state />
       </provider>
-      <provider editor-type-id="text-editor">
+      <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/availability_dialog.xml">
-      <provider selected="true" editor-type-id="android-designer2">
+      <provider editor-type-id="text-editor">
         <state />
       </provider>
-      <provider editor-type-id="text-editor">
+      <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/service_row_layout.xml">
-      <provider selected="true" editor-type-id="android-designer2">
+      <provider editor-type-id="text-editor">
         <state />
       </provider>
-      <provider editor-type-id="text-editor">
+      <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
     </entry>
@@ -3338,18 +3275,18 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_sp_profile.xml">
-      <provider selected="true" editor-type-id="android-designer2">
+      <provider editor-type-id="text-editor">
         <state />
       </provider>
-      <provider editor-type-id="text-editor">
+      <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/av_row_layout.xml">
-      <provider selected="true" editor-type-id="android-designer2">
+      <provider editor-type-id="text-editor">
         <state />
       </provider>
-      <provider editor-type-id="text-editor">
+      <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
     </entry>
@@ -3357,10 +3294,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="15" selection-start-line="15" selection-end-line="15" />
-          <folding>
-            <element signature="e#1330#1331#0" expanded="true" />
-            <element signature="e#1357#1358#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3372,10 +3305,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_addservice.xml">
-      <provider selected="true" editor-type-id="android-designer2">
+      <provider editor-type-id="text-editor">
         <state />
       </provider>
-      <provider editor-type-id="text-editor">
+      <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
     </entry>
@@ -3387,32 +3320,25 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_editservice.xml">
-      <provider selected="true" editor-type-id="android-designer2">
+      <provider editor-type-id="text-editor">
         <state />
       </provider>
-      <provider editor-type-id="text-editor">
+      <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/SpProfileFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="403" column="25" selection-start-line="403" selection-start-column="25" selection-end-line="403" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/AddAvailabilityDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="217" column="37" selection-start-line="217" selection-start-column="37" selection-end-line="217" selection-end-column="37" />
+        <state relative-caret-position="5640">
+          <caret line="403" selection-start-line="403" selection-end-line="403" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_sp_availabilities.xml">
-      <provider selected="true" editor-type-id="android-designer2">
+      <provider editor-type-id="text-editor">
         <state />
       </provider>
-      <provider editor-type-id="text-editor">
+      <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
     </entry>
@@ -3424,10 +3350,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_service_tab.xml">
-      <provider selected="true" editor-type-id="android-designer2">
+      <provider editor-type-id="text-editor">
         <state />
       </provider>
-      <provider editor-type-id="text-editor">
+      <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
     </entry>
@@ -3440,14 +3366,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/UserTab.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
+        <state relative-caret-position="1035">
           <caret line="84" column="42" selection-start-line="84" selection-start-column="42" selection-end-line="84" selection-end-column="42" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/ServiceTab.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-293">
+        <state relative-caret-position="2115">
           <caret line="168" column="21" selection-start-line="168" selection-start-column="21" selection-end-line="168" selection-end-column="21" />
         </state>
       </provider>
@@ -3459,13 +3385,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/AvAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/Availability.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -3473,9 +3392,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/AddAvailabilityDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2895">
+          <caret line="217" column="37" selection-start-line="217" selection-start-column="37" selection-end-line="217" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/ServiceProviderNav.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="638">
+          <caret line="118" selection-start-line="118" selection-end-line="118" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/AvAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/ServiceProvider.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
+        <state relative-caret-position="1425">
           <caret line="109" selection-start-line="109" selection-end-line="109" />
           <folding>
             <element signature="e#1626#1627#0" expanded="true" />
@@ -3484,26 +3424,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/ServiceProviderNav.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="118" selection-start-line="118" selection-end-line="118" />
-          <folding>
-            <element signature="e#1563#1594#0" expanded="true" />
-            <element signature="e#1596#1628#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/generated/not_namespaced_r_class_sources/debug/processDebugResources/r/android/support/design/R 2.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/angemichaella/homeservices/SpAvailabilitiesFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="169" column="28" lean-forward="true" selection-start-line="169" selection-start-column="28" selection-end-line="169" selection-end-column="28" />
-          <folding>
-            <element signature="e#1084#1098#0" expanded="true" />
-            <element signature="e#3947#4096#0" expanded="true" />
-            <element signature="e#4095#4096#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="270">
+          <caret line="55" column="5" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
         </state>
       </provider>
     </entry>

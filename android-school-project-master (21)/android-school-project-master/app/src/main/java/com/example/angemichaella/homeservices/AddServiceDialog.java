@@ -17,6 +17,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -50,10 +51,43 @@ public class AddServiceDialog extends AppCompatDialogFragment {
 
         b.setView(v);
 
+        //intialize buttons
+        cancelbtn = (Button)v.findViewById(R.id.btnCancel);
+        okbtn = (Button)v.findViewById(R.id.btnOk);
+
+        //list of available services
+        myServiceListView = (ListView)v.findViewById(R.id.myServiceListView);
+
+        services = new ArrayList<Service>();
+
+        databaseServices = FirebaseDatabase.getInstance().getReference("Services");
+
+        Query query = databaseServices.orderByChild("serviceName"); //orders list alphabetically based on the service name
+
+        query.addValueEventListener(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot){
+                services.clear();
+
+                for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+                    Service currService = postSnapshot.getValue(Service.class); //retrieving child node
+
+                    services.add(currService);                          //adding service from database to list
+
+                }
+                ServiceAdapter adtr = new ServiceAdapter(getActivity(), services);
+                myServiceListView.setAdapter(adtr);
+            }
+            public void onCancelled(DatabaseError databaseError){
+            }
+        });
+
         final AlertDialog d = b.create();
+
 
         return d;
     }
+
 
 
     @Override

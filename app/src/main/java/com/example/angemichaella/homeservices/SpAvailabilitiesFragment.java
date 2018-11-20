@@ -160,10 +160,14 @@ public class SpAvailabilitiesFragment extends Fragment{
 
     public void addAvailabilities(ArrayList<Availability> avList){
         for(int i = 0; i<avList.size();i++){
-            sp.addAvailability(avList.get(i));
+            if(sp.avAlreadyExists(avList.get(i))==false){
+                sp.addAvailability(avList.get(i));
+            }
+            else {
+                Toast.makeText(getActivity(), "Availability " + avList.get(i) + " already exists" , Toast.LENGTH_LONG).show();
+            }
         }
-        Toast.makeText(getActivity(), "addAvailabilities has been executed", Toast.LENGTH_LONG).show();
-        updateSp();
+        spNode.setValue(sp);
     }
 
     /*
@@ -224,26 +228,14 @@ public class SpAvailabilitiesFragment extends Fragment{
 
                 sp = dataSnapshot.getValue(ServiceProvider.class);
 
-
-                /*
-                sp.addAvailability(new Availability(Day.MONDAY, new Time(2,5,1), new Time(3,6,1)));
-                sp.addAvailability(new Availability(Day.MONDAY, new Time(3,5,1), new Time(4,5,1)));
-                sp.addAvailability(new Availability(Day.MONDAY, new Time(3,6,0), new Time(3,8,0)));
-                */
-
-
-                /* THIS SHOULD BE IN THE ADDAV METHOD
-                updateSp();
-
-                AvAdapter adtr = new AvAdapter(getActivity(), availabilities);
-                try{
-                    if(!availabilities.isEmpty()){
-                        avListView.setAdapter(adtr);
-                    }
-                } catch (Exception e){
-
+                if(sp.hasAvailabilities()){
+                    availabilities = sp.getAvailabilities();
                 }
-                */
+
+                if(getActivity()!= null) {
+                    AvAdapter avAd = new AvAdapter(getActivity(), availabilities);
+                    avListView.setAdapter(avAd);
+                }
             }
             public void onCancelled(DatabaseError databaseError){
             }

@@ -85,8 +85,14 @@ public class ServiceProvider extends User {
         }
     }
 
-    public boolean avAlreadyExists(Availability av){
-        return availabilities.contains(av);
+    public boolean avAlreadyExists(Availability av2){
+        for (Availability av1:
+             availabilities) {
+            if (av1.toString().equals(av2.toString())){
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean hasAvailabilities(){

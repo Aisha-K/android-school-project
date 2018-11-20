@@ -11,14 +11,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.view.*;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class AvAdapter extends ArrayAdapter<Availability> {
-    List<Availability> availabilities;
+    ArrayList<Availability> availabilities;
     int size;
 
 
-    public AvAdapter(Context context, List<Availability> availabilities){
+    public AvAdapter(Context context, ArrayList<Availability> availabilities){
         super(context, R.layout.av_row_layout, availabilities); //context, list item template layout, list of items 2be displayed
     }
 

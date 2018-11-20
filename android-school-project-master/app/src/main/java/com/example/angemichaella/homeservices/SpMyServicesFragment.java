@@ -72,8 +72,6 @@ public class SpMyServicesFragment extends Fragment {
         myServiceListView = (ListView)view.findViewById(R.id.serviceListView);
 
 
-
-
         //updates list of services when data changed
         Query query = databaseServices.orderByChild("serviceName"); //orders list alphabetically based on the service name
         query.addValueEventListener(new ValueEventListener(){
@@ -142,21 +140,19 @@ public class SpMyServicesFragment extends Fragment {
         return view;
     }
 
-    private void newServicePopUp(){
-
+    private void newServicePopUp()
+    {
         AddServiceDialog d = new AddServiceDialog();
         d.show(getActivity().getSupportFragmentManager(), "add service dialog");
-
     }
 
 
     //deletes a service from the database
-    private void deleteService(String ServiceId){
+    private void deleteService(String ServiceId)
+    {
         DatabaseReference dR= databaseServices.child(ServiceId);
         dR.removeValue();
-
         Toast.makeText(getActivity(), "Service Deleted", Toast.LENGTH_LONG).show();
-
     }
 
 }

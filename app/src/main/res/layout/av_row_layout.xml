@@ -9,27 +9,29 @@
     <LinearLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
 
         <LinearLayout
             android:id="@+id/imageLayout"
-            android:layout_width="70dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/avIcon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                tools:srcCompat="@android:drawable/ic_lock_idle_alarm" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_lock_idle_alarm" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
@@ -37,9 +39,8 @@
                 android:id="@+id/avDay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:text="Day"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/avTime"

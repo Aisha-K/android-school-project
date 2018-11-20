@@ -84,6 +84,13 @@ public class AddServiceDialog extends AppCompatDialogFragment {
 
         final AlertDialog d = b.create();
 
+        cancelbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                d.dismiss();
+            }
+        });
+
 
         return d;
     }

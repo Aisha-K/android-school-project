@@ -88,11 +88,25 @@ public class ServiceProvider extends User {
     public boolean avAlreadyExists(Availability av2){
         for (Availability av1:
              availabilities) {
-            if (av1.toString().equals(av2.toString())){
+            if (av1.equals(av2)){
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * Returns index of the frist availability that a overlaps with. if it desnt overlap with any, returns -1
+     * @param a
+     * @return
+     */
+    public int overlapsWith(Availability a){
+        for(Availability avl: availabilities){
+            if(avl.overlaps(a)){
+                return availabilities.indexOf(avl);
+            }
+        }
+        return -1;
     }
 
     public boolean hasAvailabilities(){

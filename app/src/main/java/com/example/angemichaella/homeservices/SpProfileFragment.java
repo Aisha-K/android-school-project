@@ -170,7 +170,6 @@ public class SpProfileFragment extends Fragment {
 
 
     public void updateSp(){
-        spNode.removeValue();
         spNode.setValue(sp);
     }
 
@@ -340,9 +339,6 @@ public class SpProfileFragment extends Fragment {
                     String address = addressNumber + " " + addressName;
 
                     sp.setProfileInfo(phoneNum, companyName, address, description, isLicensed);
-                    sp.addAvailability(new Availability(Day.MONDAY, new Time(2,5,1), new Time(3,6,1)));
-                    sp.addAvailability(new Availability(Day.MONDAY, new Time(3,5,1), new Time(4,5,1)));
-                    sp.addAvailability(new Availability(Day.MONDAY, new Time(3,6,0), new Time(3,8,0)));
                     updateSp();
                     setCompleteProfileView();
                 }

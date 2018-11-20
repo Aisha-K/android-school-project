@@ -18,12 +18,11 @@ public class Time implements Serializable {
 
     public Time(int hr, int min, int tns){
         hour = hr;
-        minute = min;  
+        minute = min;
         if(hour == 12){
             hour = 0;
         }
         tense = tns;
-        hour += 12*tense;
 
     }
 
@@ -31,25 +30,14 @@ public class Time implements Serializable {
         return 60*(hour+12*tense) + minute;
     }
 
-    public String toString(){//RETURNS TIME IN 24 HR FORMAT
-        String res = hour+":";
-        if(minute <10){
-            res+="0"+minute;
+    public String toString(){//RETURNS TIME IN 12 HR FORMAT
+        String res;
+        if(hour == 0){
+            res = "12:";
         }else{
-            res += minute;
+            res = hour+":";
         }
-        return res;
 
-
-        //BELOW FOR IF U WANNA SEE THE TIME IN 12 HR FORMAT
-        /*
-                int adjustedHour = hour%12;
-        if(hour == 12){
-            adjustedHour = 12;
-        }
-        int tense = hour/12;
-
-        String res = adjustedHour+":";
         if(minute <10){
             res+="0"+minute;
         }else{
@@ -57,11 +45,11 @@ public class Time implements Serializable {
         }
 
         if(tense == AM){
-            res += " am";
+            res+=" AM";
         }else if(tense == PM){
-            res += " pm";
+            res+=" PM";
         }
-         */
+        return res;
 
     }
 
@@ -75,5 +63,13 @@ public class Time implements Serializable {
 
     public int getTense() {
         return tense;
+    }
+
+    public boolean equals(Time otherTime) {
+        return this.time() == otherTime.time();
+    }
+
+    public int compareTo(Time t){
+        return this.time() - t.time();
     }
 }

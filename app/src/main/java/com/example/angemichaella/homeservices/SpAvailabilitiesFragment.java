@@ -86,14 +86,18 @@ public class SpAvailabilitiesFragment extends Fragment{
             }
         });
 
-        /*
-        //example of when availability is clicked
+
+
+        //when availability is clicked
         avListView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener(){
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int pos, long id){
                         Availability clickedAv = (Availability) parent.getItemAtPosition(pos);
 
+                        // put the values from the clickedAv in the dialog
+
+                        /*
                         Bundle args = new Bundle();
                         args.putString("dialog_title", "Edit Availability");
                         args.putString("srv_name", clickedSrv.name());
@@ -101,28 +105,30 @@ public class SpAvailabilitiesFragment extends Fragment{
                         args.putString("srv_id", clickedSrv.id());
                         args.putString("srv_type", clickedSrv.type());
 
-                        EditServiceDialog d = new EditServiceDialog();
+                        AddAvailabilityDialog d = new AddAvailabilityDialog();
                         d.setArguments(args);
                         d.show(getActivity().getSupportFragmentManager(), "edit availability dialog");
+
+                        */
                     }
                 }
         );
 
-        serviceListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        avListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
             public boolean onItemLongClick(AdapterView<?> arg0, View v, int index, long arg3) {
 
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("Delete Service");
-                final Service clickedServ = (Service)serviceListView.getItemAtPosition(index);
-                builder.setMessage("Are you sure you want to delete the " + '"'+ clickedServ.name()+ '"' +" service?");
+                final Availability clickedAv= (Availability) avListView.getItemAtPosition(index);
+                builder.setMessage("Are you sure you want to delete this service?");
 
 
                 builder.setPositiveButton("DELETE", new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int id){
 
-                        deleteService(clickedServ.id());
+                        deleteAv(clickedAv);
                         dialog.dismiss();//user clicked create
 
                     }
@@ -140,8 +146,6 @@ public class SpAvailabilitiesFragment extends Fragment{
                 return true;
             }
         });
-
-        */
 
         return view;
     }
@@ -172,15 +176,24 @@ public class SpAvailabilitiesFragment extends Fragment{
         spNode.setValue(sp);
     }
 
-    /*
-    //deletes an availability from the database
-    private void deleteAv(String ServiceId){
-        DatabaseReference dR= databaseServices.child(ServiceId);
-        dR.removeValue();
 
-        Toast.makeText(getActivity(), "Service Deleted", Toast.LENGTH_LONG).show();
+    //deletes an availability from the database
+    private void deleteAv(Availability delAv){
+
+        availabilities = sp.getAvailabilities();
+
+        for(Availability av : availabilities){
+            if(av.toString().equals(delAv.toString())){
+                sp.removeAvailabitiy(delAv);
+            }
+        }
+
+        spNode.setValue(sp);
+
+        Toast.makeText(getActivity(), "Availability Deleted", Toast.LENGTH_LONG).show();
     }
 
+    /*
     //updates a service in the database with new info
     protected void editService( final String ServiceId, String oldname, final String newName, final double newPrice, final boolean isOutdoor){
         //if the name was not changed, we do not need to search wether the new name is already in use

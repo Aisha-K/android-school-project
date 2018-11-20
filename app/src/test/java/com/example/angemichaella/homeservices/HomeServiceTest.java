@@ -47,7 +47,7 @@ public class HomeServiceTest {
     @Test
     public void checkAvailabilityTimeFrom(){
         Availability av = new Availability(Day.MONDAY, new Time(1,0,1), new Time(1,10,1));
-        assertEquals("Check the time from of the availability", new Time(1,0,1),av.getFrom());
+        assertEquals("Check the time from of the availability", new Time(1,0,1)+"",av.time());
     }
 
 }

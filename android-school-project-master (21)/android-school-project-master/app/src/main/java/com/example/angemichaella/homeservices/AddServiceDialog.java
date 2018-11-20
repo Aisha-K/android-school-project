@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -31,6 +32,7 @@ public class AddServiceDialog extends AppCompatDialogFragment {
 
     protected ArrayList<Service> services;
     DatabaseReference databaseServices;
+    DatabaseReference spServices;
     ListView myServiceListView;
 
     EditText serviceName;
@@ -61,6 +63,7 @@ public class AddServiceDialog extends AppCompatDialogFragment {
         services = new ArrayList<Service>();
 
         databaseServices = FirebaseDatabase.getInstance().getReference("Services");
+        spServices = FirebaseDatabase.getInstance().getReference("Service Provider's Services");
 
         Query query = databaseServices.orderByChild("serviceName"); //orders list alphabetically based on the service name
 
@@ -84,6 +87,39 @@ public class AddServiceDialog extends AppCompatDialogFragment {
 
         final AlertDialog d = b.create();
 
+        //if user holds service to add
+        myServiceListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            public boolean onItemLongClick(AdapterView<?> arg0, View v, int index, long arg3) {
+
+
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
+                builder.setTitle("Add Service");
+                final Service clickedServ = (Service)myServiceListView.getItemAtPosition(index);
+                builder.setMessage("Are you sure you want to add the " + '"'+ clickedServ.name()+ '"' +" service?");
+
+
+                builder.setPositiveButton("ADD", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id){
+
+                        addService(clickedServ.id());
+                        dialog.dismiss();//user clicked create
+
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id){
+                        dialog.dismiss();
+                    }
+                });
+
+                android.app.AlertDialog dialog = builder.create();
+                dialog.show();
+
+                return true;
+            }
+        });
         cancelbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +132,12 @@ public class AddServiceDialog extends AppCompatDialogFragment {
     }
 
 
+    //adds a service to database for Service Provider's database
+    private void addService(String ServiceId)
+    {
+       
+        Toast.makeText(getActivity(), "Service Added", Toast.LENGTH_LONG).show();
+    }
 
     @Override
     public void onAttach(Context context)

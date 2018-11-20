@@ -38,6 +38,7 @@ public class SpAvailabilitiesFragment extends Fragment{
     protected ArrayList<Availability> availabilities = new ArrayList<Availability>();
 
     DatabaseReference spNode;
+    AvAdapter avAd;
     ListView avListView;
 
     ServiceProvider sp;
@@ -54,11 +55,6 @@ public class SpAvailabilitiesFragment extends Fragment{
         return myFrag;
     }
 
-    public void updateSp(){
-        spNode.removeValue();
-        spNode.setValue(sp);
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,9 +63,8 @@ public class SpAvailabilitiesFragment extends Fragment{
             username = getArguments().getString("username");
             id = getArguments().getString("ID");
             spNode = FirebaseDatabase.getInstance().getReference("users").child( id );
+            setUpSPFromDatabase();
         }
-
-        setUpSPFromDatabase();
 
     }
     @Override
@@ -80,10 +75,10 @@ public class SpAvailabilitiesFragment extends Fragment{
 
 
         //initialize attributes
-        addAvBtn = (Button)view.findViewById(R.id.addAvBtn);
         avListView = (ListView)view.findViewById(R.id.avListView);
 
         //when new availability button is clicked, will call function new Availability
+        addAvBtn = (Button)view.findViewById(R.id.addAvBtn);
         addAvBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,14 +154,21 @@ public class SpAvailabilitiesFragment extends Fragment{
     }
 
     public void addAvailabilities(ArrayList<Availability> avList){
-        for(int i = 0; i<avList.size();i++){
-            if(sp.avAlreadyExists(avList.get(i))==false){
-                sp.addAvailability(avList.get(i));
-            }
-            else {
-                Toast.makeText(getActivity(), "Availability " + avList.get(i) + " already exists" , Toast.LENGTH_LONG).show();
+
+        for(Availability a: avList){
+
+            int overlapsWithIx = sp.overlapsWith(a);
+            if(sp.avAlreadyExists(a)){
+                Toast.makeText(getActivity(), "Availability " + a + " already exists" , Toast.LENGTH_LONG).show();
+            } else if(overlapsWithIx != -1){//replaces overlapping with merged availability
+                sp.getAvailabilities().set( overlapsWithIx, a.mergeWith(sp.getAvailabilities().get(overlapsWithIx)) );
+
+                Toast.makeText(getActivity(), "Extending existing  availability... " , Toast.LENGTH_LONG).show();
+            }else{
+                sp.addAvailability(a);
             }
         }
+
         spNode.setValue(sp);
     }
 
@@ -233,11 +235,33 @@ public class SpAvailabilitiesFragment extends Fragment{
                 }
 
                 if(getActivity()!= null) {
-                    AvAdapter avAd = new AvAdapter(getActivity(), availabilities);
+                    avAd = new AvAdapter(getActivity(), availabilities);
                     avListView.setAdapter(avAd);
                 }
             }
             public void onCancelled(DatabaseError databaseError){
+            }
+        });
+    }
+
+
+    /*
+     * For real time updating the avl list
+     */
+    @Override
+    public void onStart(){
+        super.onStart();
+        spNode.addValueEventListener(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot){
+
+                if(getActivity()!= null) {
+                    avAd = new AvAdapter(getActivity(), availabilities);
+                    avListView.setAdapter(avAd);
+                }
+            }
+            public void onCancelled(DatabaseError databaseError){
+
             }
         });
     }

@@ -50,6 +50,17 @@ public class HomeServiceTest {
         assertEquals("Check the availability string value", Day.MONDAY + " from " +new Time(1,0,1)+" to "+new Time(1,10,1),av.toString());
     }
 
+    @Test
+    public void checkOverlappingAvls(){
+        Availability av1 = new Availability(Day.MONDAY, new Time(12,0,Time.AM), new Time(9,0,Time.AM));
+        Availability av2 = new Availability(Day.MONDAY, new Time(8,0,Time.AM), new Time(10,0,Time.PM));
+
+        Availability avlMerged = av1.mergeWith(av2);
+        Availability avlExpected = new Availability(Day.MONDAY, new Time(12,0,Time.AM), new Time(10,0,Time.PM));
+
+        assertEquals(true, avlMerged.equals(avlExpected));
+    }
+
 }
 
 

@@ -2,7 +2,9 @@
 ## This is the repository for our android project: One-Demand Home Repair Services App
 
 SERVICE PROVIDER CREDENTIALS
+
 username: service
+
 password: provider
 
 link to repository: https://github.com/angemichaella/android-school-project

@@ -13,6 +13,7 @@ public class ServiceProvider extends User {
     private boolean hasAvailabities = false;
 
     private ArrayList<Availability> availabilities = new ArrayList<Availability>();
+    public ArrayList<Service> services;
 
     //default constructor
     public ServiceProvider(){
@@ -119,5 +120,16 @@ public class ServiceProvider extends User {
 
     public boolean isHasAvailabities() {
         return hasAvailabities;
+    }
+
+    public boolean hasServices(){
+        return services != null && !services.isEmpty();
+    }
+
+    public void addService(Service s){
+        if(services == null){
+            services = new ArrayList<>();
+        }
+        services.add(s);
     }
 }

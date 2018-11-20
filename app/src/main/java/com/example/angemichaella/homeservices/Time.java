@@ -31,7 +31,13 @@ public class Time implements Serializable {
     }
 
     public String toString(){//RETURNS TIME IN 12 HR FORMAT
-        String res = hour+":";
+        String res;
+        if(hour == 0){
+            res = "12:";
+        }else{
+            res = hour+":";
+        }
+
         if(minute <10){
             res+="0"+minute;
         }else{

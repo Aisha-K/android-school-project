@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ import java.util.List;
 
 public class ServiceProviderNav extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AddAvailabilityDialog.AddAvailabilityListener{
     private DrawerLayout drawer;
+    private TextView nameTV;
     String username;
     String id;
     
@@ -33,6 +36,7 @@ public class ServiceProviderNav extends AppCompatActivity implements NavigationV
         setSupportActionBar(toolbar);
 
         drawer=findViewById(R.id.drawer_layout);
+
         //item clicked in navigation drawer, e.g. My services, Profile, or Availabilities
         NavigationView navigationView= findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -47,6 +51,9 @@ public class ServiceProviderNav extends AppCompatActivity implements NavigationV
         username= getIntent().getStringExtra("USER_NAME");
         id= getIntent().getStringExtra("USER_ID");
 
+        View hView = navigationView.getHeaderView(0);
+        nameTV = hView.findViewById(R.id.navSpNameTV);
+        nameTV.setText(username);
         if(savedInstanceState==null){   //activity started for the first time
         //initial fragment displayed when first opened
             Bundle args = new Bundle();

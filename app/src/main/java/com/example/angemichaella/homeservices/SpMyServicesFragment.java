@@ -137,8 +137,24 @@ public class SpMyServicesFragment extends Fragment {
     }
 
     public void addService(Service s){
-        sp.addService(s); //adds the service
-        spNode.setValue(sp); //updates service provider in database
+        boolean alreadyexist = false;
+
+        if(sp.hasServices()) {
+            for (Service sv : myServices) {
+                if (sv.id().equals(s.id())){
+                    alreadyexist = true;
+                }
+
+            }
+        }
+
+        if(!alreadyexist){
+            sp.addService(s); //adds the service
+            spNode.setValue(sp); //updates service provider in database
+        }
+
+
+
     }
 
     /*
@@ -158,6 +174,8 @@ public class SpMyServicesFragment extends Fragment {
                         adptr = new ServiceAdapter(getActivity(), myServices);
                         myServiceListView.setAdapter(adptr);
                     }
+                }else{
+                    myServiceListView.setAdapter(null);
                 }
 
             }

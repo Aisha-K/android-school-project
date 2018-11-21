@@ -17,7 +17,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceProviderNav extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AddAvailabilityDialog.AddAvailabilityListener{
+public class ServiceProviderNav extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AddAvailabilityDialog.AddAvailabilityListener, AddServiceDialog.AddServiceDialogListener {
     private DrawerLayout drawer;
     private TextView nameTV;
     String username;
@@ -124,6 +124,11 @@ public class ServiceProviderNav extends AppCompatActivity implements NavigationV
         
         frag3.addAvailabilities(avls);//sends avls over to avl fragent
 
+    }
+
+
+    public void addToMyServices(Service s){
+        fragment2.addService(s);
     }
 
 }

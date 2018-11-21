@@ -149,6 +149,7 @@ public class SpAvailabilitiesFragment extends Fragment{
         args.putInt("hourT", 0);
         args.putInt("minT", 0);
         args.putInt("tenseT", 0);
+        args.putBoolean("update",false);
 
         AddAvailabilityDialog d = new AddAvailabilityDialog();
         d.setArguments(args);
@@ -166,6 +167,7 @@ public class SpAvailabilitiesFragment extends Fragment{
         args.putInt("hourT", av.getTo().getHour());
         args.putInt("minT", av.getTo().getMinute());
         args.putInt("tenseT", av.getTo().getTense());
+        args.putBoolean("update",true);
 
         AddAvailabilityDialog d = new AddAvailabilityDialog();
         d.setArguments(args);

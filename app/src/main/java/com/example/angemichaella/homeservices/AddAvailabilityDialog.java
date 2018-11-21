@@ -139,8 +139,11 @@ public class AddAvailabilityDialog extends AppCompatDialogFragment {
             final int hourT= mArgs.getInt("hourT");
             final int minT = mArgs.getInt("minT");
             final int tenseT = mArgs.getInt("tenseT");
+            final boolean isUpdate = mArgs.getBoolean("update");
 
-            addbtn.setText("Update");
+            if(isUpdate){
+                addbtn.setText("Update");
+            }
 
 
             if (day.equals("MONDAY")){

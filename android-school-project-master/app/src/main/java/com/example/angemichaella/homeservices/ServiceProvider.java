@@ -11,7 +11,7 @@ public class ServiceProvider extends User {
     private boolean licensed;
     private boolean profileCompleted;
     private boolean hasAvailabities = false;
-    private boolean hasServices = false;
+
 
     private ArrayList<Availability> availabilities = new ArrayList<Availability>();
     public ArrayList<Service> services;
@@ -132,14 +132,10 @@ public class ServiceProvider extends User {
             services = new ArrayList<>();
         }
         services.add(s);
-        hasServices = true;
+
     }
 
     public void removeService(Service service){
         services.remove(service);
-
-        if(services.isEmpty()){
-            hasServices = false;
-        }
     }
 }

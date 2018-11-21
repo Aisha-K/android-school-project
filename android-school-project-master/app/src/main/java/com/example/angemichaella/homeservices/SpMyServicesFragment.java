@@ -28,15 +28,17 @@ public class SpMyServicesFragment extends Fragment {
     String username;
     DatabaseReference spNode;   //node in database where this service provider is stored
 
-    //private Button addMyServiceBtn;
+    private Button addMyServiceBtn;
     protected ArrayList<Service> myServices;
+
     DatabaseReference databaseServices;
     ListView myServiceListView;
+    ServiceAdapter adptr;
+
+    ServiceProvider sp;
 
     //constructor that allows passing arguments from main activity
-    public static SpMyServicesFragment newInstance(String username, String id )
-
-    {
+    public static SpMyServicesFragment newInstance(String username, String id ) {
         SpMyServicesFragment myFrag = new SpMyServicesFragment();
 
         Bundle args = new Bundle();
@@ -47,112 +49,122 @@ public class SpMyServicesFragment extends Fragment {
         return myFrag;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
+        if (getArguments() != null) {
+            username = getArguments().getString("username");
+            id = getArguments().getString("ID");
+            spNode = FirebaseDatabase.getInstance().getReference("users").child( id );
+            setServiceProvider();
+        }
+
+    }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
-
-    {
-        username = getArguments().getString("username");
-        id=getArguments().getString("ID");
-        spNode=FirebaseDatabase.getInstance().getReference("Users").child( id );
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        // Inflate the layout for this fragment
-
-        View view = inflater.inflate(R.layout.fragment_sp_myservices, container, false);
+        View view = inflater.inflate(R.layout.fragment_sp_myservices, null);
 
         //initialize attributes
-
-        myServices = new ArrayList<Service>();
-
-        //Reference to Service Providers services?
-        databaseServices = FirebaseDatabase.getInstance().getReference("My Services");
+        addMyServiceBtn = (Button)view.findViewById(R.id.addMyServiceBtn);
         myServiceListView = (ListView)view.findViewById(R.id.serviceListView);
 
 
-        //updates list of services when data changed
-        Query query = databaseServices.orderByChild("serviceName"); //orders list alphabetically based on the service name
-        query.addValueEventListener(new ValueEventListener(){
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot){
-                myServices.clear();
-
-                for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-                    Service currService = postSnapshot.getValue(Service.class); //retrieving child node
-
-                    myServices.add(currService);                          //adding service from database to list
+        //hold to delete service
+        myServiceListView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+                        Service clickedSrv = (Service) parent.getItemAtPosition(pos);
+                        deleteService(clickedSrv);
+                    }
                 }
-                ServiceAdapter adtr = new ServiceAdapter(getActivity(), myServices);
-                myServiceListView.setAdapter(adtr);
+        );
 
-            }
-            public void onCancelled(DatabaseError databaseError){
-            }
-        });
-
-
-        Button addMyServiceBtn = view.findViewById(R.id.addMyServiceBtn);
-
-        addMyServiceBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                newServicePopUp();
-            }
-        });
-
-
-
-        myServiceListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-
-            public boolean onItemLongClick(AdapterView<?> arg0, View v, int index, long arg3) {
-
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Delete Service");
-                final Service clickedServ = (Service)myServiceListView.getItemAtPosition(index);
-                builder.setMessage("Are you sure you want to delete the " + '"'+ clickedServ.name()+ '"' +" service?");
-
-
-                builder.setPositiveButton("DELETE", new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface dialog, int id){
-
-                        deleteService(clickedServ.id());
-                        dialog.dismiss();//user clicked create
-
-                    }
-                });
-
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface dialog, int id){
-                        dialog.dismiss();
-                    }
-                });
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
-
-                return true;
-            }
-        });
-        //inflates fragment layout
         return view;
     }
 
-    private void newServicePopUp()
-    {
+
+    //onclick of add service button
+    private void addServicePopUp(){
         AddServiceDialog d = new AddServiceDialog();
         d.show(getActivity().getSupportFragmentManager(), "add service dialog");
     }
 
 
     //deletes a service from the database
-    private void deleteService(String ServiceId)
-    {
-        DatabaseReference dR= databaseServices.child(ServiceId);
-        dR.removeValue();
+    private void deleteService(Service service){
+
+        sp.removeService(service);
+        spNode.setValue(sp);
         Toast.makeText(getActivity(), "Service Deleted", Toast.LENGTH_LONG).show();
+
+    }
+
+
+    //setting up SP object and their servcie list from database
+    private void setServiceProvider(){
+        spNode.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                sp = dataSnapshot.getValue(ServiceProvider.class);
+                myServices = sp.services;
+                addMyServiceBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        addServicePopUp();
+                    }
+                });
+
+                if(sp.hasServices()){
+                    adptr = new ServiceAdapter(getActivity(), myServices);
+                    myServiceListView.setAdapter(adptr);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+    }
+
+    public void addService(Service s){
+        sp.addService(s); //adds the service
+        spNode.setValue(sp); //updates service provider in database
+    }
+
+    /*
+     * For real time updating my service list
+     */
+    @Override
+    public void onStart(){
+        super.onStart();
+        spNode.addValueEventListener(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot){
+
+                sp = dataSnapshot.getValue(ServiceProvider.class);
+                if(sp.hasServices()){
+                    if(getActivity()!= null) {
+                        myServices = sp.services;
+                        adptr = new ServiceAdapter(getActivity(), myServices);
+                        myServiceListView.setAdapter(adptr);
+                    }
+                }
+
+            }
+            public void onCancelled(DatabaseError databaseError){
+
+            }
+        });
     }
 
 }

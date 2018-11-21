@@ -46,6 +46,9 @@ public class AddAvailabilityDialog extends AppCompatDialogFragment {
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
 
+            Bundle mArgs = getArguments();
+
+
             AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
             LayoutInflater inf = getActivity().getLayoutInflater();
             View v = inf.inflate(R.layout.availability_dialog, null);
@@ -127,6 +130,53 @@ public class AddAvailabilityDialog extends AppCompatDialogFragment {
 
 
             final AlertDialog test = b.create();
+
+
+
+
+            final String day = mArgs.getString("day");
+            final int hourF = mArgs.getInt("hourF");
+            final int minF = mArgs.getInt("minF");
+            final int tenseF = mArgs.getInt("tenseF");
+            final int hourT= mArgs.getInt("hourT");
+            final int minT = mArgs.getInt("minT");
+            final int tenseT = mArgs.getInt("tenseT");
+
+            addbtn.setText("Update");
+
+
+            if (day.equals("MONDAY")){
+                mon.setChecked(true);
+            }
+            else if (day.equals("TUESDAY")){
+                tues.setChecked(true);
+            }
+            else if (day.equals("WEDNESDAY")){
+                wed.setChecked(true);
+            }
+            else if (day.equals("THURSDAY")){
+                thur.setChecked(true);
+            }
+            else if (day.equals("FRIDAY")){
+                fri.setChecked(true);
+            }
+            else if (day.equals("SATURDAY")){
+                sat.setChecked(true);
+            }
+            else if (day.equals("SUNDAY")){
+                sun.setChecked(true);
+            }
+
+            hourPicker.setValue(hourF);
+            minPicker.setValue(minF);
+            tense.setValue(tenseF);
+
+            toHourPicker.setValue(hourT);
+            toMinPicker.setValue(minT);
+            toTense.setValue(tenseT);
+
+
+
             addbtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

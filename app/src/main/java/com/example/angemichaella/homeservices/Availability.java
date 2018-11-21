@@ -45,6 +45,7 @@ public class Availability {
         return (day == other.getDay() && from.equals(other.getFrom()) && to.equals(other.getTo()));
     }
 
+
     /**
      * This method returns true if two availabilities are over lapping (on the same day, and a region of shared time)
      * @param other

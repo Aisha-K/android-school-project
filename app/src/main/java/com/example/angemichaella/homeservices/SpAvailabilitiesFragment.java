@@ -95,21 +95,9 @@ public class SpAvailabilitiesFragment extends Fragment{
                     public void onItemClick(AdapterView<?> parent, View view, int pos, long id){
                         Availability clickedAv = (Availability) parent.getItemAtPosition(pos);
 
-                        // put the values from the clickedAv in the dialog
+                        updateAvPopUp(clickedAv);
+                        deleteAv(clickedAv);
 
-                        /*
-                        Bundle args = new Bundle();
-                        args.putString("dialog_title", "Edit Availability");
-                        args.putString("srv_name", clickedSrv.name());
-                        args.putString("srv_rate", Double.toString(clickedSrv.rate()));
-                        args.putString("srv_id", clickedSrv.id());
-                        args.putString("srv_type", clickedSrv.type());
-
-                        AddAvailabilityDialog d = new AddAvailabilityDialog();
-                        d.setArguments(args);
-                        d.show(getActivity().getSupportFragmentManager(), "edit availability dialog");
-
-                        */
                     }
                 }
         );
@@ -152,8 +140,36 @@ public class SpAvailabilitiesFragment extends Fragment{
 
     private void newAvPopUp(){
 
+        // send arguments to the dialog
+        Bundle args = new Bundle();
+        args.putString("day", "");
+        args.putInt("hourF", 0);
+        args.putInt("minF", 0);
+        args.putInt("tenseF", 0);
+        args.putInt("hourT", 0);
+        args.putInt("minT", 0);
+        args.putInt("tenseT", 0);
+
         AddAvailabilityDialog d = new AddAvailabilityDialog();
+        d.setArguments(args);
         d.show(getActivity().getSupportFragmentManager(), "new availability dialog");
+
+    }
+
+    private void updateAvPopUp(Availability av){
+
+        Bundle args = new Bundle();
+        args.putString("day", av.day());
+        args.putInt("hourF", av.getFrom().getHour());
+        args.putInt("minF", av.getFrom().getMinute());
+        args.putInt("tenseF", av.getFrom().getTense());
+        args.putInt("hourT", av.getTo().getHour());
+        args.putInt("minT", av.getTo().getMinute());
+        args.putInt("tenseT", av.getTo().getTense());
+
+        AddAvailabilityDialog d = new AddAvailabilityDialog();
+        d.setArguments(args);
+        d.show(getActivity().getSupportFragmentManager(), "update availability dialog");
 
     }
 

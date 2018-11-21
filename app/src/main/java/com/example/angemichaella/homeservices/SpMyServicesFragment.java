@@ -143,6 +143,7 @@ public class SpMyServicesFragment extends Fragment {
             for (Service sv : myServices) {
                 if (sv.id().equals(s.id())){
                     alreadyexist = true;
+                    Toast.makeText(getActivity(), "Service is already in your profile", Toast.LENGTH_LONG).show();
                 }
 
             }

@@ -74,12 +74,16 @@ public class SpMyServicesFragment extends Fragment {
         myServiceListView = (ListView)view.findViewById(R.id.serviceListView);
 
 
-        //set on long click method here
-        myServiceListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            public boolean onItemLongClick(AdapterView<?> arg0, View v, int index, long arg3) {
-                return true; //to be edited
-            }
-        });
+        //hold to delete service
+        myServiceListView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+                        Service clickedSrv = (Service) parent.getItemAtPosition(pos);
+                        deleteService(clickedSrv);
+                    }
+                }
+        );
 
         return view;
     }
@@ -93,10 +97,10 @@ public class SpMyServicesFragment extends Fragment {
 
 
     //deletes a service from the database
-    private void deleteService(String ServiceId){
-        DatabaseReference dR= databaseServices.child(ServiceId);
-        dR.removeValue();
+    private void deleteService(Service service){
 
+        sp.removeService(service);
+        spNode.setValue(sp);
         Toast.makeText(getActivity(), "Service Deleted", Toast.LENGTH_LONG).show();
 
     }
@@ -164,5 +168,4 @@ public class SpMyServicesFragment extends Fragment {
     }
 
 }
-
 

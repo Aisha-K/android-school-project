@@ -4,6 +4,7 @@ package com.example.angemichaella.homeservices;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
@@ -61,6 +62,7 @@ public class AddServiceDialog extends AppCompatDialogFragment {
         databaseServices = FirebaseDatabase.getInstance().getReference("Services");
         myServiceListView = (ListView) v.findViewById(R.id.myServiceListView);
 
+
         //updates list of services when data changed
         Query query = databaseServices.orderByChild("serviceName"); //orders list alphabetically based on the servie name
         query.addValueEventListener(new ValueEventListener() {
@@ -87,6 +89,8 @@ public class AddServiceDialog extends AppCompatDialogFragment {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int pos, long id){
                         clickedPos = pos;
+
+
                     }
                 }
         );

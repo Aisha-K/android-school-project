@@ -132,8 +132,6 @@ public class AddAvailabilityDialog extends AppCompatDialogFragment {
             final AlertDialog test = b.create();
 
 
-
-
             final String day = mArgs.getString("day");
             final int hourF = mArgs.getInt("hourF");
             final int minF = mArgs.getInt("minF");
@@ -174,7 +172,6 @@ public class AddAvailabilityDialog extends AppCompatDialogFragment {
             toHourPicker.setValue(hourT);
             toMinPicker.setValue(minT);
             toTense.setValue(tenseT);
-
 
 
             addbtn.setOnClickListener(new View.OnClickListener() {

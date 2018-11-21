@@ -40,6 +40,7 @@ public class SpAvailabilitiesFragment extends Fragment{
     DatabaseReference spNode;
     AvAdapter avAd;
     ListView avListView;
+    Availability toDel;
 
     ServiceProvider sp;
 
@@ -94,9 +95,8 @@ public class SpAvailabilitiesFragment extends Fragment{
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int pos, long id){
                         Availability clickedAv = (Availability) parent.getItemAtPosition(pos);
-
+                        toDel = clickedAv;
                         updateAvPopUp(clickedAv);
-                        deleteAv(clickedAv);
 
                     }
                 }
@@ -175,6 +175,13 @@ public class SpAvailabilitiesFragment extends Fragment{
 
     public void addAvailabilities(ArrayList<Availability> avList){
 
+        try{
+            deleteAv(toDel);
+            toDel = null;
+        } catch (NullPointerException e){
+
+        }
+
         for(Availability a: avList){
 
             int overlapsWithIx = sp.overlapsWith(a);
@@ -206,48 +213,11 @@ public class SpAvailabilitiesFragment extends Fragment{
 
         spNode.setValue(sp);
 
-        Toast.makeText(getActivity(), "Availability Deleted", Toast.LENGTH_LONG).show();
+        if(toDel==null){
+            Toast.makeText(getActivity(), "Availability Deleted", Toast.LENGTH_LONG).show();
+        }
     }
 
-    /*
-    //updates a service in the database with new info
-    protected void editService( final String ServiceId, String oldname, final String newName, final double newPrice, final boolean isOutdoor){
-        //if the name was not changed, we do not need to search wether the new name is already in use
-        if(oldname.equals(newName)){
-            DatabaseReference dR = databaseServices.child(ServiceId);
-            dR.removeValue();
-            Service service = new Service(newName, isOutdoor, newPrice, ServiceId);
-            dR.setValue(service);
-        }
-        else {
-            //finding if service name already exists
-            Query query = databaseServices.orderByChild("serviceName").equalTo(newName);
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        //username exists
-                        Toast.makeText(getActivity(), "Service already exists, try again with a new name", Toast.LENGTH_LONG).show();
-                    } else { //service does not exist, create service
-                        DatabaseReference dR = databaseServices.child(ServiceId);
-                        dR.removeValue();
-                        Service service = new Service(newName, isOutdoor, newPrice, ServiceId);
-                        dR.setValue(service);
-
-                        Toast.makeText(getActivity(), "Service Updated", Toast.LENGTH_LONG).show();
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    System.out.println("The read failed: " + databaseError.getCode());
-                }
-            });
-
-        }
-
-    }
-    */
 
     public void setUpSPFromDatabase()
     {

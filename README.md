@@ -15,6 +15,8 @@ link to repository: https://github.com/angemichaella/android-school-project
 * Shiza Siddiqui - ssidd021@uottawa.ca
 * Yusra Adinoyi - yadin030@uottawa.ca
 
+Link to the final report:
+https://drive.google.com/open?id=1tPojRUf63h9lXcAdX9wnTA6OuU5qcYCNNxg7_qDxpwE
 
 Link for the google docs we're using for this project:
 https://docs.google.com/document/d/167-yMh_lQvFa1uKdVnUQaSR8UupHiAvvJFWx1b4kIDo/edit?usp=sharing

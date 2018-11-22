@@ -75,15 +75,38 @@ public class SpMyServicesFragment extends Fragment {
 
 
         //hold to delete service
-        myServiceListView.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-                        Service clickedSrv = (Service) parent.getItemAtPosition(pos);
-                        deleteService(clickedSrv);
+        myServiceListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            public boolean onItemLongClick(AdapterView<?> arg0, View v, int index, long arg3) {
+
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Delete Service");
+                final Service clickedServ = (Service)myServiceListView.getItemAtPosition(index);
+                builder.setMessage("Are you sure you want to delete " + '"'+ clickedServ.name()+ '"' +" from your profile?");
+
+
+                builder.setPositiveButton("DELETE", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id){
+
+                        deleteService(clickedServ);
+                        dialog.dismiss();//user clicked create
+
                     }
-                }
-        );
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id){
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+                return true;
+            }
+        });
 
         return view;
     }
@@ -152,9 +175,8 @@ public class SpMyServicesFragment extends Fragment {
         if(!alreadyexist){
             sp.addService(s); //adds the service
             spNode.setValue(sp); //updates service provider in database
+            Toast.makeText(getActivity(), "Service '"+ s.name()+ "' added", Toast.LENGTH_LONG).show();
         }
-
-
 
     }
 

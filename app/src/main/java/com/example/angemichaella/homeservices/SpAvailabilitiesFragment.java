@@ -195,6 +195,7 @@ public class SpAvailabilitiesFragment extends Fragment{
                 Toast.makeText(getActivity(), "Extending existing  availability... " , Toast.LENGTH_LONG).show();
             }else{
                 sp.addAvailability(a);
+                Toast.makeText(getActivity(), "Availability Added", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -205,17 +206,14 @@ public class SpAvailabilitiesFragment extends Fragment{
     //deletes an availability from the database
     private void deleteAv(Availability delAv){
 
-        availabilities = sp.getAvailabilities();
+        try{
+            sp.removeAvailabitiy(delAv);
+            spNode.setValue(sp);
+        }catch(Exception e){
 
-        for(Availability av : availabilities){
-            if(av.toString().equals(delAv.toString())){
-                sp.removeAvailabitiy(delAv);
-            }
         }
 
-        spNode.setValue(sp);
-
-        if(toDel==null){
+        if(delAv!=null){
             Toast.makeText(getActivity(), "Availability Deleted", Toast.LENGTH_LONG).show();
         }
     }
@@ -257,6 +255,7 @@ public class SpAvailabilitiesFragment extends Fragment{
             public void onDataChange(DataSnapshot dataSnapshot){
 
                 if(getActivity()!= null) {
+                    availabilities= sp.getAvailabilities();
                     avAd = new AvAdapter(getActivity(), availabilities);
                     avListView.setAdapter(avAd);
                 }

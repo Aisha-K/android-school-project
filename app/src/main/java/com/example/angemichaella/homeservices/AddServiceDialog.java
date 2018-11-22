@@ -89,8 +89,7 @@ public class AddServiceDialog extends AppCompatDialogFragment {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int pos, long id){
                         clickedPos = pos;
-
-
+                        view.setSelected(true);
                     }
                 }
         );

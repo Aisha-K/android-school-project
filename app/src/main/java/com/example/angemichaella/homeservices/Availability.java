@@ -92,4 +92,25 @@ public class Availability {
 
         return new Availability(day, earliestFrom, latestTo);
     }
+
+
+    /*
+    method testing whether avl 'other' is contained in this avl.
+     */
+    public boolean contains(Availability other){
+
+        if(other.getDay() != day){//if not on the same day
+            return false;
+        }
+
+        if(from.compareTo(other.getFrom())>0){ //if this avl starts after the other
+            return false;
+        }
+
+        if(to.compareTo(other.getTo())<0){/// if this avl ends before the other
+            return false;
+        }
+
+        return true;
+    }
 }

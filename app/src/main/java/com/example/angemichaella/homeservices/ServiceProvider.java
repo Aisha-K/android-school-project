@@ -1,6 +1,7 @@
 package com.example.angemichaella.homeservices;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ServiceProvider extends User {
 
@@ -137,6 +138,23 @@ public class ServiceProvider extends User {
 
     public void removeService(Service service){
         services.remove(service);
+    }
+
+
+    /*
+    from list of availabilities, returns true if SP is available sometime during any of those times.
+     */
+    public boolean isAvailableSometimeDuring(List<Availability> avls){
+
+        for(Availability otherAvl: avls){
+            for(Availability myAvl : availabilities){
+                if (myAvl.overlaps(otherAvl)){
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }
 

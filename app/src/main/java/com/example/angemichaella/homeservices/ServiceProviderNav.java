@@ -17,6 +17,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Main activity page that a service provider is sent to after signing in
+ */
 public class ServiceProviderNav extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AddAvailabilityDialog.AddAvailabilityListener, AddServiceDialog.AddServiceDialogListener {
     private DrawerLayout drawer;
     private TextView nameTV;
@@ -51,9 +54,11 @@ public class ServiceProviderNav extends AppCompatActivity implements NavigationV
         username= getIntent().getStringExtra("USER_NAME");
         id= getIntent().getStringExtra("USER_ID");
 
+        //setting name in navigation drawer header
         View hView = navigationView.getHeaderView(0);
         nameTV = hView.findViewById(R.id.navSpNameTV);
         nameTV.setText(username);
+
         if(savedInstanceState==null){   //activity started for the first time
         //initial fragment displayed when first opened
             Bundle args = new Bundle();
@@ -88,6 +93,10 @@ public class ServiceProviderNav extends AppCompatActivity implements NavigationV
 
         //opens appropriate fragment based on which item clicked
         switch(menuItem.getItemId()){
+            case R.id.nav_bookings:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new SpManageBookingsFrag()).commit();
+                break;
             case R.id.nav_profile:
                 fragment1=  SpProfileFragment.newInstance(username,id); //creating fragment instance while passing var
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,

@@ -236,10 +236,10 @@ public class CreateAccountPage extends AppCompatActivity {
             intent = (new Intent(CreateAccountPage.this, Welcome3Admin.class));
         }
         else if (user.getType().trim().equals("HomeOwner")){
-            intent = (new Intent(CreateAccountPage.this, WelcomeHomeOwner.class));
+            intent = (new Intent(CreateAccountPage.this, HomeOwnerNav.class));
         }
         else if (user.getType().trim().equals("ServiceProvider")){//goes to navigator
-            intent = (new Intent(CreateAccountPage.this, ServiceProviderNav.class));//WelcomeServiceProvider.class));
+            intent = (new Intent(CreateAccountPage.this, ServiceProviderNav.class));
         }
         intent.putExtra( "USER_NAME", user.getUsername());
         intent.putExtra("USER_ID", user.getUserId());

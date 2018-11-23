@@ -94,10 +94,10 @@ public class MainActivity extends AppCompatActivity {
             intent = (new Intent(MainActivity.this, Welcome3Admin.class));
         }
         else if (user.getType().trim().equals("HomeOwner")){
-            intent = (new Intent(MainActivity.this, WelcomeHomeOwner.class));
+            intent = (new Intent(MainActivity.this, HomeOwnerNav.class));
         }
-        else if (user.getType().trim().equals("ServiceProvider")){//GOES STRAIGHT TO THE AVAILABILITY SCREEN JUST FOR TESTING
-            intent = (new Intent(MainActivity.this, ServiceProviderNav.class));//WelcomeServiceProvider.class));
+        else if (user.getType().trim().equals("ServiceProvider")){
+            intent = (new Intent(MainActivity.this, ServiceProviderNav.class));
         }
 
         intent.putExtra( "USER_NAME", user.getUsername());

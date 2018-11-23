@@ -62,9 +62,7 @@ public class ServiceTab extends Fragment{
 
                 for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
                     Service currService = postSnapshot.getValue(Service.class); //retrieving child node
-                    //if(!currService.type().equals("indoor")) {
                     services.add(currService);                          //adding service from database to list
-                    //}
                 }
                 ServiceAdapter adtr = new ServiceAdapter(getActivity(), services);
                 serviceListView.setAdapter(adtr);

@@ -145,10 +145,22 @@ public class ServiceProvider extends User {
     from list of availabilities, returns true if SP is available sometime during any of those times.
      */
     public boolean isAvailableSometimeDuring(List<Availability> avls){
-
+    if (hasAvailabities){
         for(Availability otherAvl: avls){
             for(Availability myAvl : availabilities){
                 if (myAvl.overlaps(otherAvl)){
+                    return true;
+                }
+            }
+        }
+    }
+        return false;
+    }
+
+    public boolean offersService(String srvId){
+        if(hasServices()){
+            for(Service s: services){
+                if(s.id().equals(srvId)){
                     return true;
                 }
             }

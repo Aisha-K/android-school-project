@@ -8,7 +8,6 @@
 
 
     <LinearLayout
-        android:id="@+id/avLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -16,39 +15,26 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/hoTextView5"
+                android:id="@+id/label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tap "
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                android:textStyle="bold" />
+                android:text="Viewing Providers Who Offer: " />
 
             <TextView
-                android:id="@+id/hoSearchTitle"
+                android:id="@+id/nameOfServiceFilter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="20dp"
-                android:text="a service to select"
-                android:textAllCaps="false"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                android:textSize="14sp" />
+                android:text="TextView" />
 
         </LinearLayout>
 
-
         <ListView
-            android:id="@+id/hoServiceSearchLV"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="50dp"></ListView>
-
-
+            android:id="@+id/providersLV"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 </RelativeLayout>

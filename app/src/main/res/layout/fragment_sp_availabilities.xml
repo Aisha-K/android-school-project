@@ -66,23 +66,23 @@
         <ListView
             android:id="@+id/avListView"
             android:layout_width="match_parent"
-            android:layout_height="330dp"
+            android:layout_height="334dp"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="50dp">
 
         </ListView>
 
-        <Button
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/addAvBtn"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="75dp"
-            android:layout_marginRight="75dp"
-            android:backgroundTint="@color/colorPrimary"
-            android:text="Add Availability"
-            android:textColor="@color/common_google_signin_btn_text_dark_default" />
+            android:layout_gravity="end"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="24dp"
+            android:clickable="true"
+
+            app:srcCompat="@drawable/ic_add_circle_salmon" />
 
     </LinearLayout>
 </RelativeLayout>

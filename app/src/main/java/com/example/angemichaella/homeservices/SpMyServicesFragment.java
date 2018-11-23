@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +29,7 @@ public class SpMyServicesFragment extends Fragment {
     String username;
     DatabaseReference spNode;   //node in database where this service provider is stored
 
-    private Button addMyServiceBtn;
+    private FloatingActionButton addMyServiceBtn;
     protected ArrayList<Service> myServices;
 
     DatabaseReference databaseServices;
@@ -70,7 +71,7 @@ public class SpMyServicesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sp_myservices, null);
 
         //initialize attributes
-        addMyServiceBtn = (Button)view.findViewById(R.id.addMyServiceBtn);
+        addMyServiceBtn = view.findViewById(R.id.addFloatingActionButton);
         myServiceListView = (ListView)view.findViewById(R.id.serviceListView);
 
 

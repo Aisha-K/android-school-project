@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,7 @@ public class SpAvailabilitiesFragment extends Fragment{
     String username;
 
 
-    private Button addAvBtn;
+    private FloatingActionButton addAvBtn;
     protected ArrayList<Availability> availabilities = new ArrayList<Availability>();
 
     DatabaseReference spNode;
@@ -79,7 +80,7 @@ public class SpAvailabilitiesFragment extends Fragment{
         avListView = (ListView)view.findViewById(R.id.avListView);
 
         //when new availability button is clicked, will call function new Availability
-        addAvBtn = (Button)view.findViewById(R.id.addAvBtn);
+        addAvBtn = view.findViewById(R.id.addAvBtn);
         addAvBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

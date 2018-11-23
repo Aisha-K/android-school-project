@@ -51,7 +51,7 @@
             <ListView
                 android:id="@+id/users_list"
                 android:layout_width="292dp"
-                android:layout_height="412dp"
+                android:layout_height="354dp"
                 android:layout_gravity="center_horizontal" />
         </LinearLayout>
     </LinearLayout>

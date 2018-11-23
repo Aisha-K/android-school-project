@@ -14,7 +14,7 @@ public class ServiceProvider extends User {
     private boolean hasAvailabities = false;
 
 
-    private ArrayList<Availability> availabilities = new ArrayList<Availability>();
+    public ArrayList<Availability> availabilities = new ArrayList<Availability>();
     public ArrayList<Service> services;
 
     //default constructor

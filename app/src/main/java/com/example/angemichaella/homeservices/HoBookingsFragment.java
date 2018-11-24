@@ -50,7 +50,7 @@ public class HoBookingsFragment extends Fragment {
 
     public void setUpMyBookingList() {
 
-        Query query = bookingsDb.orderByChild("homeOwnerName");//queries all bookings in the booking database equal to this homeOwnersName
+        Query query = bookingsDb.orderByChild("homeOwnerName").equalTo(hoName);//queries all bookings in the booking database equal to this homeOwnersName
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

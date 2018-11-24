@@ -16,11 +16,8 @@ import java.util.ArrayList;
 
 public class ServiceProviderListAdapter extends ArrayAdapter<ServiceProvider> {
 
-    String serviceId; //the services these providers provide
-
-    public ServiceProviderListAdapter(Context context, ArrayList<ServiceProvider> providers, String serviceId){
+    public ServiceProviderListAdapter(Context context, ArrayList<ServiceProvider> providers){
         super(context, R.layout.serviceprovider_row, providers); //context, list item template layout, list of items 2be displayed
-        this.serviceId = serviceId;
     }
 
     @Override

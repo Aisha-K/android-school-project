@@ -41,15 +41,16 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //setting up view components
         setContentView(R.layout.activity_ho_search_for_sps);
         providersListView = (ListView)findViewById(R.id.providersLV);
         serviceTitle = (TextView)findViewById(R.id.nameOfServiceFilter);
         addFilterBtn = (Button) findViewById(R.id.addFilterBtn);
 
-
+        //getting info from past activity
         chosenServiceId  = getIntent().getStringExtra("srv_id");
         chosenServiceName = getIntent().getStringExtra("srv_name");
-
         serviceTitle.setText(chosenServiceName);
 
         setUpProvidersList();
@@ -59,7 +60,8 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
 
 
 
-
+    //U dont have to use this functon i did not test it
+    //prototype method to filter given list by whether their available sometime during the list of availabilties av;
     public ArrayList<ServiceProvider> filterByAvailability(ArrayList<ServiceProvider> sproviders, ArrayList<Availability> avls) {
         ArrayList<ServiceProvider> filteredProviders = new ArrayList<>();
 
@@ -73,7 +75,7 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
     }
 
 
-
+    //returns subset of service providers sps who offer service s
     public ArrayList<ServiceProvider> filterByService(List<ServiceProvider> sps, String serviceId){
         ArrayList<ServiceProvider> filteredProviders = new ArrayList<>();
 
@@ -86,6 +88,11 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
         return filteredProviders;
     }
 
+
+
+    /*
+    Sets up list of all service providers in the database and the associated list view
+     */
     public void setUpProvidersList(){
         Query query = users.orderByChild("type").equalTo("ServiceProvider"); //orders list alphabetically based on the service name
         query.addValueEventListener(new ValueEventListener(){
@@ -96,11 +103,11 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
                     providers.add(postSnapshot.getValue(ServiceProvider.class));//adding all the service providers to our list.
                 }
 
-                filteredProviders = filterByService(providers, chosenServiceId);
+                filteredProviders = filterByService(providers, chosenServiceId); //filters the list of all Providers by the chosenServiceId
 
-                adptr = new ServiceProviderListAdapter(HoSearchForSps.this, filteredProviders, "serviceId"); //can setup the adapter now that the list is built
+                adptr = new ServiceProviderListAdapter(HoSearchForSps.this, filteredProviders); //can setup the adapter now that the list is built
                 providersListView.setAdapter(adptr);
-                providersListView.setOnItemClickListener(
+                providersListView.setOnItemClickListener(//onclick of item in list view
                         new AdapterView.OnItemClickListener(){
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int pos, long id){
@@ -112,7 +119,7 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
 
                 addFilterBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClick(View v) {//shows filter popup
                         HoFilterBottomSheet filterDialog = new HoFilterBottomSheet();
                         filterDialog.show(getSupportFragmentManager(), "filterDialog");
                     }
@@ -126,8 +133,21 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
     }
 
 
+
+    /*
+    Interface method for communicating the chosen filters with this activity
+    This is the method called after a user is done from the filter dialog
+
+    ratingLowerbound: the rating threshold for service providers the user wants to see
+    example i only want SPs who have 3 stars or higher
+
+    avls: the availability threshold, only show SPs who are avialabile at any of the times listed in avls
+
+    IF RATINGLOWERBOUND == -1, THE USER IS NOT FILTERING BY RATING
+    IF AVLS == NULL, THE USER IS NOT FILTERING BY AVILABILITY
+     */
     public void choseFilters(double ratingLowerBound,  List<Availability> avls){
-        //Tester Toast:
+        //Tester Toast (CAN BE RMEOVED):
         String msg = "Filtering by times\n";
         if(avls!= null){
             for(Availability a: avls){
@@ -141,11 +161,14 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
 
          //actual functionality
         if(ratingLowerBound != -1){
-            //filter Sps by rating specified
-        }
 
+            //filter Sps by rating specified
+            //update the view
+
+        }
         if(avls != null){
             //filter sps by avls specified
+            //update the view
         }
     }
 

@@ -25,8 +25,8 @@ public class HoBookingsFragment extends Fragment {
     ArrayList<Booking> myBookings;
     String hoName;
 
-    BookingAdapter adptr;
-    ListView bookingsListView;
+    BookingAdapter adptr; //adapter for booking list view
+    ListView bookingsListView; //list view of the users bookings
 
 
     @Override
@@ -35,8 +35,7 @@ public class HoBookingsFragment extends Fragment {
         bookingsDb = FirebaseDatabase.getInstance().getReference("bookings");
         hoName = "home"; //need to get form bundle
         myBookings = new ArrayList<>();
-        setUpMyBookingList();
-
+        setUpMyBookingList(); //sets up myBookings with all of the users booking in the database
     }
 
     @Override
@@ -46,11 +45,12 @@ public class HoBookingsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sp_manage_bookings, container, false);
         bookingsListView = (ListView) view.findViewById(R.id.bookingLv);
         return view;
+
     }
 
     public void setUpMyBookingList() {
 
-        Query query = bookingsDb.orderByChild("homeOwnerName");//.equalTo(hoName); //orders list alphabetically based on the service name
+        Query query = bookingsDb.orderByChild("homeOwnerName");//queries all bookings in the booking database equal to this homeOwnersName
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -59,9 +59,11 @@ public class HoBookingsFragment extends Fragment {
                     myBookings.add(postSnapshot.getValue(Booking.class));//adding all the booking to our list.
                 }
 
+                ///Now that the list is built, we can set up the appearance of the list view
+
                 adptr = new BookingAdapter(getActivity(), myBookings); //can setup the adapter now that the list is built
                 bookingsListView.setAdapter(adptr);
-                bookingsListView.setOnItemClickListener(
+                bookingsListView.setOnItemClickListener(//here sets the onclick for the booking list view
                         new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {

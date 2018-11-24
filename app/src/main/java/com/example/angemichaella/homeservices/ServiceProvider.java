@@ -12,6 +12,7 @@ public class ServiceProvider extends User {
     private boolean licensed;
     private boolean profileCompleted;
     private boolean hasAvailabities = false;
+    private double currAvgRating;
 
 
     public ArrayList<Availability> availabilities = new ArrayList<Availability>();
@@ -28,6 +29,7 @@ public class ServiceProvider extends User {
         licensed = false;
         profileCompleted = false;
         description = "empty";
+        currAvgRating=0;
 
     }
 
@@ -68,9 +70,12 @@ public class ServiceProvider extends User {
         return availabilities;
     }
 
+    public double getCurrAvgRating(){return currAvgRating; }
+
     public void setAvailabilities(ArrayList<Availability> availabilities){
         this.availabilities = availabilities;
     }
+
 
     public void addAvailability(Availability availability){
         availabilities.add(availability);
@@ -141,10 +146,11 @@ public class ServiceProvider extends User {
     }
 
 
-    /*
+    /**
     from list of availabilities, returns true if SP is available sometime during any of those times.
      */
     public boolean isAvailableSometimeDuring(List<Availability> avls){
+
     if (hasAvailabities){
         for(Availability otherAvl: avls){
             for(Availability myAvl : availabilities){

@@ -53,7 +53,26 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
         chosenServiceName = getIntent().getStringExtra("srv_name");
         serviceTitle.setText(chosenServiceName);
 
-        setUpProvidersList();
+        Query query = users.orderByChild("type").equalTo("ServiceProvider"); //orders list alphabetically based on the service name
+        query.addValueEventListener(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot){
+                providers.clear();
+
+                for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+                    providers.add(postSnapshot.getValue(ServiceProvider.class));//adding all the service providers to our list.
+                    providers = filterByService(providers, chosenServiceId); //filters the list of all Providers by the chosenServiceId
+                    filteredProviders=providers;
+
+                }
+
+                setUpProvidersList();
+
+            }
+
+            public void onCancelled(DatabaseError databaseError){
+            }
+        });
 
     }
 
@@ -91,22 +110,12 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
 
 
     /*
-    Sets up list of all service providers in the database and the associated list view
+    Sets up list view
      */
     public void setUpProvidersList(){
-        Query query = users.orderByChild("type").equalTo("ServiceProvider"); //orders list alphabetically based on the service name
-        query.addValueEventListener(new ValueEventListener(){
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot){
-
-                for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-                    providers.add(postSnapshot.getValue(ServiceProvider.class));//adding all the service providers to our list.
-                }
-
-                filteredProviders = filterByService(providers, chosenServiceId); //filters the list of all Providers by the chosenServiceId
-
                 adptr = new ServiceProviderListAdapter(HoSearchForSps.this, filteredProviders); //can setup the adapter now that the list is built
                 providersListView.setAdapter(adptr);
+
                 providersListView.setOnItemClickListener(//onclick of item in list view
                         new AdapterView.OnItemClickListener(){
                             @Override
@@ -125,11 +134,6 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
                     }
                 });
 
-            }
-
-            public void onCancelled(DatabaseError databaseError){
-            }
-        });
     }
 
 
@@ -147,6 +151,9 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
     IF AVLS == NULL, THE USER IS NOT FILTERING BY AVILABILITY
      */
     public void choseFilters(double ratingLowerBound,  List<Availability> avls){
+
+        filteredProviders=providers; //clears past filtered list be resetting to orig providers
+
         //Tester Toast (CAN BE RMEOVED):
         String msg = "Filtering by times\n";
         if(avls!= null){
@@ -154,46 +161,67 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
                 msg+= a.toString()+"\n";
             }
         }
-
          msg+= "And by Ratings above "+ ratingLowerBound;
-
          Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 
          //actual functionality
-        if(ratingLowerBound != -1){
+        if(ratingLowerBound != -1){ //rating filter chosen
+            ArrayList<ServiceProvider> ratingFilteredProviders = new ArrayList<>(); //new filtered list
 
-            //filter Sps by rating specified
-            //update the view
+            for (ServiceProvider s : filteredProviders) {
+                if(s.getCurrAvgRating() >= ratingLowerBound){
+                    ratingFilteredProviders.add(s);
+                }
+            }
+            filteredProviders=ratingFilteredProviders;  //update list used in list view and avl filtering
+        }
+        //if no rating chosen, filteredProviders stays the same
 
+        if(avls != null){   //filter sps by avls specified
+
+            ArrayList<ServiceProvider> avlFilteredProviders = new ArrayList<>();    //new filtered list
+            for (ServiceProvider s : filteredProviders) {
+                if(s.isAvailableSometimeDuring(avls)){
+
+                    Toast.makeText(this, "isAvailable", Toast.LENGTH_LONG).show();
+                    avlFilteredProviders.add(s);
+                }
+            }
+            filteredProviders=avlFilteredProviders; //update list used in list view
         }
-        if(avls != null){
-            //filter sps by avls specified
-            //update the view
-        }
+        //if no avls chosen, filteredProviders stays the same
+        setUpProvidersList();
     }
+
 
     @Override
     //updates list of service providers on data change
     public void onStart(){
 
         super.onStart();
-        Query query = users.orderByChild("type").equalTo("ServiceProvider"); //orders list alphabetically based on the service name
-        query.addValueEventListener(new ValueEventListener(){
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot){
-                providers.clear();
-
-                for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-                    providers.add(postSnapshot.getValue(ServiceProvider.class));//adding all the service providers to our list.
-                }
-
-            }
-
-            public void onCancelled(DatabaseError databaseError){
-            }
-        });
+//        Query query = users.orderByChild("type").equalTo("ServiceProvider"); //orders list alphabetically based on the service name
+//        query.addValueEventListener(new ValueEventListener(){
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot){
+//                providers.clear();
+//
+//                for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+//                    providers.add(postSnapshot.getValue(ServiceProvider.class));//adding all the service providers to our list.
+//                    filteredProviders = filterByService(providers, chosenServiceId); //filters the list of all Providers by the chosenServiceId
+//
+//                }
+//
+//                setUpProvidersList();
+//
+//            }
+//
+//            public void onCancelled(DatabaseError databaseError){
+//            }
+//        });
 
     }
+
+
 
 
 }

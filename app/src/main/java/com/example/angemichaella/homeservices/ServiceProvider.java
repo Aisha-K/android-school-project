@@ -168,5 +168,14 @@ public class ServiceProvider extends User {
 
         return false;
     }
+
+    public boolean availableOnWeekday(Day d){
+        for(Availability a: availabilities){
+            if(a.getDay() == d){
+                return true;
+            }
+        }
+        return false;
+    }
 }
 

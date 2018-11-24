@@ -54,45 +54,10 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
         chosenServiceName = getIntent().getStringExtra("srv_name");
         serviceTitle.setText(chosenServiceName);
 
-        Query query = users.orderByChild("type").equalTo("ServiceProvider"); //orders list alphabetically based on the service name
-        query.addValueEventListener(new ValueEventListener(){
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot){
-                providers.clear();
-
-                for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-                    providers.add(postSnapshot.getValue(ServiceProvider.class));//adding all the service providers to our list.
-                    providers = filterByService(providers, chosenServiceId); //filters the list of all Providers by the chosenServiceId
-                    filteredProviders=providers;
-
-                }
-
-                setUpProvidersList();
-
-            }
-
-            public void onCancelled(DatabaseError databaseError){
-            }
-        });
 
     }
 
 
-
-
-    //U dont have to use this functon i did not test it
-    //prototype method to filter given list by whether their available sometime during the list of availabilties av;
-    public ArrayList<ServiceProvider> filterByAvailability(ArrayList<ServiceProvider> sproviders, ArrayList<Availability> avls) {
-        ArrayList<ServiceProvider> filteredProviders = new ArrayList<>();
-
-        for (ServiceProvider s : sproviders) {
-            if(s.isAvailableSometimeDuring(avls)){
-                filteredProviders.add(s);
-            }
-        }
-
-        return filteredProviders;
-    }
 
 
     //returns subset of service providers sps who offer service s
@@ -117,12 +82,15 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
                 adptr = new ServiceProviderListAdapter(HoSearchForSps.this, filteredProviders); //can setup the adapter now that the list is built
                 providersListView.setAdapter(adptr);
 
+
+
                 providersListView.setOnItemClickListener(//onclick of item in list view
                         new AdapterView.OnItemClickListener(){
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int pos, long id){
                                 ServiceProvider clickedSp = (ServiceProvider) parent.getItemAtPosition(pos);
                                 Toast.makeText(HoSearchForSps.this,clickedSp.getUsername(), Toast.LENGTH_LONG).show();
+
 
                                 Intent intent = (new Intent(HoSearchForSps.this, HoBookingPage.class)); //goes to bookings page
                                 startActivity(intent);
@@ -202,25 +170,27 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
     public void onStart(){
 
         super.onStart();
-//        Query query = users.orderByChild("type").equalTo("ServiceProvider"); //orders list alphabetically based on the service name
-//        query.addValueEventListener(new ValueEventListener(){
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot){
-//                providers.clear();
-//
-//                for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-//                    providers.add(postSnapshot.getValue(ServiceProvider.class));//adding all the service providers to our list.
-//                    filteredProviders = filterByService(providers, chosenServiceId); //filters the list of all Providers by the chosenServiceId
-//
-//                }
-//
-//                setUpProvidersList();
-//
-//            }
-//
-//            public void onCancelled(DatabaseError databaseError){
-//            }
-//        });
+        Query query = users.orderByChild("type").equalTo("ServiceProvider"); //orders list alphabetically based on the service name
+
+        query.addValueEventListener(new ValueEventListener(){  //singleEvetListener would make it update only when refreshed
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot){
+                providers.clear();
+
+                for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+                    providers.add(postSnapshot.getValue(ServiceProvider.class));//adding all the service providers to our list.
+                    providers = filterByService(providers, chosenServiceId); //filters the list of all Providers by the chosenServiceId
+                    filteredProviders=providers;
+
+                }
+
+                setUpProvidersList();
+
+            }
+
+            public void onCancelled(DatabaseError databaseError){
+            }
+        });
 
     }
 

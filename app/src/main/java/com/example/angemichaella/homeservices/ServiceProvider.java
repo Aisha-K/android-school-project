@@ -12,7 +12,7 @@ public class ServiceProvider extends User {
     private boolean licensed;
     private boolean profileCompleted;
     private boolean hasAvailabities = false;
-    private double currAvgRating;
+    private double currAvgRating=-1;
 
 
     public ArrayList<Availability> availabilities = new ArrayList<Availability>();
@@ -23,13 +23,11 @@ public class ServiceProvider extends User {
         super();
     }
 
-    // to be completed in future project deliverable
     public ServiceProvider(String userName, String password, String email, String userId){
         super(userName, password, email, userId, "ServiceProvider");
         licensed = false;
         profileCompleted = false;
         description = "empty";
-        currAvgRating=0;
 
     }
 

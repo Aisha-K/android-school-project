@@ -33,11 +33,11 @@ public class ServiceProviderListAdapter extends ArrayAdapter<ServiceProvider> {
 
 
         name.setText(currSp.getUsername());
-        //if(currSp.isRated(serviceId)){
-        rating.setText(Integer.toString((position % 5)) + " star rating");//rating.setText(currSp.getServiceRating(serviceId) + " STAR RATING");
-        //}else{
-          //  rating.setVisibility(View.GONE);
-        //}
+        if(currSp.getCurrAvgRating()>-1 ){
+        rating.setText( (int)currSp.getCurrAvgRating() + " star rating");//rating.setText(currSp.getServiceRating(serviceId) + " STAR RATING");
+        }else{
+            rating.setText("Not Rated");
+        }
 
         if(!currSp.isLicensed()){
             licensing.setVisibility(View.GONE);

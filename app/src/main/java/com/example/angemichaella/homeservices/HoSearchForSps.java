@@ -1,5 +1,6 @@
 package com.example.angemichaella.homeservices;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -122,6 +123,10 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
                             public void onItemClick(AdapterView<?> parent, View view, int pos, long id){
                                 ServiceProvider clickedSp = (ServiceProvider) parent.getItemAtPosition(pos);
                                 Toast.makeText(HoSearchForSps.this,clickedSp.getUsername(), Toast.LENGTH_LONG).show();
+
+                                Intent intent = (new Intent(HoSearchForSps.this, HoBookingPage.class)); //goes to bookings page
+                                startActivity(intent);
+
                             }
                         }
                 );
@@ -182,8 +187,6 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
             ArrayList<ServiceProvider> avlFilteredProviders = new ArrayList<>();    //new filtered list
             for (ServiceProvider s : filteredProviders) {
                 if(s.isAvailableSometimeDuring(avls)){
-
-                    Toast.makeText(this, "isAvailable", Toast.LENGTH_LONG).show();
                     avlFilteredProviders.add(s);
                 }
             }

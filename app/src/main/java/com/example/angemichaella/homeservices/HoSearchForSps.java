@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HoSearchForSps extends AppCompatActivity {
+public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomSheet.FilterSpListener {
 
     protected ArrayList<ServiceProvider> filteredProviders = new ArrayList<>();
     protected ArrayList<ServiceProvider> providers = new ArrayList<>();
@@ -32,6 +33,8 @@ public class HoSearchForSps extends AppCompatActivity {
 
     DatabaseReference users =  FirebaseDatabase.getInstance().getReference("users");
 
+    private Button addFilterBtn;
+
     ServiceProviderListAdapter adptr;
     ListView providersListView;
 
@@ -41,6 +44,7 @@ public class HoSearchForSps extends AppCompatActivity {
         setContentView(R.layout.activity_ho_search_for_sps);
         providersListView = (ListView)findViewById(R.id.providersLV);
         serviceTitle = (TextView)findViewById(R.id.nameOfServiceFilter);
+        addFilterBtn = (Button) findViewById(R.id.addFilterBtn);
 
 
         chosenServiceId  = getIntent().getStringExtra("srv_id");
@@ -106,11 +110,43 @@ public class HoSearchForSps extends AppCompatActivity {
                         }
                 );
 
+                addFilterBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        HoFilterBottomSheet filterDialog = new HoFilterBottomSheet();
+                        filterDialog.show(getSupportFragmentManager(), "filterDialog");
+                    }
+                });
+
             }
 
             public void onCancelled(DatabaseError databaseError){
             }
         });
+    }
+
+
+    public void choseFilters(double ratingLowerBound,  List<Availability> avls){
+        //Tester Toast:
+        String msg = "Filtering by times\n";
+        if(avls!= null){
+            for(Availability a: avls){
+                msg+= a.toString()+"\n";
+            }
+        }
+
+         msg+= "And by Ratings above "+ ratingLowerBound;
+
+         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+
+         //actual functionality
+        if(ratingLowerBound != -1){
+            //filter Sps by rating specified
+        }
+
+        if(avls != null){
+            //filter sps by avls specified
+        }
     }
 
     @Override
@@ -135,4 +171,6 @@ public class HoSearchForSps extends AppCompatActivity {
         });
 
     }
+
+
 }

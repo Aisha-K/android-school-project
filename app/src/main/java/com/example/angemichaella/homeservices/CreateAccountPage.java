@@ -17,6 +17,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.UnsupportedEncodingException;
+
+import static com.example.angemichaella.homeservices.Sha1.hash;
+
 public class CreateAccountPage extends AppCompatActivity {
 
     private TextInputLayout username;
@@ -187,6 +191,9 @@ public class CreateAccountPage extends AppCompatActivity {
         String unStr = username.getEditText().getText().toString().trim();
         String pwStr = password.getEditText().getText().toString().trim();
 
+        // encrypt password
+        pwStr = MainActivity.encrypt(pwStr);
+
         User newUser = null;
         String id = databaseUsers.push().getKey();
 
@@ -246,6 +253,4 @@ public class CreateAccountPage extends AppCompatActivity {
         startActivity(intent);
 
     }
-
-
 }

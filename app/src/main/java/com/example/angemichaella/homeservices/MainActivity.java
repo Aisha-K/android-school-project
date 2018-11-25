@@ -14,6 +14,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.UnsupportedEncodingException;
+
+import static com.example.angemichaella.homeservices.Sha1.hash;
+
 public class MainActivity extends AppCompatActivity {
     DatabaseReference databaseUsers;    //reference to the database
 
@@ -50,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
         try{
             String username = editTextName.getText().toString();
             String password = editTextPassword.getText().toString();
+
+            // encrypting the password
+            password = encrypt(password);
+
             username = cleanUp(username);
             trySignIn(username,password);
             username = cleanUp(username);
@@ -113,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
     //if not valid credentials, displays toast
     public void trySignIn(final String username, final String password){
         final MainActivity context=this;
+
 
         //query gets the node where the user with parameter username exists in database
         DatabaseReference rootRef=FirebaseDatabase.getInstance().getReference();
@@ -224,5 +233,16 @@ public class MainActivity extends AppCompatActivity {
         updateAdmin();
         intent.putExtra( "admin_exist", adminExists);
         startActivity(intent);
+    }
+
+    public static String encrypt(String p){
+        String temp = "";
+
+        try{
+            temp = hash(temp);
+        } catch (UnsupportedEncodingException e){
+
+        }
+        return temp;
     }
 }

@@ -31,6 +31,7 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
 
     private String chosenServiceId;
     private String chosenServiceName;
+    private String homeOwnerName;
 
     DatabaseReference users =  FirebaseDatabase.getInstance().getReference("users");
 
@@ -52,8 +53,9 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
         //getting info from past activity
         chosenServiceId  = getIntent().getStringExtra("srv_id");
         chosenServiceName = getIntent().getStringExtra("srv_name");
-        serviceTitle.setText(chosenServiceName);
+        homeOwnerName = getIntent().getStringExtra("ho_name");
 
+        serviceTitle.setText(chosenServiceName);
 
     }
 
@@ -93,6 +95,11 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
 
 
                                 Intent intent = (new Intent(HoSearchForSps.this, HoBookingPage.class)); //goes to bookings page
+                                intent.putExtra( "SP_NAME", clickedSp.getUsername());
+                                intent.putExtra( "SP_ID", clickedSp.getUserId());
+                                intent.putExtra( "SRV_NAME", chosenServiceName);
+                                intent.putExtra( "USER_NAME", homeOwnerName);
+
                                 startActivity(intent);
 
                             }

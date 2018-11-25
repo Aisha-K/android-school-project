@@ -86,6 +86,7 @@ public class HoSearchFrag extends Fragment {
         Intent intent  = (new Intent(getActivity(), HoSearchForSps.class));
         intent.putExtra( "srv_id", chosenService.id());
         intent.putExtra( "srv_name", chosenService.name());
+        intent.putExtra( "ho_name", ((HomeOwnerNav)getActivity()).username);
         startActivity(intent);
 
     }

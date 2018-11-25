@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 
 import com.google.firebase.database.DataSnapshot;
@@ -23,7 +24,6 @@ public class HoBookingsFragment extends Fragment {
 
     DatabaseReference bookingsDb;
     ArrayList<Booking> myBookings;
-    String hoName;
 
     BookingAdapter adptr; //adapter for booking list view
     ListView bookingsListView; //list view of the users bookings
@@ -33,7 +33,6 @@ public class HoBookingsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bookingsDb = FirebaseDatabase.getInstance().getReference("bookings");
-        hoName = "home"; //need to get form bundle
         myBookings = new ArrayList<>();
         setUpMyBookingList(); //sets up myBookings with all of the users booking in the database
     }
@@ -50,28 +49,38 @@ public class HoBookingsFragment extends Fragment {
 
     public void setUpMyBookingList() {
 
-        Query query = bookingsDb.orderByChild("homeOwnerName").equalTo(hoName);//queries all bookings in the booking database equal to this homeOwnersName
+        Query query = bookingsDb.orderByChild("homeOwnerName").equalTo(((HomeOwnerNav)getActivity()).username);//queries all bookings in the booking database equal to this homeOwnersName
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                //USING A STACK TO REVERSE THE BOOKING ORDER FORM MOST RECENT TO OLDEST
+                // INSTEAD OF OLDEST TO NEWEST
+                Stack<Booking> stack = new Stack<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    myBookings.add(postSnapshot.getValue(Booking.class));//adding all the booking to our list.
+                    stack.push(postSnapshot.getValue(Booking.class));//adding all the booking to our list.
+                }
+
+                while(!stack.empty()){
+                    myBookings.add(stack.pop());
                 }
 
                 ///Now that the list is built, we can set up the appearance of the list view
 
-                adptr = new BookingAdapter(getActivity(), myBookings); //can setup the adapter now that the list is built
-                bookingsListView.setAdapter(adptr);
-                bookingsListView.setOnItemClickListener(//here sets the onclick for the booking list view
-                        new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-                                Booking clickedBooking = (Booking) parent.getItemAtPosition(pos);
-                                Toast.makeText(getActivity(), clickedBooking.toString(), Toast.LENGTH_LONG).show();
+                if(getActivity() != null){
+                    adptr = new BookingAdapter(getActivity(), myBookings); //can setup the adapter now that the list is built
+                    bookingsListView.setAdapter(adptr);
+                    bookingsListView.setOnItemClickListener(//here sets the onclick for the booking list view
+                            new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+                                    Booking clickedBooking = (Booking) parent.getItemAtPosition(pos);
+                                    Toast.makeText(getActivity(), clickedBooking.toString(), Toast.LENGTH_LONG).show();
+                                }
                             }
-                        }
-                );
+                    );
+                }
+
 
             }
 

@@ -65,10 +65,10 @@ public class HoBookingPage extends AppCompatActivity {
         - Services Name
         - homeOwner ID
          */
-        hoName= "home";//NEEEDS TO BE GOTTEN FROM OTER ACTIVITY
-        spId = "-LRTSHm6pPlC2iGK5UCx"; //NEEEDS TO BE GOTTEN FROM OTER ACTIVITY
-        spName = "Jimmy"; //Needs TO BE BROUGHT
-        srvName = "Generic Service"; //NEEDS TO BE BROUGHT FROM OTHER ACTIVITY
+        hoName = getIntent().getStringExtra("USER_NAME");//"home";//NEEEDS TO BE GOTTEN FROM OTER ACTIVITY
+        spId = getIntent().getStringExtra("SP_ID"); //NEEEDS TO BE GOTTEN FROM OTER ACTIVITY
+        spName = getIntent().getStringExtra("SP_NAME"); //Needs TO BE BROUGHT
+        srvName = getIntent().getStringExtra("SRV_NAME"); //NEEDS TO BE BROUGHT FROM OTHER ACTIVITY
 
         spNode = FirebaseDatabase.getInstance().getReference("users").child(spId);// un service pw provider
         //hoNode = FirebaseDatabase.getInstance().getReference("users").child(hoId);

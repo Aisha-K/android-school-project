@@ -33,7 +33,6 @@ public class HoBookingPage extends AppCompatActivity {
     String spId;
 
     DatabaseReference spNode;
-    DatabaseReference hoNode;
     DatabaseReference bookingsDb;
 
 
@@ -126,16 +125,16 @@ public class HoBookingPage extends AppCompatActivity {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", java.util.Locale.ENGLISH);
         Date today = new Date();
-        Date[] nextWeek = new Date[7];
+        Date[] nextWeek = new Date[14];
 
-        for(int i =0; i<7; i++){
-            nextWeek[i]= new Date(today.getTime() + (i+1)*(1000 * 60 * 60 * 24)); //getting all dates for a week in advance
+        for(int i =0; i<14; i++){
+            nextWeek[i]= new Date(today.getTime() + (i+1)*(1000 * 60 * 60 * 24)); //getting all dates for 2 weeks in advance
         }
 
         sdf.applyPattern("EEE, d MMM yyyy");
 
         ArrayList<String> dates = new ArrayList<>();
-        for(int i = 0; i<7; i++){
+        for(int i = 0; i<14; i++){
             dates.add(sdf.format(nextWeek[i]));
         }
 

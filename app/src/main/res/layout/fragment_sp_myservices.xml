@@ -63,6 +63,14 @@
 
         </ListView>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/addFloatingActionButton"
             android:layout_width="match_parent"
@@ -71,7 +79,7 @@
             android:layout_marginRight="24dp"
             android:layout_marginBottom="24dp"
             android:clickable="true"
-            app:srcCompat="@drawable/ic_add_circle_salmon" />
-
+            app:srcCompat="@drawable/plus" />
     </LinearLayout>
+
 </FrameLayout>

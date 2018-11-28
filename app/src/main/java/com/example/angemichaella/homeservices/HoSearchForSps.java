@@ -72,7 +72,7 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
         ArrayList<ServiceProvider> filteredProviders = new ArrayList<>();
 
         for (ServiceProvider s : sps) {
-            if(s.offersService(serviceId)){
+            if(s.offersService(serviceId) &&  s.hasAvailabilities()){
                 filteredProviders.add(s);
             }
         }

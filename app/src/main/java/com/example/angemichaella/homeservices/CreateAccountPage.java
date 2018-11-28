@@ -19,7 +19,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.UnsupportedEncodingException;
 
-import static com.example.angemichaella.homeservices.Sha1.hash;
 
 public class CreateAccountPage extends AppCompatActivity {
 

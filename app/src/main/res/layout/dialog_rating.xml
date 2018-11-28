@@ -35,8 +35,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:padding="10dp"
-            android:text="Ok"
-            android:textSize="16sp"
+            android:text="We would love to hear even more about your experience...!!"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <EditText

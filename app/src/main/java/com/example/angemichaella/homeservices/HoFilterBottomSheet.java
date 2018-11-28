@@ -143,7 +143,6 @@ public class HoFilterBottomSheet extends BottomSheetDialogFragment{
         ratingBar = (RatingBar) v.findViewById(R.id.ratingBar);
         ratingTV = (TextView) v.findViewById(R.id.ratingTV);
 
-        ratingBar.setMax(5);
         avlCb = (CheckBox) v.findViewById(R.id.avlCheck);
         ratingCb = (CheckBox) v.findViewById(R.id.ratingChk);
 

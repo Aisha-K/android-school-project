@@ -48,13 +48,7 @@ public class SpProfileBookings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sp_profile_bookings);
 
-        bookButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bookButtonOnClick();
-            }
-        });
-
+        goBackToRes = findViewById(R.id.goBackToRes);
         goBackToRes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,7 +56,7 @@ public class SpProfileBookings extends AppCompatActivity {
             }
         });
 
-        id = getIntent().getStringExtra("ID");
+        id = getIntent().getStringExtra("SP_ID");
         spNode = FirebaseDatabase.getInstance().getReference("users").child( id );
 
         setServiceProvider();
@@ -98,6 +92,7 @@ public class SpProfileBookings extends AppCompatActivity {
 
     public void setView(){
 
+        bookButton =  (Button) findViewById(R.id.bookButton);
         cCompany = ( TextView ) findViewById(R.id.cptCompanyTV);
         cDesc = ( TextView ) findViewById(R.id.cptDescTV);
         cPhone = ( TextView ) findViewById(R.id.cptPhoneTV);
@@ -120,6 +115,14 @@ public class SpProfileBookings extends AppCompatActivity {
             licensed.setVisibility(View.GONE);
         }
 
+        bookButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bookButtonOnClick();
+            }
+        });
+
+
     }
 
     public void bookButtonOnClick(){
@@ -138,10 +141,9 @@ public class SpProfileBookings extends AppCompatActivity {
 
         intent = (new Intent(this, HoBookingPage.class));
         intent.putExtra( "USER_NAME", getIntent().getStringExtra("USER_NAME"));
-        intent.putExtra("spId", id);
-        intent.putExtra("spName", sp.getUsername());
-        intent.putExtra("spId", id);
-        intent.putExtra("srvName", getIntent().getStringExtra("SRV_NAME"));
+        intent.putExtra("SP_ID", id);
+        intent.putExtra("SP_NAME", sp.getUsername());
+        intent.putExtra("SRV_NAME", getIntent().getStringExtra("SRV_NAME"));
 
         startActivity(intent);
     }

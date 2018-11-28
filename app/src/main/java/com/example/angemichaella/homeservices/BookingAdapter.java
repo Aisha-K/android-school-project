@@ -30,12 +30,14 @@ public class BookingAdapter extends ArrayAdapter<Booking> {
         TextView srvName = (TextView) myRowView.findViewById(R.id.serviceNameTv);
         TextView rating = (TextView) myRowView.findViewById(R.id.ratingTv);
         TextView date = (TextView) myRowView.findViewById(R.id.bookingDatetv);
+        ImageView completeIv = (ImageView) myRowView.findViewById(R.id.completeIV);
 
         provider.setText("Provided by "+ b.getServiceProviderName());
         srvName.setText(b.getServiceName());
         date.setText(b.getDate());
 
-        if(b.isRated()){
+        if(b.getRating() != -1){
+            completeIv.setVisibility(View.VISIBLE);
             rating.setText("Rating: "+ b.getRating());
         }
        

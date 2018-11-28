@@ -85,7 +85,7 @@ public class HoBookingsFragment extends Fragment {
                                     public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
                                         Booking clickedBooking = (Booking) parent.getItemAtPosition(pos);
 
-                                        if(clickedBooking.isRated()){
+                                        if(clickedBooking.getRating() != -1 ){
                                             Toast.makeText(getActivity(), "You rated this "+clickedBooking.getRating()+ " stars", Toast.LENGTH_LONG).show();
                                         }else{
                                             Bundle args = new Bundle();

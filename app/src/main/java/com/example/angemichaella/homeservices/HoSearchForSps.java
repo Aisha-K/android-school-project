@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,8 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
     DatabaseReference users =  FirebaseDatabase.getInstance().getReference("users");
 
     private Button addFilterBtn;
+    private LinearLayout emptyLayout;
+    private LinearLayout btnLayout;
 
     ServiceProviderListAdapter adptr;
     ListView providersListView;
@@ -49,6 +52,8 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
         providersListView = (ListView)findViewById(R.id.providersLV);
         serviceTitle = (TextView)findViewById(R.id.nameOfServiceFilter);
         addFilterBtn = (Button) findViewById(R.id.addFilterBtn);
+        emptyLayout = (LinearLayout) findViewById(R.id.emptySearchLyt);
+        btnLayout = (LinearLayout) findViewById(R.id.btnlyt);
 
         //getting info from past activity
         chosenServiceId  = getIntent().getStringExtra("srv_id");
@@ -81,6 +86,11 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
     Sets up list view
      */
     public void setUpProvidersList(){
+                if(filteredProviders.isEmpty()){
+                    showEmptySearchView();
+                }else{
+                    removeEmptySearchView();
+                }
                 adptr = new ServiceProviderListAdapter(HoSearchForSps.this, filteredProviders); //can setup the adapter now that the list is built
                 providersListView.setAdapter(adptr);
 
@@ -91,10 +101,7 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int pos, long id){
                                 ServiceProvider clickedSp = (ServiceProvider) parent.getItemAtPosition(pos);
-                                Toast.makeText(HoSearchForSps.this,clickedSp.getUsername(), Toast.LENGTH_LONG).show();
-
-
-                                Intent intent = (new Intent(HoSearchForSps.this, HoBookingPage.class)); //goes to bookings page
+                                Intent intent = (new Intent(HoSearchForSps.this, SpProfileBookings.class)); //goes to bookings page
                                 intent.putExtra( "SP_NAME", clickedSp.getUsername());
                                 intent.putExtra( "SP_ID", clickedSp.getUserId());
                                 intent.putExtra( "SRV_NAME", chosenServiceName);
@@ -134,15 +141,6 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
 
         filteredProviders=providers; //clears past filtered list be resetting to orig providers
 
-        //Tester Toast (CAN BE RMEOVED):
-        String msg = "Filtering by times\n";
-        if(avls!= null){
-            for(Availability a: avls){
-                msg+= a.toString()+"\n";
-            }
-        }
-         msg+= "And by Ratings above "+ ratingLowerBound;
-         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 
          //actual functionality
         if(ratingLowerBound != -1){ //rating filter chosen
@@ -199,6 +197,16 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
             }
         });
 
+    }
+
+    private void showEmptySearchView(){
+        emptyLayout.setVisibility(View.VISIBLE);
+        btnLayout.setVisibility(View.GONE);
+    }
+
+    private void removeEmptySearchView(){
+        emptyLayout.setVisibility(View.GONE);
+        btnLayout.setVisibility(View.VISIBLE);
     }
 
 

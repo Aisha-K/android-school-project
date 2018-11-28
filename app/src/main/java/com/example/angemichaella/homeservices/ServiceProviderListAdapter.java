@@ -34,7 +34,10 @@ public class ServiceProviderListAdapter extends ArrayAdapter<ServiceProvider> {
 
         name.setText(currSp.getUsername());
         if(currSp.getCurrAvgRating()>-1 ){
-        rating.setText( (int)currSp.getCurrAvgRating() + " star rating");//rating.setText(currSp.getServiceRating(serviceId) + " STAR RATING");
+            double rate = currSp.getCurrAvgRating()*100;
+            int roundedRate = (int)Math.ceil(rate);
+            rate = (double)(roundedRate)/100;
+        rating.setText( rate + " star rating");//rating.setText(currSp.getServiceRating(serviceId) + " STAR RATING");
         }else{
             rating.setText("Not Rated");
         }

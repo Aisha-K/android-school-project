@@ -37,6 +37,10 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleTask"/>
         <activity
+            android:name=".SpProfileBookings"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTask"/>
+        <activity
             android:name=".ServiceProviderNav"
             android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleTask"/>

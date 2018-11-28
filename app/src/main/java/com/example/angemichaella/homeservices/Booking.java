@@ -34,6 +34,7 @@ public class Booking {
         date= d;
         bookingId = bkId;
         rated = false;
+        rating = -1;
     }
 
     public String getServiceProviderId() {

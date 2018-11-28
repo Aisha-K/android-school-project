@@ -133,8 +133,9 @@
         android:id="@+id/SpProfileButtons"
         android:layout_width="match_parent"
         android:layout_height="94dp"
+        android:layout_marginBottom="56dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteY="417dp">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
             android:id="@+id/bookButton"

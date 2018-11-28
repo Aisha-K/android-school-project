@@ -9,13 +9,13 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/ratingTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center_horizontal"
             android:padding="10dp"
-            android:text="How was your exeprience?"
+            android:text="How was your experience with SP?"
             android:textSize="20sp"
             android:textStyle="italic" />
 
@@ -26,7 +26,7 @@
             android:layout_gravity="center_horizontal"
             android:numStars="5"
             android:stepSize="0.5"
-            android:rating="2.5" />
+            android:rating="0" />
 
         <TextView
             android:id="@+id/tvRatingScale"
@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="top"
-            android:hint="Leave us your feedback"
+            android:hint="Leave your feedback"
             android:inputType="textMultiLine"
             android:lines="5"
             android:padding="10dp" />

@@ -35,6 +35,30 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/emptySearchLyt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Service Providers Found :("
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:text="Try broadening your search."
+                android:textSize="16sp" />
+        </LinearLayout>
+
         <ListView
             android:id="@+id/providersLV"
             android:layout_width="match_parent"
@@ -44,6 +68,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/btnlyt"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom"

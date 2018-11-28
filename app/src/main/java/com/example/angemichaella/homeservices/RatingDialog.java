@@ -17,6 +17,7 @@ import android.widget.Toast;
 public class RatingDialog extends AppCompatDialogFragment
 {
     //initializing variables
+    TextView title;
     RatingBar ratingBar;
     TextView ratingScale;
     EditText feedback;
@@ -40,12 +41,14 @@ public class RatingDialog extends AppCompatDialogFragment
         View v = inf.inflate(R.layout.dialog_rating, null);
         b.setView(v);
 
-        final RatingBar ratingBar = (RatingBar) v.findViewById(R.id.ratingBar);
-        final TextView ratingScale = (TextView) v.findViewById(R.id.tvRatingScale);
-        final EditText feedback = (EditText) v.findViewById(R.id.getFeedback);
-        final Button sendFeedback = (Button) v.findViewById(R.id.btnSubmit);
+        ratingBar = (RatingBar) v.findViewById(R.id.ratingBar);
+        ratingScale = (TextView) v.findViewById(R.id.tvRatingScale);
+        feedback = (EditText) v.findViewById(R.id.getFeedback);
+        sendFeedback = (Button) v.findViewById(R.id.btnSubmit);
+        title = (TextView)v.findViewById(R.id.ratingTitle);
 
 
+        title.setText("How was your experience with "+spName+"?");
         //implementing rating bar
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -55,10 +58,13 @@ public class RatingDialog extends AppCompatDialogFragment
                     public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
 
                         //rounded rating range
-                        int roundedRating = (int)ratingBar.getRating();
+                        int roundedRating = (int)Math.ceil(ratingBar.getRating());
 
                         ratingScale.setText(String.valueOf(v));
                         switch (roundedRating) {
+                            case 0:
+                                ratingScale.setText("Poor");
+                                break;
                             case 1:
                                 ratingScale.setText("Poor");
                                 break;

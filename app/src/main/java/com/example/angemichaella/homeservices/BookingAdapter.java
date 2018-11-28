@@ -38,25 +38,7 @@ public class BookingAdapter extends ArrayAdapter<Booking> {
         /*if(b.isRated()){
             rating.setText("Rating: "+ b.getRating());
         }*/
-        
-        //attempt to show Rating Dialog when Booking is clicked 
-        myRowView.setOnClickListener(
-                new AdapterView.OnItemClickListener(){
-                    @Override
-                    public void onItemCLick(AdapterView<?> parent, View view, int pos, long id)
-                    {
-                        Booking clickedBooking = (Booking) parent.getItemAtPosition(pos);
-
-                        Bundle args = new Bundle();
-                        args.putString("dialog_title", "Rate Booking");
-                        args.putString("booking_name", clickedBooking.getServiceName());
-
-                        RatingDialog d = new RatingDialog();
-                        d.setArguments(args);
-                        d.show(getActivity().getSupportFragmentManager(), "rate booking dialog");
-                    }
-                }
-        );
+       
 
         return myRowView;
 

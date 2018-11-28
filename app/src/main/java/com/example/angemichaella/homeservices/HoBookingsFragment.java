@@ -73,9 +73,15 @@ public class HoBookingsFragment extends Fragment {
                     bookingsListView.setOnItemClickListener(//here sets the onclick for the booking list view
                             new AdapterView.OnItemClickListener() {
                                 @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+                                public void onItemClick(AdapterView<?> parent, View view, int pos, long id){
                                     Booking clickedBooking = (Booking) parent.getItemAtPosition(pos);
-                                    Toast.makeText(getActivity(), clickedBooking.toString(), Toast.LENGTH_LONG).show();
+                                                    Bundle args = new Bundle();
+                                                    args.putString("dialog_title", "Rate Booking");
+                                                    args.putString("booking_name", clickedBooking.getServiceName());
+
+                                                    RatingDialog d = new RatingDialog();
+                                                    d.setArguments(args);
+                                                    d.show(getActivity().getSupportFragmentManager(), "rate booking dialog");
                                 }
                             }
                     );

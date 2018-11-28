@@ -1,6 +1,9 @@
 package com.example.angemichaella.homeservices;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -79,7 +82,7 @@ public class HoBookingPage extends AppCompatActivity {
         spNameTv =findViewById(R.id.spNameTV);
         title = findViewById(R.id.bookingTitleTv);
 
-        title.setText("Requesting a Booking for "+ '"' + srvName + '"');
+        title.setText(srvName);
         spNameTv.setText("provided by "+ spName);
 
         daySpinner = findViewById(R.id.dateSpinner);
@@ -197,7 +200,7 @@ public class HoBookingPage extends AppCompatActivity {
 
     public void requestBooking(View view){
 
-        String chosenDate = (String)daySpinner.getSelectedItem();
+        final String chosenDate = (String)daySpinner.getSelectedItem();
         String chosenTime = (String)timeSpinner.getSelectedItem();
 
         int ixOfTo = chosenTime.indexOf('t');
@@ -225,18 +228,45 @@ public class HoBookingPage extends AppCompatActivity {
         }
 
 
-        Availability chosenAvl = new Availability(stringToDay(chosenDate.substring(0,3)), new Time(fromH, fromMin, fromTense), new Time(toH, toMin, toTense));
+        final Availability chosenAvl = new Availability(stringToDay(chosenDate.substring(0,3)), new Time(fromH, fromMin, fromTense), new Time(toH, toMin, toTense));
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Request Booking");
+        builder.setMessage("Request "+'"' + srvName +'"'+" booking on "+ chosenDate+ " with " + spName+"?");
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int id){
+                createBookingRequest(chosenAvl, chosenDate);
+
+            }
+        });
+
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int id){
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
 
         String bookingInfo = "Requesting for booking on "+ chosenDate + " during the time period "+ chosenTime;//\nAVL REP: "+chosenAvl.toString();
 
-        createBookingRequest(chosenAvl, chosenDate);
-        Toast.makeText(this, bookingInfo, Toast.LENGTH_LONG).show();
+
+
+
+
     }
 
     public void createBookingRequest(Availability avl, String date){
         String bkId = bookingsDb.push().getKey();
-        Booking booking = new Booking(hoName,spName,srvName, avl, date, bkId);
+        Booking booking = new Booking(hoName,spName, spId, srvName, avl, date, bkId);
         bookingsDb.child(bkId).setValue(booking);
+        Toast.makeText(this, "Booking Request Confirmed", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, HomeOwnerNav.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
 }

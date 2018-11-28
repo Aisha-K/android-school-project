@@ -35,9 +35,9 @@ public class BookingAdapter extends ArrayAdapter<Booking> {
         srvName.setText(b.getServiceName());
         date.setText(b.getDate());
 
-        /*if(b.isRated()){
+        if(b.isRated()){
             rating.setText("Rating: "+ b.getRating());
-        }*/
+        }
        
 
         return myRowView;

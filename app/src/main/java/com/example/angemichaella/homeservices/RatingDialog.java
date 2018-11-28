@@ -23,12 +23,17 @@ public class RatingDialog extends AppCompatDialogFragment
     Button sendFeedback;
     double bookingRating;
     String bookingComment;
+    String bookingId;
+    String spName;
 
     private RatingDialogListener listener;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        //Bundle mArgs = getArguments();
+        Bundle mArgs = getArguments();
+
+        bookingId = mArgs.getString("booking_id");
+        spName = mArgs.getString("sp_name");
 
         AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
         LayoutInflater inf = getActivity().getLayoutInflater();
@@ -78,6 +83,7 @@ public class RatingDialog extends AppCompatDialogFragment
             }
         });
 
+        final AlertDialog test = b.create();
         sendFeedback.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -85,20 +91,16 @@ public class RatingDialog extends AppCompatDialogFragment
                 if (feedback.getText().toString().isEmpty()) {
                     Toast.makeText(getActivity() ,"Please enter your feedback", Toast.LENGTH_LONG).show();
                 } else {
-                    feedback.setText("");
-                    ratingBar.setRating(0);
+                    bookingRating = ratingBar.getRating();
+                    bookingComment = feedback.getText().toString();
+                    listener.receiveRatingUpdate(bookingId, bookingRating, bookingComment);
+                    test.dismiss();
                     Toast.makeText(getActivity(), "Thank you for your feedback", Toast.LENGTH_SHORT).show();
                 }
             }
             
         });
 
-
-        bookingRating = ratingBar.getRating();
-        bookingComment = feedback.getText().toString();
-        listener.receiveRatingUpdate(bookingRating, bookingComment);
-
-        final AlertDialog test = b.create();
         return test;
     }
 
@@ -111,12 +113,12 @@ public class RatingDialog extends AppCompatDialogFragment
             listener = (RatingDialogListener) context;
         } catch (ClassCastException e)
         {
-            throw new ClassCastException(context.toString() + "must implement ESD Listener");
+            throw new ClassCastException(context.toString() + "must implement Rating Dialog Listener");
         }
     }
 
     public interface RatingDialogListener {
-        void receiveRatingUpdate(double rating, String comment);
+        void receiveRatingUpdate(String bookingId, double rating, String comment);
     }
 
 

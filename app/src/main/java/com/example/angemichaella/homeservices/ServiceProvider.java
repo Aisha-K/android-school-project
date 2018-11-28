@@ -12,11 +12,13 @@ public class ServiceProvider extends User {
     private boolean licensed;
     private boolean profileCompleted;
     private boolean hasAvailabities = false;
-    private double currAvgRating=-1;
+    private double currAvgRating;
+    private int numOfRatesReceived;
 
 
     public ArrayList<Availability> availabilities = new ArrayList<Availability>();
     public ArrayList<Service> services;
+
 
     //default constructor
     public ServiceProvider(){
@@ -28,6 +30,8 @@ public class ServiceProvider extends User {
         licensed = false;
         profileCompleted = false;
         description = "empty";
+        currAvgRating = -1;
+        numOfRatesReceived = 0;
 
     }
 
@@ -144,6 +148,10 @@ public class ServiceProvider extends User {
     }
 
 
+    public int getNumOfRatesReceived() {
+        return numOfRatesReceived;
+    }
+
     /**
     from list of availabilities, returns true if SP is available sometime during any of those times.
      */
@@ -156,6 +164,7 @@ public class ServiceProvider extends User {
                     return true;
                 }
             }
+
         }
     }
         return false;
@@ -180,6 +189,13 @@ public class ServiceProvider extends User {
             }
         }
         return false;
+    }
+
+    public void addRating(double newRating){
+        currAvgRating = currAvgRating * numOfRatesReceived;
+        numOfRatesReceived++;
+        currAvgRating += newRating;
+        currAvgRating = (double)currAvgRating/numOfRatesReceived;
     }
 }
 

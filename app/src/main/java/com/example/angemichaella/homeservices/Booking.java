@@ -13,6 +13,7 @@ public class Booking {
 
     private String homeOwnerName;
     private String serviceProviderName;
+    private String serviceProviderId;
     private String serviceName;
     private double rating;
     private String comment;
@@ -24,14 +25,19 @@ public class Booking {
         //blank constructor
     }
 
-    public Booking(String hoName, String spName, String srvName, Availability a, String d, String bkId){
+    public Booking(String hoName, String spName, String spId, String srvName, Availability a, String d, String bkId){
         homeOwnerName = hoName;
         serviceProviderName = spName;
+        serviceProviderId = spId;
         serviceName =srvName;
         availability = a;
         date= d;
         bookingId = bkId;
         rated = false;
+    }
+
+    public String getServiceProviderId() {
+        return serviceProviderId;
     }
 
     public void setRating(double rating) {

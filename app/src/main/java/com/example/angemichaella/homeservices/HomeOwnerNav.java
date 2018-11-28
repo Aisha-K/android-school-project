@@ -16,7 +16,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +29,15 @@ import java.util.List;
 /**
  * Main navigation activity page that a home owner is sent to after signing in
  */
-public class HomeOwnerNav extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class HomeOwnerNav extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, RatingDialog.RatingDialogListener {
     private DrawerLayout drawer;
     private TextView nameTV;
     private ImageView iconIV;
     String username;
     String id;
     List<Service> services;
-    DatabaseReference databaseServices;
+    DatabaseReference bookingsDb;
+    HoBookingsFragment bookingFrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +95,8 @@ public class HomeOwnerNav extends AppCompatActivity implements NavigationView.On
                     new HoBookingsFragment());
             ft.commit();
         }
+
+        bookingsDb = FirebaseDatabase.getInstance().getReference("bookings");
     }
 
     @Override
@@ -104,6 +112,8 @@ public class HomeOwnerNav extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
 
+
+
         //opens appropriate fragment based on which item clicked
         switch (menuItem.getItemId()) {
             case R.id.nav_bookings: //search for services fragment
@@ -111,8 +121,9 @@ public class HomeOwnerNav extends AppCompatActivity implements NavigationView.On
                         new HoSearchFrag()).commit();
                 break;
             case R.id.nav_profile:  //my bookings fragment
+                bookingFrag = new HoBookingsFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new HoBookingsFragment()).commit();
+                        bookingFrag).commit();
                 break;
             case R.id.nav_services: //settings fragment
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -122,6 +133,12 @@ public class HomeOwnerNav extends AppCompatActivity implements NavigationView.On
 
         drawer.closeDrawer(GravityCompat.START);
         return true;    //true = item selected
+    }
+
+    public void receiveRatingUpdate(String bookingId, final double rating, final String comment){
+        bookingFrag = new HoBookingsFragment();
+        bookingFrag.update(bookingId, rating, comment);
+
     }
 
 

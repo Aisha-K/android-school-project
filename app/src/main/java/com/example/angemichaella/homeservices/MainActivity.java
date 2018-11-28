@@ -60,8 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
             username = cleanUp(username);
             trySignIn(username,password);
-            username = cleanUp(username);
-            trySignIn(username,password);
         }catch(Exception e){
 
         }
@@ -236,13 +234,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static String encrypt(String p){
-        String temp = "";
-
-        try{
-            temp = hash(temp);
-        } catch (UnsupportedEncodingException e){
-
-        }
-        return temp;
+        return StringEncryptor.encrypt(p);
     }
 }

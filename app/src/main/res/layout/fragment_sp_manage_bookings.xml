@@ -5,22 +5,48 @@
     android:id="@+id/avRelLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical"
         android:padding="20dp"
         android:paddingLeft="20dp"
         android:paddingTop="20dp"
         android:paddingRight="20dp">
 
+        <LinearLayout
+            android:id="@+id/emptyBL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Bookings...Yet"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:text="Search For a Service to Get Started!" />
+        </LinearLayout>
+
         <ListView
             android:id="@+id/bookingLv"
             android:layout_width="match_parent"
-            android:layout_height="333dp"
+            android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:choiceMode="singleChoice">
+            android:choiceMode="singleChoice"
+            android:visibility="visible">
 
         </ListView>
 

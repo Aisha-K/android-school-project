@@ -17,7 +17,7 @@
         android:paddingRight="20dp">
 
         <TextView
-            android:id="@+id/textView21"
+            android:id="@+id/bookfragtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Your past bookings:" />

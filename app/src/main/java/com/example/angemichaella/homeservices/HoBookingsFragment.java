@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -29,6 +30,8 @@ public class HoBookingsFragment extends Fragment {
     BookingAdapter adptr; //adapter for booking list view
     ListView bookingsListView; //list view of the users bookings
     LinearLayout emptyLyt; //layout when nothing is there
+    TextView titleTv;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class HoBookingsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sp_manage_bookings, container, false);
         bookingsListView = (ListView) view.findViewById(R.id.bookingLv);
         emptyLyt = (LinearLayout) view.findViewById(R.id.emptyBL);
+        titleTv = (TextView) view.findViewById(R.id.bookfragtitle);
         return view;
 
     }
@@ -71,7 +75,9 @@ public class HoBookingsFragment extends Fragment {
                 if(myBookings.isEmpty()){
                     emptyLyt.setVisibility(View.VISIBLE);
                     bookingsListView.setVisibility(View.GONE);
+                    titleTv.setVisibility(View.GONE);
                 }else {
+                    titleTv.setVisibility(View.VISIBLE);
                     emptyLyt.setVisibility(View.GONE);
                     bookingsListView.setVisibility(View.VISIBLE);
                     ///Now that the list is built, we can set up the appearance of the list view

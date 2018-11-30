@@ -201,7 +201,6 @@ public class HoSearchForSps extends AppCompatActivity implements HoFilterBottomS
 
     private void showEmptySearchView(){
         emptyLayout.setVisibility(View.VISIBLE);
-        btnLayout.setVisibility(View.GONE);
     }
 
     private void removeEmptySearchView(){

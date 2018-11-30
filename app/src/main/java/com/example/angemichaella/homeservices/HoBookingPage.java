@@ -177,13 +177,13 @@ public class HoBookingPage extends AppCompatActivity {
         if (day.equals("Mon")){
             return Day.MONDAY;
         }
-        else if (day.equals("Tues")){
+        else if (day.equals("Tue")){
             return Day.TUESDAY;
         }
         else if (day.equals("Wed")){
             return Day.WEDNESDAY;
         }
-        else if (day.equals("Thur")){
+        else if (day.equals("Thu")){
             return Day.THURSDAY;
         }
         else if (day.equals("Fri")){

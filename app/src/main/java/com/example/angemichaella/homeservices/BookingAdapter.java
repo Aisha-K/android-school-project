@@ -12,10 +12,15 @@ import java.util.ArrayList;
 
 public class BookingAdapter extends ArrayAdapter<Booking> {
 
+    public static final int HO = 0;
+    public static final int SP = 1;
+
+    int observer; //whos looking at this  list view? could be a homeowner or could be a service provider
 
 
-    public BookingAdapter(Context context, ArrayList<Booking> bookings){
+    public BookingAdapter(Context context, ArrayList<Booking> bookings, int observer){
         super(context, R.layout.av_row_layout, bookings); //context, list item template layout, list of items 2be displayed
+        this.observer = observer;
     }
 
 
@@ -30,9 +35,20 @@ public class BookingAdapter extends ArrayAdapter<Booking> {
         TextView srvName = (TextView) myRowView.findViewById(R.id.serviceNameTv);
         TextView rating = (TextView) myRowView.findViewById(R.id.ratingTv);
         TextView date = (TextView) myRowView.findViewById(R.id.bookingDatetv);
+        TextView feedback = (TextView) myRowView.findViewById(R.id.feedbackTV);
         ImageView completeIv = (ImageView) myRowView.findViewById(R.id.completeIV);
 
-        provider.setText("Provided by "+ b.getServiceProviderName());
+        if(observer == HO){
+            provider.setText("Provided by "+ b.getServiceProviderName());
+
+        }else{
+            provider.setText("Provided to "+ b.getHomeOwnerName());
+            if(b.getComment() != null){
+                feedback.setVisibility(View.VISIBLE);
+                feedback.setText('"'+b.getComment().trim() + '"');
+            }
+        }
+
         srvName.setText(b.getServiceName());
         date.setText(b.getDate());
 

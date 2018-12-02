@@ -64,8 +64,11 @@ public class ServiceTab extends Fragment{
                     Service currService = postSnapshot.getValue(Service.class); //retrieving child node
                     services.add(currService);                          //adding service from database to list
                 }
-                ServiceAdapter adtr = new ServiceAdapter(getActivity(), services);
-                serviceListView.setAdapter(adtr);
+
+                if(getActivity() != null){
+                    ServiceAdapter adtr = new ServiceAdapter(getActivity(), services);
+                    serviceListView.setAdapter(adtr);
+                }
 
             }
             public void onCancelled(DatabaseError databaseError){

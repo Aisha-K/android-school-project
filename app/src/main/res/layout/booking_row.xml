@@ -74,6 +74,14 @@
                 android:text="provided by Jimmy" />
 
             <TextView
+                android:id="@+id/feedbackTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text='"feedback"'
+                android:textColor="@color/colorPrimaryDark"
+                android:visibility="gone" />
+
+            <TextView
                 android:id="@+id/ratingTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

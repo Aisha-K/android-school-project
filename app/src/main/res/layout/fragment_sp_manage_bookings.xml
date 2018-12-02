@@ -31,7 +31,7 @@
             android:visibility="gone">
 
             <TextView
-                android:id="@+id/textView19"
+                android:id="@+id/emptyListTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="No Bookings...Yet"
@@ -39,7 +39,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView20"
+                android:id="@+id/emptyListMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
                 android:text="Search For a Service to Get Started!" />

@@ -83,7 +83,7 @@ public class HoBookingsFragment extends Fragment {
                     ///Now that the list is built, we can set up the appearance of the list view
 
                     if (getActivity() != null) {
-                        adptr = new BookingAdapter(getActivity(), myBookings); //can setup the adapter now that the list is built
+                        adptr = new BookingAdapter(getActivity(), myBookings, BookingAdapter.HO); //can setup the adapter now that the list is built
                         bookingsListView.setAdapter(adptr);
                         bookingsListView.setOnItemClickListener(//here sets the onclick for the booking list view
                                 new AdapterView.OnItemClickListener() {

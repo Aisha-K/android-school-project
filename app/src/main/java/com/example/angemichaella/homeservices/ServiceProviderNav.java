@@ -29,6 +29,7 @@ public class ServiceProviderNav extends AppCompatActivity implements NavigationV
     SpProfileFragment fragment1;
     SpMyServicesFragment fragment2;
     SpAvailabilitiesFragment frag3;
+    SpManageBookingsFrag fragment4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,8 +95,9 @@ public class ServiceProviderNav extends AppCompatActivity implements NavigationV
         //opens appropriate fragment based on which item clicked
         switch(menuItem.getItemId()){
             case R.id.nav_bookings:
+                fragment4 = SpManageBookingsFrag.newInstance(username, id);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new SpManageBookingsFrag()).commit();
+                        fragment4).commit();
                 break;
             case R.id.nav_profile:
                 fragment1=  SpProfileFragment.newInstance(username,id); //creating fragment instance while passing var

@@ -26,5 +26,5 @@ database: https://console.firebase.google.com/u/0/project/homeservicesapp-seg210
 #Starts Here
 Build Status
 [![Build
-Status](https://circleci.com/gh/angemichaella/android-school-project.png?branch=master)](https://circleci.com/gh/angemichaella/android-school-project)
+Status](https://circleci.com/gh/angemichaella/android-school-project/tree/master.png)](https://circleci.com/gh/angemichaella/android-school-project)
 #Ends Here

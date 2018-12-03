@@ -23,8 +23,4 @@ Deadlines for the deliverables
 
 database: https://console.firebase.google.com/u/0/project/homeservicesapp-seg2105/database/homeservicesapp-seg2105/data
 
-#Starts Here
-Build Status
-[![Build
-Status](https://circleci.com/gh/angemichaella/android-school-project/tree/master.png)](https://circleci.com/gh/angemichaella/android-school-project)
-#Ends Here
+[![CircleCI](https://circleci.com/gh/angemichaella/android-school-project.svg?style=svg)](https://circleci.com/gh/angemichaella/android-school-project)

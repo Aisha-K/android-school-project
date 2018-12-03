@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/angemichaella/android-school-project.svg?style=svg&circle-token=f42f203267aaf623929715634cdc50fee36544f8)](https://circleci.com/gh/angemichaella/android-school-project)
+Build Status: [![CircleCI](https://circleci.com/gh/angemichaella/android-school-project.svg?style=svg&circle-token=f42f203267aaf623929715634cdc50fee36544f8)](https://circleci.com/gh/angemichaella/android-school-project)
 
 # android-school-project
 ## This is the repository for our android project: One-Demand Home Repair Services App

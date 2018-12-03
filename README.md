@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/angemichaella/android-school-project.svg?style=svg)](https://circleci.com/gh/angemichaella/android-school-project)
+
 # android-school-project
 ## This is the repository for our android project: One-Demand Home Repair Services App
 link to repository: https://github.com/angemichaella/android-school-project
@@ -23,4 +25,4 @@ Deadlines for the deliverables
 
 database: https://console.firebase.google.com/u/0/project/homeservicesapp-seg2105/database/homeservicesapp-seg2105/data
 
-[![CircleCI](https://circleci.com/gh/angemichaella/android-school-project.svg?style=svg)](https://circleci.com/gh/angemichaella/android-school-project)
+

@@ -11,7 +11,7 @@
 
 
         <Button
-            android:id="@+id/SignOutBtn"
+            android:id="@+id/HoSignOutBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="75dp"
@@ -19,17 +19,6 @@
             android:layout_marginTop="100dp"
             android:backgroundTint="@color/colorPrimary"
             android:text="Sign Out"
-            android:textColor="@color/common_google_signin_btn_text_dark_default" />
-
-        <Button
-            android:id="@+id/DeleteAccBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="75dp"
-            android:layout_marginRight="75dp"
-            android:layout_marginTop="100dp"
-            android:backgroundTint="@color/colorPrimary"
-            android:text="Delete Account"
             android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
     </LinearLayout>

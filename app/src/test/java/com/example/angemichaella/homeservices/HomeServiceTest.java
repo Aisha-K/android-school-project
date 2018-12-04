@@ -96,10 +96,10 @@ public class HomeServiceTest {
     public void checkOverlapping(){ //for filter functionality
         Availability av = new Availability(Day.FRIDAY, new Time(1,0,0), new Time(3,0,0));
         Availability av2 = new Availability(Day.FRIDAY, new Time(0,0,0), new Time(3,0,0));  //overlaps
-        Availability av3 = new Availability(Day.FRIDAY, new Time(0,0,0), new Time(1,0,0)); //not overlapping
+        Availability av3 = new Availability(Day.FRIDAY, new Time(0,0,0), new Time(0,30,0)); //not overlapping
 
         assertEquals( true, av.overlaps(av2));
-        assertEquals( true, av.overlaps(av3));
+        assertEquals( false, av.overlaps(av3));
 
     }
 

@@ -12,7 +12,7 @@ public class ServiceProvider extends User {
     private boolean licensed;
     private boolean profileCompleted;
     private boolean hasAvailabities = false;
-    private double currAvgRating;
+    private double currAvgRating=-1;
     private int numOfRatesReceived;
 
 
@@ -30,7 +30,6 @@ public class ServiceProvider extends User {
         licensed = false;
         profileCompleted = false;
         description = "empty";
-        currAvgRating = -1;
         numOfRatesReceived = 0;
 
     }

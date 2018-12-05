@@ -25,8 +25,9 @@ public class HoSignOutFrag extends Fragment {
             public void onClick(View view) {
                 //send to main activity and finish this one
                 Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);    //clears all previous activities
                 startActivity(intent);
-                getActivity().finish();
+                //getActivity().finish();
             }
         });
 
